@@ -1,0 +1,74 @@
+[
+ {
+  "sport": "nba",
+  "type": "moneyline",
+  "horizon": "h3",
+  "band": "<=0.30",
+  "train": {
+   "n": 51,
+   "avgPrice": 0.19117647058823528,
+   "realizedRate": 0.11764705882352941,
+   "bias": -0.07352941176470587
+  },
+  "test": {
+   "n": 68,
+   "avgPrice": 0.14099999999999996,
+   "realizedRate": 0,
+   "bias": -0.14099999999999996
+  }
+ },
+ {
+  "sport": "nhl",
+  "type": "moneyline",
+  "horizon": "h24",
+  "band": ">=0.40",
+  "train": {
+   "n": 87,
+   "avgPrice": 0.5083333333333334,
+   "realizedRate": 0.5632183908045977,
+   "bias": 0.054885057471264265
+  },
+  "test": {
+   "n": 85,
+   "avgPrice": 0.5044117647058822,
+   "realizedRate": 0.6588235294117647,
+   "bias": 0.15441176470588247
+  }
+ },
+ {
+  "sport": "mlb",
+  "type": "moneyline",
+  "horizon": "h24",
+  "band": "0.30-0.40",
+  "train": {
+   "n": 43,
+   "avgPrice": 0.367906976744186,
+   "realizedRate": 0.3023255813953488,
+   "bias": -0.06558139534883717
+  },
+  "test": {
+   "n": 34,
+   "avgPrice": 0.3604411764705882,
+   "realizedRate": 0.23529411764705882,
+   "bias": -0.1251470588235294
+  }
+ },
+ {
+  "sport": "mlb",
+  "type": "spread",
+  "horizon": "h3",
+  "band": "<=0.30",
+  "train": {
+   "n": 121,
+   "avgPrice": 0.16421487603305787,
+   "realizedRate": 0.21487603305785125,
+   "bias": 0.050661157024793374
+  },
+  "test": {
+   "n": 37,
+   "avgPrice": 0.209581081081081,
+   "realizedRate": 0.2972972972972973,
+   "bias": 0.08771621621621631
+  }
+ }
+]

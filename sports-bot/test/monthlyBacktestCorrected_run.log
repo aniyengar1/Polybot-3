@@ -1,0 +1,38 @@
+
+=== DECEMBER 2025 ===
+Holdout table (corrected, 3-bucket):
+  nba|moneyline|h3|<=0.30: n=23, pTrue=0.957
+  nhl|moneyline|h24|>=0.40: n=0, pTrue=n/a
+  mlb|moneyline|h24|0.30-0.40: n=0, pTrue=n/a
+Fetched 25 fillable opportunities this month (3-bucket set).
+Trades: 25 (20W/5L, 80.0%)
+End-of-month bankroll: $99.02 (return: -1.0%)
+Max drawdown: $3.74 (3.7%)
+Bets/day: min=1, max=3, avg=1.79 (14 active days)
+Trades by bucket: { 'nba moneyline': 25 }
+
+=== JANUARY 2026 ===
+Holdout table (corrected, 3-bucket):
+  nba|moneyline|h3|<=0.30: n=48, pTrue=0.875
+  nhl|moneyline|h24|>=0.40: n=69, pTrue=0.580
+  mlb|moneyline|h24|0.30-0.40: n=0, pTrue=n/a
+Fetched 73 fillable opportunities this month (3-bucket set).
+Trades: 55 (37W/18L, 67.3%)
+End-of-month bankroll: $122.79 (return: 22.8%)
+Max drawdown: $9.69 (9.3%)
+Bets/day: min=1, max=7, avg=2.39 (23 active days)
+Trades by bucket: { 'nhl moneyline': 45, 'nba moneyline': 10 }
+
+=== APRIL 2026 ===
+Holdout table (corrected, 3-bucket):
+  nba|moneyline|h3|<=0.30: n=105, pTrue=0.943
+  nhl|moneyline|h24|>=0.40: n=165, pTrue=0.606
+  mlb|moneyline|h24|0.30-0.40: n=8, pTrue=0.625
+Fetched 32 fillable opportunities this month (3-bucket set).
+Trades: 11 (10W/1L, 90.9%)
+End-of-month bankroll: $108.06 (return: 8.1%)
+Max drawdown: $2.12 (2.0%)
+Bets/day: min=1, max=4, avg=1.83 (6 active days)
+Trades by bucket: { 'nba moneyline': 6, 'nhl moneyline': 5 }
+
+Saved monthlyBacktestCorrected_results.json

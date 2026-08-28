@@ -1,0 +1,82 @@
+[
+ {
+  "slug": "nba-mem-bos-2025-11-12",
+  "yesTeam": "Grizzlies",
+  "noTeam": "Celtics",
+  "yesWon": false,
+  "recordedEnd": "2025-11-13T00:30:00.000Z",
+  "targetTs": 1762983000,
+  "settleTs": 1762999206,
+  "checkpointPrice": 0.265
+ },
+ {
+  "slug": "nba-ind-cle-2025-11-21",
+  "yesTeam": "Pacers",
+  "noTeam": "Cavaliers",
+  "yesWon": false,
+  "recordedEnd": "2025-11-22T00:00:00.000Z",
+  "targetTs": 1763758800,
+  "settleTs": 1763776812,
+  "checkpointPrice": 0.125
+ },
+ {
+  "slug": "nba-was-phi-2025-12-02",
+  "yesTeam": "Wizards",
+  "noTeam": "76ers",
+  "yesWon": false,
+  "recordedEnd": "2025-12-03T00:00:00.000Z",
+  "targetTs": 1764709200,
+  "settleTs": 1764726308,
+  "checkpointPrice": 0.135
+ },
+ {
+  "slug": "nba-por-okc-2025-12-31",
+  "yesTeam": "Trail Blazers",
+  "noTeam": "Thunder",
+  "yesWon": false,
+  "recordedEnd": "2026-01-01T01:00:00.000Z",
+  "targetTs": 1767218400,
+  "settleTs": 1767233708,
+  "checkpointPrice": 0.115
+ },
+ {
+  "slug": "nba-mil-bos-2026-02-01",
+  "yesTeam": "Bucks",
+  "noTeam": "Celtics",
+  "yesWon": false,
+  "recordedEnd": "2026-02-01T20:30:00.000Z",
+  "targetTs": 1769967000,
+  "settleTs": 1769983215,
+  "checkpointPrice": 0.155
+ },
+ {
+  "slug": "nba-sac-lal-2026-03-01",
+  "yesTeam": "Kings",
+  "noTeam": "Lakers",
+  "yesWon": false,
+  "recordedEnd": "2026-03-02T02:30:00.000Z",
+  "targetTs": 1772407800,
+  "settleTs": 1772421321,
+  "checkpointPrice": 0.155
+ },
+ {
+  "slug": "nba-mil-hou-2026-04-01",
+  "yesTeam": "Bucks",
+  "noTeam": "Rockets",
+  "yesWon": false,
+  "recordedEnd": "2026-04-02T00:00:00.000Z",
+  "targetTs": 1775077200,
+  "settleTs": 1775092545,
+  "checkpointPrice": 0.065
+ },
+ {
+  "slug": "nba-mil-phi-2026-04-12",
+  "yesTeam": "Bucks",
+  "noTeam": "76ers",
+  "yesWon": false,
+  "recordedEnd": "2026-04-12T22:00:00.000Z",
+  "targetTs": 1776020400,
+  "settleTs": 1776037549,
+  "checkpointPrice": 0.085
+ }
+]

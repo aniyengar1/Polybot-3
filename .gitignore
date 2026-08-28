@@ -1,0 +1,36 @@
+# SQLite DB files -- per-environment runtime state, not source
+sports-bot/data/*.db
+sports-bot/data/*.db-wal
+sports-bot/data/*.db-shm
+# Holdout table cache -- regenerated from the (also-excluded) historical dataset, same
+# reasoning as the DB files: derived runtime state, not source.
+sports-bot/data/holdoutTable.json
+
+# Large historical dataset JSON files -- regeneratable via fetchLiquidityFiltered.js /
+# fetchMLBFixed.js / dataRefresh.js, not core logic. Multi-MB raw data dumps, not meant to be
+# versioned.
+/us_events_census.json
+/us_events_census_full.json
+/usSportsHistory.json
+/usSportsLiquidityFiltered.json
+/usSportsLiquidityFiltered_v2.json
+/markets.json
+/priceHistory.json
+/splitRecords.json
+/usMLBFixed.json
+/mlbSpread15Only.json
+
+# Credentials / local env files -- none currently exist in this tree (checked explicitly
+# before this commit), excluded defensively so a future local .env never lands in git by
+# accident.
+.env
+.env.*
+*.pem
+*credentials*.json
+*secret*
+
+# Dependencies -- regenerated via npm install, not source.
+sports-bot/node_modules/
+
+# Local Claude Code tool settings -- machine-local config, not project source.
+.claude/

@@ -1,0 +1,227 @@
+[
+ {
+  "slug": "cbb-samf-vcu-2025-12-05",
+  "checkpointPrice": 0.37,
+  "tradesNear3d": 0,
+  "sharesNear3d": 0,
+  "notionalNear3dUsd": 0,
+  "totalLifetimeTrades": 123,
+  "totalLifetimeVolumeUsd": 68168
+ },
+ {
+  "slug": "cbb-ncashe-ncst-2025-12-06",
+  "checkpointPrice": 0.36,
+  "tradesNear3d": 0,
+  "sharesNear3d": 0,
+  "notionalNear3dUsd": 0,
+  "totalLifetimeTrades": 38,
+  "totalLifetimeVolumeUsd": 16054
+ },
+ {
+  "slug": "cbb-librty-ncst-2025-12-10",
+  "checkpointPrice": 0.365,
+  "tradesNear3d": 0,
+  "sharesNear3d": 0,
+  "notionalNear3dUsd": 0,
+  "totalLifetimeTrades": 151,
+  "totalLifetimeVolumeUsd": 46598
+ },
+ {
+  "slug": "cbb-stjoe-syra-2025-12-11",
+  "checkpointPrice": 0.365,
+  "tradesNear3d": 0,
+  "sharesNear3d": 0,
+  "notionalNear3dUsd": 0,
+  "totalLifetimeTrades": 254,
+  "totalLifetimeVolumeUsd": 32816
+ },
+ {
+  "slug": "cbb-nill-elon-2025-12-13",
+  "checkpointPrice": 0.37,
+  "tradesNear3d": 0,
+  "sharesNear3d": 0,
+  "notionalNear3dUsd": 0,
+  "totalLifetimeTrades": 385,
+  "totalLifetimeVolumeUsd": 17689
+ },
+ {
+  "slug": "cbb-stpete-george-2025-12-13",
+  "checkpointPrice": 0.36,
+  "tradesNear3d": 0,
+  "sharesNear3d": 0,
+  "notionalNear3dUsd": 0,
+  "totalLifetimeTrades": 29,
+  "totalLifetimeVolumeUsd": 1531
+ },
+ {
+  "slug": "cbb-oak-niowa-2025-12-13",
+  "checkpointPrice": 0.37,
+  "tradesNear3d": 0,
+  "sharesNear3d": 0,
+  "notionalNear3dUsd": 0,
+  "totalLifetimeTrades": 58,
+  "totalLifetimeVolumeUsd": 4129
+ },
+ {
+  "slug": "cbb-stfpa-templ-2025-12-14",
+  "checkpointPrice": 0.37,
+  "tradesNear3d": 0,
+  "sharesNear3d": 0,
+  "notionalNear3dUsd": 0,
+  "totalLifetimeTrades": 26,
+  "totalLifetimeVolumeUsd": 882
+ },
+ {
+  "slug": "cbb-incar-tcu-2025-12-15",
+  "checkpointPrice": 0.37,
+  "tradesNear3d": 0,
+  "sharesNear3d": 0,
+  "notionalNear3dUsd": 0,
+  "totalLifetimeTrades": 418,
+  "totalLifetimeVolumeUsd": 19545
+ },
+ {
+  "slug": "cbb-butl-uconn-2025-12-16",
+  "checkpointPrice": 0.375,
+  "tradesNear3d": 0,
+  "sharesNear3d": 0,
+  "notionalNear3dUsd": 0,
+  "totalLifetimeTrades": 331,
+  "totalLifetimeVolumeUsd": 23718
+ },
+ {
+  "slug": "cbb-txa-stan-2025-12-17",
+  "checkpointPrice": 0.36,
+  "tradesNear3d": 0,
+  "sharesNear3d": 0,
+  "notionalNear3dUsd": 0,
+  "totalLifetimeTrades": 127,
+  "totalLifetimeVolumeUsd": 3303
+ },
+ {
+  "slug": "cbb-umkc-okst-2025-12-18",
+  "checkpointPrice": 0.36,
+  "tradesNear3d": 0,
+  "sharesNear3d": 0,
+  "notionalNear3dUsd": 0,
+  "totalLifetimeTrades": 86,
+  "totalLifetimeVolumeUsd": 4196
+ },
+ {
+  "slug": "cbb-nal-loymry-2025-12-19",
+  "checkpointPrice": 0.375,
+  "tradesNear3d": 0,
+  "sharesNear3d": 0,
+  "notionalNear3dUsd": 0,
+  "totalLifetimeTrades": 99,
+  "totalLifetimeVolumeUsd": 8831
+ },
+ {
+  "slug": "cbb-lafay-gtech-2025-12-20",
+  "checkpointPrice": 0.355,
+  "tradesNear3d": 0,
+  "sharesNear3d": 0,
+  "notionalNear3dUsd": 0,
+  "totalLifetimeTrades": 49,
+  "totalLifetimeVolumeUsd": 6231
+ },
+ {
+  "slug": "cbb-sjst-nmx-2025-12-20",
+  "checkpointPrice": 0.37,
+  "tradesNear3d": 0,
+  "sharesNear3d": 0,
+  "notionalNear3dUsd": 0,
+  "totalLifetimeTrades": 72,
+  "totalLifetimeVolumeUsd": 3425
+ },
+ {
+  "slug": "cbb-txamc-txam-2025-12-21",
+  "checkpointPrice": 0.37,
+  "tradesNear3d": 0,
+  "sharesNear3d": 0,
+  "notionalNear3dUsd": 0,
+  "totalLifetimeTrades": 31,
+  "totalLifetimeVolumeUsd": 1282
+ },
+ {
+  "slug": "cbb-scarst-sc-2025-12-22",
+  "checkpointPrice": 0.37,
+  "tradesNear3d": 0,
+  "sharesNear3d": 0,
+  "notionalNear3dUsd": 0,
+  "totalLifetimeTrades": 63,
+  "totalLifetimeVolumeUsd": 10007
+ },
+ {
+  "slug": "cbb-prnce-templ-2025-12-22",
+  "checkpointPrice": 0.38,
+  "tradesNear3d": 0,
+  "sharesNear3d": 0,
+  "notionalNear3dUsd": 0,
+  "totalLifetimeTrades": 239,
+  "totalLifetimeVolumeUsd": 18603
+ },
+ {
+  "slug": "cbb-grmbst-ohiost-2025-12-23",
+  "checkpointPrice": 0.37,
+  "tradesNear3d": 0,
+  "sharesNear3d": 0,
+  "notionalNear3dUsd": 0,
+  "totalLifetimeTrades": 86,
+  "totalLifetimeVolumeUsd": 12699
+ },
+ {
+  "slug": "cbb-nhvn-vand-2025-12-29",
+  "checkpointPrice": 0.355,
+  "tradesNear3d": 3,
+  "sharesNear3d": 202,
+  "notionalNear3dUsd": 198,
+  "totalLifetimeTrades": 29,
+  "totalLifetimeVolumeUsd": 2585
+ },
+ {
+  "slug": "cbb-alcst-miss-2025-12-29",
+  "checkpointPrice": 0.37,
+  "tradesNear3d": 0,
+  "sharesNear3d": 0,
+  "notionalNear3dUsd": 0,
+  "totalLifetimeTrades": 73,
+  "totalLifetimeVolumeUsd": 7276
+ },
+ {
+  "slug": "cbb-wbd-wisc-2025-12-30",
+  "checkpointPrice": 0.37,
+  "tradesNear3d": 0,
+  "sharesNear3d": 0,
+  "notionalNear3dUsd": 0,
+  "totalLifetimeTrades": 92,
+  "totalLifetimeVolumeUsd": 9251
+ },
+ {
+  "slug": "cbb-umkc-den-2025-12-31",
+  "checkpointPrice": 0.37,
+  "tradesNear3d": 0,
+  "sharesNear3d": 0,
+  "notionalNear3dUsd": 0,
+  "totalLifetimeTrades": 67,
+  "totalLifetimeVolumeUsd": 5182
+ },
+ {
+  "slug": "cbb-loymry-sanclr-2026-01-10",
+  "checkpointPrice": 0.38,
+  "tradesNear3d": 0,
+  "sharesNear3d": 0,
+  "notionalNear3dUsd": 0,
+  "totalLifetimeTrades": 80,
+  "totalLifetimeVolumeUsd": 9897
+ },
+ {
+  "slug": "cbb-ballst-akron-2026-01-13",
+  "checkpointPrice": 0.375,
+  "tradesNear3d": 0,
+  "sharesNear3d": 0,
+  "notionalNear3dUsd": 0,
+  "totalLifetimeTrades": 260,
+  "totalLifetimeVolumeUsd": 35078
+ }
+]

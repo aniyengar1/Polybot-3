@@ -1,0 +1,11 @@
+{
+  "name": "sports-bot",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Sports (NBA/NHL/MLB moneyline/spread) trading module -- separate from polybot-v2 (weather). Own DB, own execution/settlement code.",
+  "dependencies": {
+    "better-sqlite3": "^11.9.1",
+    "polymarket-us": "^0.1.1",
+    "commander": "^12.1.0"
+  }
+}

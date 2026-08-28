@@ -1,0 +1,16 @@
+Target MLB events: 2070
+  200/2070 events, 174 mapped, 382 submarket records so far
+  400/2070 events, 347 mapped, 751 submarket records so far
+  600/2070 events, 523 mapped, 1224 submarket records so far
+  800/2070 events, 695 mapped, 1609 submarket records so far
+  1000/2070 events, 866 mapped, 1957 submarket records so far
+  1200/2070 events, 1032 mapped, 2344 submarket records so far
+  1400/2070 events, 1203 mapped, 2766 submarket records so far
+  1600/2070 events, 1367 mapped, 3165 submarket records so far
+  1800/2070 events, 1540 mapped, 3548 submarket records so far
+  2000/2070 events, 1708 mapped, 3957 submarket records so far
+  2070/2070 events, 1768 mapped, 4135 submarket records so far
+
+Mapping rate: 1768/2070
+Total submarket records: 4135
+Saved usMLBFixed.json

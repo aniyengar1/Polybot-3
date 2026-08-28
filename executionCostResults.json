@@ -1,0 +1,125 @@
+{
+ "perBucket": [
+  {
+   "sport": "nba",
+   "type": "moneyline",
+   "horizon": "h3",
+   "band": "<=0.30",
+   "bucketOld": {
+    "flatPnl": 604.6600199337031,
+    "n": 69,
+    "wins": 69
+   },
+   "bucketNew": {
+    "flatPnl": 569.0495767985888,
+    "n": 69,
+    "wins": 69,
+    "unfillable": 0,
+    "sameDirCount": 69
+   },
+   "avgDelta": 0.0029276791362318763,
+   "sameDirRate": 1
+  },
+  {
+   "sport": "nhl",
+   "type": "moneyline",
+   "horizon": "h24",
+   "band": ">=0.40",
+   "bucketOld": {
+    "flatPnl": 972.1677063729717,
+    "n": 101,
+    "wins": 61
+   },
+   "bucketNew": {
+    "flatPnl": 838.9332730117728,
+    "n": 100,
+    "wins": 61,
+    "unfillable": 1,
+    "sameDirCount": 100
+   },
+   "avgDelta": 0.0051497990049999935,
+   "sameDirRate": 1
+  },
+  {
+   "sport": "nhl",
+   "type": "spread",
+   "horizon": "h3",
+   "band": "<=0.30",
+   "bucketOld": {
+    "flatPnl": 198.05034486446257,
+    "n": 39,
+    "wins": 31
+   },
+   "bucketNew": {
+    "flatPnl": 132.17801056722524,
+    "n": 38,
+    "wins": 30,
+    "unfillable": 1,
+    "sameDirCount": 38
+   },
+   "avgDelta": 0.007193049063157866,
+   "sameDirRate": 1
+  },
+  {
+   "sport": "nhl",
+   "type": "total",
+   "horizon": "h24",
+   "band": ">=0.40",
+   "bucketOld": {
+    "flatPnl": 386.97458762659096,
+    "n": 35,
+    "wins": 28
+   },
+   "bucketNew": {
+    "flatPnl": 381.41922359612533,
+    "n": 34,
+    "wins": 28,
+    "unfillable": 1,
+    "sameDirCount": 30
+   },
+   "avgDelta": 0.01181988102647058,
+   "sameDirRate": 0.8823529411764706
+  },
+  {
+   "sport": "mlb",
+   "type": "moneyline",
+   "horizon": "h24",
+   "band": "0.30-0.40",
+   "bucketOld": {
+    "flatPnl": 441.37173834531376,
+    "n": 57,
+    "wins": 42
+   },
+   "bucketNew": {
+    "flatPnl": 416.06608815744727,
+    "n": 56,
+    "wins": 42,
+    "unfillable": 1,
+    "sameDirCount": 56
+   },
+   "avgDelta": 0.005073518260714284,
+   "sameDirRate": 1
+  }
+ ],
+ "grandOld": {
+  "flatPnl": 2603.224397143042,
+  "n": 301,
+  "wins": 231
+ },
+ "grandNew": {
+  "flatPnl": 2337.6461721311593,
+  "n": 297,
+  "wins": 230,
+  "unfillable": 4
+ },
+ "grandOldKelly": {
+  "pnl": 2030.76988436829,
+  "staked": 10215.591796595265,
+  "n": 237
+ },
+ "grandNewKelly": {
+  "pnl": 1821.731446302866,
+  "staked": 9748.618870524908,
+  "n": 233
+ }
+}

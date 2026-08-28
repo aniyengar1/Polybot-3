@@ -1,0 +1,38 @@
+{
+ "dec": {
+  "ev": {
+   "finalNetWorth": 109.35828269680104,
+   "returnPct": 9.35828269680104,
+   "maxDrawdownAbs": 0.08561453279813236,
+   "maxDrawdownPct": 0.08330672958609409,
+   "n": 25,
+   "wins": 20
+  },
+  "real": {
+   "finalNetWorth": 98.70938289767588,
+   "returnPct": -1.29061710232412,
+   "maxDrawdownAbs": 4.848325126846518,
+   "maxDrawdownPct": 4.82662260031206,
+   "n": 25,
+   "wins": 20
+  }
+ },
+ "jan": {
+  "ev": {
+   "finalNetWorth": 142.3369390985927,
+   "returnPct": 42.336939098592694,
+   "maxDrawdownAbs": 0.355129031443127,
+   "maxDrawdownPct": 0.3342943245354021,
+   "n": 100,
+   "wins": 69
+  },
+  "real": {
+   "finalNetWorth": 141.53867614541628,
+   "returnPct": 41.538676145416275,
+   "maxDrawdownAbs": 10.482161763198661,
+   "maxDrawdownPct": 9.854599816141972,
+   "n": 100,
+   "wins": 69
+  }
+ }
+}

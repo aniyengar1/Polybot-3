@@ -1,0 +1,60 @@
+
+=== nba | moneyline | h3 | <=0.30 | side=NO (n=69) ===
+  ...25/69 rows fetched
+  ...50/69 rows fetched
+  fillable: 69/69 (unfillable/no-nearby-trade: 0, same-direction taker match: 69/69)
+  avg (realFillPrice - historyPrice) in our trade direction: 0.29pp (positive = real fill was worse/more expensive than the idealized checkpoint price)
+  OLD (idealized, no fee) flat P&L: n=69, wins=69 (100.0%), P&L=$604.66
+  NEW (real fill + taker fee) flat P&L: n=69, wins=69 (100.0%), P&L=$569.05
+  OLD Kelly P&L: $441.22 (n=40, staked=$1742.73)
+  NEW Kelly P&L: $409.15 (n=41, staked=$1660.42)
+
+=== nhl | moneyline | h24 | >=0.40 | side=YES (n=101) ===
+  ...25/101 rows fetched
+  ...50/101 rows fetched
+  ...75/101 rows fetched
+  ...100/101 rows fetched
+  fillable: 100/101 (unfillable/no-nearby-trade: 1, same-direction taker match: 100/100)
+  avg (realFillPrice - historyPrice) in our trade direction: 0.51pp (positive = real fill was worse/more expensive than the idealized checkpoint price)
+  OLD (idealized, no fee) flat P&L: n=101, wins=61 (60.4%), P&L=$972.17
+  NEW (real fill + taker fee) flat P&L: n=100, wins=61 (61.0%), P&L=$838.93
+  OLD Kelly P&L: $654.82 (n=91, staked=$3491.61)
+  NEW Kelly P&L: $554.08 (n=89, staked=$3337.47)
+
+=== nhl | spread | h3 | <=0.30 | side=NO (n=39) ===
+  ...25/39 rows fetched
+  fillable: 38/39 (unfillable/no-nearby-trade: 1, same-direction taker match: 38/38)
+  avg (realFillPrice - historyPrice) in our trade direction: 0.72pp (positive = real fill was worse/more expensive than the idealized checkpoint price)
+  OLD (idealized, no fee) flat P&L: n=39, wins=31 (79.5%), P&L=$198.05
+  NEW (real fill + taker fee) flat P&L: n=38, wins=30 (78.9%), P&L=$132.18
+  OLD Kelly P&L: $198.05 (n=39, staked=$1950.00)
+  NEW Kelly P&L: $131.43 (n=38, staked=$1896.43)
+
+=== nhl | total | h24 | >=0.40 | side=YES (n=35) ===
+  ...25/35 rows fetched
+  fillable: 34/35 (unfillable/no-nearby-trade: 1, same-direction taker match: 30/34)
+  avg (realFillPrice - historyPrice) in our trade direction: 1.18pp (positive = real fill was worse/more expensive than the idealized checkpoint price)
+  OLD (idealized, no fee) flat P&L: n=35, wins=28 (80.0%), P&L=$386.97
+  NEW (real fill + taker fee) flat P&L: n=34, wins=28 (82.4%), P&L=$381.42
+  OLD Kelly P&L: $410.89 (n=10, staked=$500.00)
+  NEW Kelly P&L: $438.21 (n=9, staked=$450.00)
+
+=== mlb | moneyline | h24 | 0.30-0.40 | side=NO (n=57) ===
+  ...25/57 rows fetched
+  ...50/57 rows fetched
+  fillable: 56/57 (unfillable/no-nearby-trade: 1, same-direction taker match: 56/56)
+  avg (realFillPrice - historyPrice) in our trade direction: 0.51pp (positive = real fill was worse/more expensive than the idealized checkpoint price)
+  OLD (idealized, no fee) flat P&L: n=57, wins=42 (73.7%), P&L=$441.37
+  NEW (real fill + taker fee) flat P&L: n=56, wins=42 (75.0%), P&L=$416.07
+  OLD Kelly P&L: $325.80 (n=57, staked=$2531.25)
+  NEW Kelly P&L: $288.86 (n=56, staked=$2404.30)
+
+
+=== COMBINED across all 4 candidate buckets ===
+OLD (idealized) flat: n=301, wins=231 (76.7%), P&L=$2603.22
+NEW (real fill + fee) flat: n=297 (unfillable dropped: 4), wins=230 (77.4%), P&L=$2337.65
+OLD Kelly: P&L=$2030.77, staked=$10215.59, n=237
+NEW Kelly: P&L=$1821.73, staked=$9748.62, n=233
+Degradation (flat): $265.58 (10.2% of idealized P&L)
+
+Saved executionCostResults.json

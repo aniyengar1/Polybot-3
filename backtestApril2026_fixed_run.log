@@ -1,0 +1,82 @@
+Loaded 63 cached April opportunities.
+
+=== BASELINE (depth-cap only, reproduces prior result) ===
+Trades: 47 (skipped: 16)
+End-of-month bankroll: $21082.26  (return: 20982.3%)
+Max drawdown: $866.29 (4.0% of peak $21565.81)
+Bets/day: min=1, max=6, avg=2.24 (21 active days)
+Stake/trade: min=$4.74, max=$746.54, avg=$181.44
+
+=== DEPTH-CAP + NBA SHRINK ONLY ===
+Trades: 47 (skipped: 16)
+End-of-month bankroll: $21082.26  (return: 20982.3%)
+Max drawdown: $866.29 (4.0% of peak $21565.81)
+Bets/day: min=1, max=6, avg=2.24 (21 active days)
+Stake/trade: min=$4.74, max=$746.54, avg=$181.44
+
+=== DEPTH-CAP + NHL-TOTAL EXCLUSION ONLY ===
+Trades: 47 (skipped: 0)
+End-of-month bankroll: $21082.26  (return: 20982.3%)
+Max drawdown: $866.29 (4.0% of peak $21565.81)
+Bets/day: min=1, max=6, avg=2.24 (21 active days)
+Stake/trade: min=$4.74, max=$746.54, avg=$181.44
+
+=== DEPTH-CAP + BOTH FIXES (FINAL) ===
+Trades: 47 (skipped: 0)
+End-of-month bankroll: $21082.26  (return: 20982.3%)
+Max drawdown: $866.29 (4.0% of peak $21565.81)
+Bets/day: min=1, max=6, avg=2.24 (21 active days)
+Stake/trade: min=$4.74, max=$746.54, avg=$181.44
+
+
+=== FINAL (both fixes) full trade log ===
+date       | bucket                        | side | price  | pTrue  | stake      | won | net worth after
+2026-03-31 | mlb moneyline 0.30-0.40       | NO   | 0.380  | 0.786  | $5.00      | W   | $107.84
+2026-03-31 | mlb moneyline 0.30-0.40       | NO   | 0.300  | 0.786  | $4.74      | W   | $118.90
+2026-04-01 | nhl spread <=0.30             | NO   | 0.270  | 0.812  | $5.95      | W   | $222.81
+2026-04-01 | nba moneyline <=0.30          | NO   | 0.060  | 0.930  | $5.64      | W   | $206.73
+2026-04-02 | mlb moneyline 0.30-0.40       | NO   | 0.381  | 0.786  | $11.14     | W   | $356.33
+2026-04-03 | nhl moneyline >=0.40          | YES  | 0.520  | 0.595  | $7.43      | W   | $546.84
+2026-04-03 | nba moneyline <=0.30          | NO   | 0.080  | 0.930  | $10.19     | W   | $338.25
+2026-04-03 | nba moneyline <=0.30          | NO   | 0.070  | 0.930  | $9.65      | W   | $484.58
+2026-04-03 | nhl moneyline >=0.40          | YES  | 0.440  | 0.595  | $9.15      | W   | $980.07
+2026-04-04 | nhl spread <=0.30             | NO   | 0.290  | 0.812  | $23.40     | W   | $539.99
+2026-04-04 | nba moneyline <=0.30          | NO   | 0.050  | 0.930  | $22.19     | W   | $968.43
+2026-04-05 | nba moneyline <=0.30          | NO   | 0.027  | 0.930  | $49.00     | W   | $2743.63
+2026-04-07 | nhl spread <=0.30             | NO   | 0.290  | 0.812  | $51.16     | W   | $2863.92
+2026-04-07 | nhl spread <=0.30             | NO   | 0.290  | 0.812  | $88.64     | W   | $3080.93
+2026-04-08 | nba moneyline <=0.30          | NO   | 0.040  | 0.930  | $154.05    | W   | $6770.65
+2026-04-08 | nhl moneyline >=0.40          | YES  | 0.490  | 0.595  | $313.64    | W   | $7133.17
+2026-04-09 | nhl moneyline >=0.40          | YES  | 0.410  | 0.595  | $43.35     | L   | $7950.10
+2026-04-09 | mlb moneyline 0.30-0.40       | NO   | 0.360  | 0.786  | $320.22    | L   | $7604.39
+2026-04-09 | nhl spread <=0.30             | NO   | 0.290  | 0.812  | $27.63     | W   | $6806.72
+2026-04-09 | nhl spread <=0.30             | NO   | 0.260  | 0.812  | $302.26    | W   | $7993.46
+2026-04-10 | mlb moneyline 0.30-0.40       | NO   | 0.380  | 0.786  | $282.33    | W   | $9499.70
+2026-04-10 | mlb moneyline 0.30-0.40       | NO   | 0.370  | 0.786  | $366.94    | L   | $9132.76
+2026-04-10 | mlb moneyline 0.30-0.40       | NO   | 0.350  | 0.786  | $159.60    | L   | $8973.16
+2026-04-10 | mlb moneyline 0.30-0.40       | NO   | 0.370  | 0.786  | $339.78    | W   | $9551.70
+2026-04-10 | nba moneyline <=0.30          | NO   | 0.180  | 0.930  | $322.25    | W   | $9046.47
+2026-04-10 | nhl moneyline >=0.40          | YES  | 0.460  | 0.595  | $75.32     | W   | $9640.12
+2026-04-11 | mlb moneyline 0.30-0.40       | NO   | 0.380  | 0.786  | $239.13    | W   | $10015.03
+2026-04-11 | mlb moneyline 0.30-0.40       | NO   | 0.351  | 0.786  | $470.05    | W   | $17631.86
+2026-04-12 | mlb moneyline 0.30-0.40       | NO   | 0.330  | 0.786  | $269.10    | W   | $18155.08
+2026-04-12 | mlb moneyline 0.30-0.40       | NO   | 0.364  | 0.786  | $113.65    | W   | $18348.10
+2026-04-12 | nba moneyline <=0.30          | NO   | 0.080  | 0.930  | $457.48    | W   | $15225.46
+2026-04-12 | nba moneyline <=0.30          | NO   | 0.220  | 0.930  | $433.55    | W   | $16762.61
+2026-04-13 | mlb moneyline 0.30-0.40       | NO   | 0.380  | 0.786  | $746.54    | W   | $19602.73
+2026-04-13 | mlb moneyline 0.30-0.40       | NO   | 0.330  | 0.786  | $173.09    | W   | $19943.16
+2026-04-13 | nhl spread <=0.30             | NO   | 0.230  | 0.812  | $11.06     | W   | $18384.70
+2026-04-14 | mlb moneyline 0.30-0.40       | NO   | 0.380  | 0.786  | $354.34    | L   | $20441.00
+2026-04-14 | nhl spread <=0.30             | NO   | 0.240  | 0.812  | $238.27    | W   | $20688.64
+2026-04-14 | nhl spread <=0.30             | NO   | 0.180  | 0.812  | $23.63     | W   | $20795.34
+2026-04-15 | mlb moneyline 0.30-0.40       | NO   | 0.360  | 0.786  | $644.31    | W   | $21565.81
+2026-04-21 | mlb moneyline 0.30-0.40       | NO   | 0.370  | 0.786  | $293.22    | L   | $21263.35
+2026-04-22 | mlb moneyline 0.30-0.40       | NO   | 0.390  | 0.786  | $65.13     | W   | $21363.24
+2026-04-24 | mlb moneyline 0.30-0.40       | NO   | 0.330  | 0.786  | $551.14    | L   | $20793.63
+2026-04-25 | mlb moneyline 0.30-0.40       | NO   | 0.346  | 0.786  | $83.91     | L   | $20706.97
+2026-04-28 | mlb moneyline 0.30-0.40       | NO   | 0.350  | 0.786  | $36.53     | W   | $20767.36
+2026-04-28 | mlb moneyline 0.30-0.40       | NO   | 0.380  | 0.786  | $202.17    | W   | $21097.21
+2026-04-29 | mlb moneyline 0.30-0.40       | NO   | 0.390  | 0.786  | $38.69     | W   | $21154.21
+2026-04-29 | mlb moneyline 0.30-0.40       | NO   | 0.350  | 0.786  | $71.95     | L   | $21082.26
+
+Saved backtestApril2026_fixed_results.json

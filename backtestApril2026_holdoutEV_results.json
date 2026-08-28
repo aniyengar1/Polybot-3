@@ -1,0 +1,16 @@
+{
+ "r1": {
+  "label": "1% cap, EV/holdout-based",
+  "finalNetWorth": 390.6963097509298,
+  "maxDrawdownAbs": 0.39394135460418056,
+  "maxDrawdownPct": 0.14638795625730197,
+  "n": 43
+ },
+ "r2": {
+  "label": "extreme-price rule, EV/holdout-based",
+  "finalNetWorth": 2177.103048134158,
+  "maxDrawdownAbs": 4.089963697168514,
+  "maxDrawdownPct": 0.21408489305932357,
+  "n": 47
+ }
+}

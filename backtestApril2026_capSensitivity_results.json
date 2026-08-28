@@ -1,0 +1,67 @@
+[
+ {
+  "label": "5% cap (baseline)",
+  "n": 47,
+  "finalNetWorth": 21082.257718830428,
+  "returnPct": 20982.257718830428,
+  "maxDrawdownAbs": 866.292100985389,
+  "maxDrawdownPct": 4.016969533183374,
+  "peakNetWorth": 21565.81208368958,
+  "betsPerDayMin": 1,
+  "betsPerDayMax": 6,
+  "betsPerDayAvg": 2.238095238095238,
+  "activeDays": 21
+ },
+ {
+  "label": "2% cap",
+  "n": 47,
+  "finalNetWorth": 1983.2853040847879,
+  "returnPct": 1883.285304084788,
+  "maxDrawdownAbs": 80.7360835037041,
+  "maxDrawdownPct": 4.209861144173719,
+  "peakNetWorth": 2021.7615969262622,
+  "betsPerDayMin": 1,
+  "betsPerDayMax": 6,
+  "betsPerDayAvg": 2.238095238095238,
+  "activeDays": 21
+ },
+ {
+  "label": "1% cap",
+  "n": 46,
+  "finalNetWorth": 521.8027050483863,
+  "returnPct": 421.8027050483864,
+  "maxDrawdownAbs": 10.85318572005076,
+  "maxDrawdownPct": 2.117408748197267,
+  "peakNetWorth": 526.9406671953626,
+  "betsPerDayMin": 1,
+  "betsPerDayMax": 6,
+  "betsPerDayAvg": 2.1904761904761907,
+  "activeDays": 21
+ },
+ {
+  "label": "0.25% cap",
+  "n": 0,
+  "finalNetWorth": 100,
+  "returnPct": 0,
+  "maxDrawdownAbs": 0,
+  "maxDrawdownPct": 0,
+  "peakNetWorth": 100,
+  "betsPerDayMin": 0,
+  "betsPerDayMax": 0,
+  "betsPerDayAvg": 0,
+  "activeDays": 0
+ },
+ {
+  "label": "extreme-price rule (<10c: 1%, else 5%)",
+  "n": 47,
+  "finalNetWorth": 2000.4245485101846,
+  "returnPct": 1900.4245485101846,
+  "maxDrawdownAbs": 197.06351401920392,
+  "maxDrawdownPct": 9.851917674557544,
+  "peakNetWorth": 2072.3726677098493,
+  "betsPerDayMin": 1,
+  "betsPerDayMax": 6,
+  "betsPerDayAvg": 2.238095238095238,
+  "activeDays": 21
+ }
+]

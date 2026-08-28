@@ -1,0 +1,2068 @@
+{
+ "nfl": {
+  "moneyline": {
+   "h168": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": null
+    },
+    ">=0.40": {
+     "train": {
+      "n": 1,
+      "avgPrice": 0.835,
+      "realizedRate": 1,
+      "bias": 0.16500000000000004
+     },
+     "test": {
+      "n": 1,
+      "avgPrice": 0.63,
+      "realizedRate": 1,
+      "bias": 0.37
+     }
+    }
+   },
+   "h72": {
+    "<=0.30": {
+     "train": {
+      "n": 2,
+      "avgPrice": 0.27,
+      "realizedRate": 0,
+      "bias": -0.27
+     },
+     "test": {
+      "n": 2,
+      "avgPrice": 0.1175,
+      "realizedRate": 0,
+      "bias": -0.1175
+     }
+    },
+    "0.30-0.40": {
+     "train": {
+      "n": 2,
+      "avgPrice": 0.305,
+      "realizedRate": 0.5,
+      "bias": 0.195
+     },
+     "test": {
+      "n": 3,
+      "avgPrice": 0.34333333333333327,
+      "realizedRate": 0.3333333333333333,
+      "bias": -0.009999999999999953
+     }
+    },
+    ">=0.40": {
+     "train": {
+      "n": 7,
+      "avgPrice": 0.6607142857142857,
+      "realizedRate": 0.8571428571428571,
+      "bias": 0.1964285714285714
+     },
+     "test": {
+      "n": 7,
+      "avgPrice": 0.6685714285714285,
+      "realizedRate": 0.7142857142857143,
+      "bias": 0.04571428571428582
+     }
+    }
+   },
+   "h24": {
+    "<=0.30": {
+     "train": {
+      "n": 5,
+      "avgPrice": 0.24899999999999997,
+      "realizedRate": 0.2,
+      "bias": -0.04899999999999996
+     },
+     "test": {
+      "n": 10,
+      "avgPrice": 0.17099999999999999,
+      "realizedRate": 0.1,
+      "bias": -0.07099999999999998
+     }
+    },
+    "0.30-0.40": {
+     "train": {
+      "n": 6,
+      "avgPrice": 0.33,
+      "realizedRate": 0.3333333333333333,
+      "bias": 0.0033333333333332993
+     },
+     "test": null
+    },
+    ">=0.40": {
+     "train": {
+      "n": 14,
+      "avgPrice": 0.6560714285714285,
+      "realizedRate": 0.8571428571428571,
+      "bias": 0.20107142857142857
+     },
+     "test": {
+      "n": 15,
+      "avgPrice": 0.6106666666666667,
+      "realizedRate": 0.5333333333333333,
+      "bias": -0.07733333333333337
+     }
+    }
+   },
+   "h3": {
+    "<=0.30": {
+     "train": {
+      "n": 11,
+      "avgPrice": 0.19863636363636364,
+      "realizedRate": 0.18181818181818182,
+      "bias": -0.016818181818181815
+     },
+     "test": {
+      "n": 16,
+      "avgPrice": 0.17784375000000002,
+      "realizedRate": 0.125,
+      "bias": -0.05284375000000002
+     }
+    },
+    "0.30-0.40": {
+     "train": {
+      "n": 10,
+      "avgPrice": 0.34400000000000003,
+      "realizedRate": 0.4,
+      "bias": 0.055999999999999994
+     },
+     "test": {
+      "n": 7,
+      "avgPrice": 0.3707142857142857,
+      "realizedRate": 0.7142857142857143,
+      "bias": 0.3435714285714286
+     }
+    },
+    ">=0.40": {
+     "train": {
+      "n": 32,
+      "avgPrice": 0.62734375,
+      "realizedRate": 0.71875,
+      "bias": 0.09140625000000002
+     },
+     "test": {
+      "n": 30,
+      "avgPrice": 0.5955,
+      "realizedRate": 0.5666666666666667,
+      "bias": -0.028833333333333377
+     }
+    }
+   }
+  },
+  "spread": {
+   "h168": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": null
+    },
+    ">=0.40": {
+     "train": {
+      "n": 1,
+      "avgPrice": 0.525,
+      "realizedRate": 0,
+      "bias": -0.525
+     },
+     "test": {
+      "n": 2,
+      "avgPrice": 0.495,
+      "realizedRate": 1,
+      "bias": 0.505
+     }
+    }
+   },
+   "h72": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": {
+      "n": 1,
+      "avgPrice": 0.385,
+      "realizedRate": 1,
+      "bias": 0.615
+     },
+     "test": null
+    },
+    ">=0.40": {
+     "train": {
+      "n": 11,
+      "avgPrice": 0.4763636363636363,
+      "realizedRate": 0.5454545454545454,
+      "bias": 0.06909090909090909
+     },
+     "test": {
+      "n": 13,
+      "avgPrice": 0.5096153846153847,
+      "realizedRate": 0.5384615384615384,
+      "bias": 0.028846153846153744
+     }
+    }
+   },
+   "h24": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": {
+      "n": 1,
+      "avgPrice": 0.385,
+      "realizedRate": 0,
+      "bias": -0.385
+     }
+    },
+    ">=0.40": {
+     "train": {
+      "n": 19,
+      "avgPrice": 0.48947368421052634,
+      "realizedRate": 0.2631578947368421,
+      "bias": -0.22631578947368425
+     },
+     "test": {
+      "n": 18,
+      "avgPrice": 0.5122222222222222,
+      "realizedRate": 0.4444444444444444,
+      "bias": -0.06777777777777783
+     }
+    }
+   },
+   "h3": {
+    "<=0.30": {
+     "train": null,
+     "test": {
+      "n": 3,
+      "avgPrice": 0.1135,
+      "realizedRate": 0,
+      "bias": -0.1135
+     }
+    },
+    "0.30-0.40": {
+     "train": {
+      "n": 4,
+      "avgPrice": 0.38249999999999995,
+      "realizedRate": 0.5,
+      "bias": 0.11750000000000005
+     },
+     "test": null
+    },
+    ">=0.40": {
+     "train": {
+      "n": 52,
+      "avgPrice": 0.499326923076923,
+      "realizedRate": 0.46153846153846156,
+      "bias": -0.03778846153846144
+     },
+     "test": {
+      "n": 53,
+      "avgPrice": 0.5166037735849055,
+      "realizedRate": 0.4716981132075472,
+      "bias": -0.044905660377358325
+     }
+    }
+   }
+  },
+  "total": {
+   "h168": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": null
+    },
+    ">=0.40": {
+     "train": null,
+     "test": {
+      "n": 1,
+      "avgPrice": 0.455,
+      "realizedRate": 0,
+      "bias": -0.455
+     }
+    }
+   },
+   "h72": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": null
+    },
+    ">=0.40": {
+     "train": {
+      "n": 4,
+      "avgPrice": 0.52625,
+      "realizedRate": 0.5,
+      "bias": -0.026249999999999996
+     },
+     "test": {
+      "n": 4,
+      "avgPrice": 0.5025,
+      "realizedRate": 0.5,
+      "bias": -0.0024999999999999467
+     }
+    }
+   },
+   "h24": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": null
+    },
+    ">=0.40": {
+     "train": {
+      "n": 11,
+      "avgPrice": 0.5004545454545456,
+      "realizedRate": 0.45454545454545453,
+      "bias": -0.045909090909091066
+     },
+     "test": {
+      "n": 11,
+      "avgPrice": 0.5163636363636365,
+      "realizedRate": 0.5454545454545454,
+      "bias": 0.029090909090908945
+     }
+    }
+   },
+   "h3": {
+    "<=0.30": {
+     "train": null,
+     "test": {
+      "n": 2,
+      "avgPrice": 0.235,
+      "realizedRate": 0.5,
+      "bias": 0.265
+     }
+    },
+    "0.30-0.40": {
+     "train": {
+      "n": 2,
+      "avgPrice": 0.385,
+      "realizedRate": 0,
+      "bias": -0.385
+     },
+     "test": {
+      "n": 1,
+      "avgPrice": 0.365,
+      "realizedRate": 1,
+      "bias": 0.635
+     }
+    },
+    ">=0.40": {
+     "train": {
+      "n": 51,
+      "avgPrice": 0.49999999999999983,
+      "realizedRate": 0.45098039215686275,
+      "bias": -0.04901960784313708
+     },
+     "test": {
+      "n": 50,
+      "avgPrice": 0.5088,
+      "realizedRate": 0.5,
+      "bias": -0.00880000000000003
+     }
+    }
+   }
+  }
+ },
+ "nba": {
+  "moneyline": {
+   "h168": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": null
+    },
+    ">=0.40": {
+     "train": null,
+     "test": null
+    }
+   },
+   "h72": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": null
+    },
+    ">=0.40": {
+     "train": null,
+     "test": null
+    }
+   },
+   "h24": {
+    "<=0.30": {
+     "train": {
+      "n": 7,
+      "avgPrice": 0.145,
+      "realizedRate": 0,
+      "bias": -0.145
+     },
+     "test": {
+      "n": 7,
+      "avgPrice": 0.10285714285714286,
+      "realizedRate": 0,
+      "bias": -0.10285714285714286
+     }
+    },
+    "0.30-0.40": {
+     "train": {
+      "n": 2,
+      "avgPrice": 0.31,
+      "realizedRate": 0,
+      "bias": -0.31
+     },
+     "test": null
+    },
+    ">=0.40": {
+     "train": {
+      "n": 3,
+      "avgPrice": 0.6266666666666667,
+      "realizedRate": 0.6666666666666666,
+      "bias": 0.039999999999999925
+     },
+     "test": {
+      "n": 6,
+      "avgPrice": 0.8208333333333334,
+      "realizedRate": 1,
+      "bias": 0.17916666666666659
+     }
+    }
+   },
+   "h3": {
+    "<=0.30": {
+     "train": {
+      "n": 51,
+      "avgPrice": 0.19117647058823528,
+      "realizedRate": 0.11764705882352941,
+      "bias": -0.07352941176470587
+     },
+     "test": {
+      "n": 68,
+      "avgPrice": 0.14099999999999996,
+      "realizedRate": 0,
+      "bias": -0.14099999999999996
+     }
+    },
+    "0.30-0.40": {
+     "train": {
+      "n": 10,
+      "avgPrice": 0.34049999999999997,
+      "realizedRate": 0.3,
+      "bias": -0.04049999999999998
+     },
+     "test": {
+      "n": 7,
+      "avgPrice": 0.3435714285714285,
+      "realizedRate": 0,
+      "bias": -0.3435714285714285
+     }
+    },
+    ">=0.40": {
+     "train": {
+      "n": 73,
+      "avgPrice": 0.6189041095890413,
+      "realizedRate": 0.6575342465753424,
+      "bias": 0.03863013698630113
+     },
+     "test": {
+      "n": 59,
+      "avgPrice": 0.7245762711864405,
+      "realizedRate": 0.8983050847457628,
+      "bias": 0.17372881355932224
+     }
+    }
+   }
+  },
+  "spread": {
+   "h168": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": null
+    },
+    ">=0.40": {
+     "train": null,
+     "test": null
+    }
+   },
+   "h72": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": null
+    },
+    ">=0.40": {
+     "train": null,
+     "test": {
+      "n": 1,
+      "avgPrice": 0.51,
+      "realizedRate": 1,
+      "bias": 0.49
+     }
+    }
+   },
+   "h24": {
+    "<=0.30": {
+     "train": null,
+     "test": {
+      "n": 2,
+      "avgPrice": 0.27,
+      "realizedRate": 0,
+      "bias": -0.27
+     }
+    },
+    "0.30-0.40": {
+     "train": {
+      "n": 1,
+      "avgPrice": 0.345,
+      "realizedRate": 1,
+      "bias": 0.655
+     },
+     "test": {
+      "n": 1,
+      "avgPrice": 0.38,
+      "realizedRate": 0,
+      "bias": -0.38
+     }
+    },
+    ">=0.40": {
+     "train": {
+      "n": 78,
+      "avgPrice": 0.4991666666666667,
+      "realizedRate": 0.48717948717948717,
+      "bias": -0.011987179487179533
+     },
+     "test": {
+      "n": 76,
+      "avgPrice": 0.5165131578947368,
+      "realizedRate": 0.47368421052631576,
+      "bias": -0.04282894736842108
+     }
+    }
+   },
+   "h3": {
+    "<=0.30": {
+     "train": {
+      "n": 2,
+      "avgPrice": 0.2475,
+      "realizedRate": 1,
+      "bias": 0.7525
+     },
+     "test": {
+      "n": 1,
+      "avgPrice": 0.285,
+      "realizedRate": 0,
+      "bias": -0.285
+     }
+    },
+    "0.30-0.40": {
+     "train": {
+      "n": 14,
+      "avgPrice": 0.3692857142857143,
+      "realizedRate": 0.21428571428571427,
+      "bias": -0.155
+     },
+     "test": {
+      "n": 9,
+      "avgPrice": 0.3711111111111111,
+      "realizedRate": 0.5555555555555556,
+      "bias": 0.18444444444444447
+     }
+    },
+    ">=0.40": {
+     "train": {
+      "n": 332,
+      "avgPrice": 0.5050753012048189,
+      "realizedRate": 0.4608433734939759,
+      "bias": -0.044231927710843
+     },
+     "test": {
+      "n": 338,
+      "avgPrice": 0.5065236686390531,
+      "realizedRate": 0.5295857988165681,
+      "bias": 0.023062130177515017
+     }
+    }
+   }
+  },
+  "total": {
+   "h168": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": null
+    },
+    ">=0.40": {
+     "train": null,
+     "test": null
+    }
+   },
+   "h72": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": null
+    },
+    ">=0.40": {
+     "train": null,
+     "test": null
+    }
+   },
+   "h24": {
+    "<=0.30": {
+     "train": {
+      "n": 1,
+      "avgPrice": 0.25,
+      "realizedRate": 1,
+      "bias": 0.75
+     },
+     "test": {
+      "n": 3,
+      "avgPrice": 0.26666666666666666,
+      "realizedRate": 0.6666666666666666,
+      "bias": 0.39999999999999997
+     }
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": null
+    },
+    ">=0.40": {
+     "train": {
+      "n": 66,
+      "avgPrice": 0.511060606060606,
+      "realizedRate": 0.5454545454545454,
+      "bias": 0.03439393939393942
+     },
+     "test": {
+      "n": 65,
+      "avgPrice": 0.505923076923077,
+      "realizedRate": 0.49230769230769234,
+      "bias": -0.013615384615384696
+     }
+    }
+   },
+   "h3": {
+    "<=0.30": {
+     "train": {
+      "n": 1,
+      "avgPrice": 0.215,
+      "realizedRate": 0,
+      "bias": -0.215
+     },
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": {
+      "n": 20,
+      "avgPrice": 0.36774999999999997,
+      "realizedRate": 0.25,
+      "bias": -0.11774999999999997
+     },
+     "test": {
+      "n": 14,
+      "avgPrice": 0.375,
+      "realizedRate": 0.5,
+      "bias": 0.125
+     }
+    },
+    ">=0.40": {
+     "train": {
+      "n": 321,
+      "avgPrice": 0.5111978193146418,
+      "realizedRate": 0.4735202492211838,
+      "bias": -0.03767757009345801
+     },
+     "test": {
+      "n": 328,
+      "avgPrice": 0.5136128048780491,
+      "realizedRate": 0.5640243902439024,
+      "bias": 0.05041158536585333
+     }
+    }
+   }
+  }
+ },
+ "nhl": {
+  "moneyline": {
+   "h168": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": null
+    },
+    ">=0.40": {
+     "train": {
+      "n": 1,
+      "avgPrice": 0.54,
+      "realizedRate": 0,
+      "bias": -0.54
+     },
+     "test": {
+      "n": 1,
+      "avgPrice": 0.425,
+      "realizedRate": 1,
+      "bias": 0.575
+     }
+    }
+   },
+   "h72": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": {
+      "n": 1,
+      "avgPrice": 0.335,
+      "realizedRate": 0,
+      "bias": -0.335
+     }
+    },
+    ">=0.40": {
+     "train": {
+      "n": 3,
+      "avgPrice": 0.4766666666666666,
+      "realizedRate": 0.3333333333333333,
+      "bias": -0.1433333333333333
+     },
+     "test": {
+      "n": 3,
+      "avgPrice": 0.48,
+      "realizedRate": 0.6666666666666666,
+      "bias": 0.18666666666666665
+     }
+    }
+   },
+   "h24": {
+    "<=0.30": {
+     "train": {
+      "n": 4,
+      "avgPrice": 0.26375,
+      "realizedRate": 0.25,
+      "bias": -0.013749999999999984
+     },
+     "test": {
+      "n": 5,
+      "avgPrice": 0.27599999999999997,
+      "realizedRate": 0.2,
+      "bias": -0.07599999999999996
+     }
+    },
+    "0.30-0.40": {
+     "train": {
+      "n": 24,
+      "avgPrice": 0.36125,
+      "realizedRate": 0.375,
+      "bias": 0.013749999999999984
+     },
+     "test": {
+      "n": 25,
+      "avgPrice": 0.35979999999999995,
+      "realizedRate": 0.24,
+      "bias": -0.11979999999999996
+     }
+    },
+    ">=0.40": {
+     "train": {
+      "n": 87,
+      "avgPrice": 0.5083333333333334,
+      "realizedRate": 0.5632183908045977,
+      "bias": 0.054885057471264265
+     },
+     "test": {
+      "n": 85,
+      "avgPrice": 0.5044117647058822,
+      "realizedRate": 0.6588235294117647,
+      "bias": 0.15441176470588247
+     }
+    }
+   },
+   "h3": {
+    "<=0.30": {
+     "train": {
+      "n": 10,
+      "avgPrice": 0.267,
+      "realizedRate": 0.3,
+      "bias": 0.032999999999999974
+     },
+     "test": {
+      "n": 12,
+      "avgPrice": 0.27162499999999995,
+      "realizedRate": 0.25,
+      "bias": -0.02162499999999995
+     }
+    },
+    "0.30-0.40": {
+     "train": {
+      "n": 46,
+      "avgPrice": 0.36597826086956514,
+      "realizedRate": 0.3695652173913043,
+      "bias": 0.003586956521739182
+     },
+     "test": {
+      "n": 60,
+      "avgPrice": 0.35841666666666666,
+      "realizedRate": 0.38333333333333336,
+      "bias": 0.024916666666666698
+     }
+    },
+    ">=0.40": {
+     "train": {
+      "n": 208,
+      "avgPrice": 0.5058894230769232,
+      "realizedRate": 0.5480769230769231,
+      "bias": 0.04218749999999993
+     },
+     "test": {
+      "n": 192,
+      "avgPrice": 0.5044270833333336,
+      "realizedRate": 0.53125,
+      "bias": 0.026822916666666363
+     }
+    }
+   }
+  },
+  "spread": {
+   "h168": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": null
+    },
+    ">=0.40": {
+     "train": null,
+     "test": null
+    }
+   },
+   "h72": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": {
+      "n": 1,
+      "avgPrice": 0.33,
+      "realizedRate": 0,
+      "bias": -0.33
+     }
+    },
+    ">=0.40": {
+     "train": null,
+     "test": null
+    }
+   },
+   "h24": {
+    "<=0.30": {
+     "train": {
+      "n": 1,
+      "avgPrice": 0.295,
+      "realizedRate": 1,
+      "bias": 0.7050000000000001
+     },
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": {
+      "n": 14,
+      "avgPrice": 0.34571428571428575,
+      "realizedRate": 0.42857142857142855,
+      "bias": 0.0828571428571428
+     },
+     "test": {
+      "n": 13,
+      "avgPrice": 0.34884615384615386,
+      "realizedRate": 0.38461538461538464,
+      "bias": 0.035769230769230775
+     }
+    },
+    ">=0.40": {
+     "train": {
+      "n": 11,
+      "avgPrice": 0.4509090909090909,
+      "realizedRate": 0.45454545454545453,
+      "bias": 0.0036363636363636043
+     },
+     "test": {
+      "n": 14,
+      "avgPrice": 0.4882142857142857,
+      "realizedRate": 0.5,
+      "bias": 0.011785714285714288
+     }
+    }
+   },
+   "h3": {
+    "<=0.30": {
+     "train": {
+      "n": 44,
+      "avgPrice": 0.28681818181818175,
+      "realizedRate": 0.25,
+      "bias": -0.03681818181818175
+     },
+     "test": {
+      "n": 26,
+      "avgPrice": 0.28500000000000003,
+      "realizedRate": 0.11538461538461539,
+      "bias": -0.16961538461538464
+     }
+    },
+    "0.30-0.40": {
+     "train": {
+      "n": 161,
+      "avgPrice": 0.3437577639751553,
+      "realizedRate": 0.3416149068322981,
+      "bias": -0.0021428571428571686
+     },
+     "test": {
+      "n": 152,
+      "avgPrice": 0.34342105263157857,
+      "realizedRate": 0.3223684210526316,
+      "bias": -0.02105263157894699
+     }
+    },
+    ">=0.40": {
+     "train": {
+      "n": 48,
+      "avgPrice": 0.4505208333333334,
+      "realizedRate": 0.4791666666666667,
+      "bias": 0.02864583333333326
+     },
+     "test": {
+      "n": 75,
+      "avgPrice": 0.4526666666666666,
+      "realizedRate": 0.44,
+      "bias": -0.012666666666666604
+     }
+    }
+   }
+  },
+  "total": {
+   "h168": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": null
+    },
+    ">=0.40": {
+     "train": null,
+     "test": null
+    }
+   },
+   "h72": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": null
+    },
+    ">=0.40": {
+     "train": null,
+     "test": null
+    }
+   },
+   "h24": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": null
+    },
+    ">=0.40": {
+     "train": {
+      "n": 22,
+      "avgPrice": 0.5820454545454544,
+      "realizedRate": 0.6363636363636364,
+      "bias": 0.05431818181818193
+     },
+     "test": {
+      "n": 22,
+      "avgPrice": 0.719318181818182,
+      "realizedRate": 0.8636363636363636,
+      "bias": 0.14431818181818168
+     }
+    }
+   },
+   "h3": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": {
+      "n": 1,
+      "avgPrice": 0.395,
+      "realizedRate": 0,
+      "bias": -0.395
+     },
+     "test": {
+      "n": 2,
+      "avgPrice": 0.385,
+      "realizedRate": 0,
+      "bias": -0.385
+     }
+    },
+    ">=0.40": {
+     "train": {
+      "n": 230,
+      "avgPrice": 0.5113478260869563,
+      "realizedRate": 0.5304347826086957,
+      "bias": 0.019086956521739418
+     },
+     "test": {
+      "n": 230,
+      "avgPrice": 0.7143543478260873,
+      "realizedRate": 0.7434782608695653,
+      "bias": 0.029123913043477945
+     }
+    }
+   }
+  }
+ },
+ "cfb": {
+  "moneyline": {
+   "h168": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": null
+    },
+    ">=0.40": {
+     "train": null,
+     "test": null
+    }
+   },
+   "h72": {
+    "<=0.30": {
+     "train": {
+      "n": 1,
+      "avgPrice": 0.195,
+      "realizedRate": 0,
+      "bias": -0.195
+     },
+     "test": {
+      "n": 1,
+      "avgPrice": 0.17,
+      "realizedRate": 0,
+      "bias": -0.17
+     }
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": null
+    },
+    ">=0.40": {
+     "train": null,
+     "test": null
+    }
+   },
+   "h24": {
+    "<=0.30": {
+     "train": {
+      "n": 3,
+      "avgPrice": 0.165,
+      "realizedRate": 0,
+      "bias": -0.165
+     },
+     "test": {
+      "n": 5,
+      "avgPrice": 0.168,
+      "realizedRate": 0,
+      "bias": -0.168
+     }
+    },
+    "0.30-0.40": {
+     "train": {
+      "n": 1,
+      "avgPrice": 0.355,
+      "realizedRate": 0,
+      "bias": -0.355
+     },
+     "test": {
+      "n": 1,
+      "avgPrice": 0.38,
+      "realizedRate": 0,
+      "bias": -0.38
+     }
+    },
+    ">=0.40": {
+     "train": {
+      "n": 4,
+      "avgPrice": 0.5162500000000001,
+      "realizedRate": 0.25,
+      "bias": -0.2662500000000001
+     },
+     "test": {
+      "n": 3,
+      "avgPrice": 0.5633333333333334,
+      "realizedRate": 0.6666666666666666,
+      "bias": 0.10333333333333328
+     }
+    }
+   },
+   "h3": {
+    "<=0.30": {
+     "train": {
+      "n": 5,
+      "avgPrice": 0.181,
+      "realizedRate": 0,
+      "bias": -0.181
+     },
+     "test": {
+      "n": 6,
+      "avgPrice": 0.18083333333333332,
+      "realizedRate": 0,
+      "bias": -0.18083333333333332
+     }
+    },
+    "0.30-0.40": {
+     "train": {
+      "n": 2,
+      "avgPrice": 0.36250000000000004,
+      "realizedRate": 0,
+      "bias": -0.36250000000000004
+     },
+     "test": {
+      "n": 3,
+      "avgPrice": 0.34333333333333327,
+      "realizedRate": 0.3333333333333333,
+      "bias": -0.009999999999999953
+     }
+    },
+    ">=0.40": {
+     "train": {
+      "n": 9,
+      "avgPrice": 0.4838888888888889,
+      "realizedRate": 0.4444444444444444,
+      "bias": -0.039444444444444504
+     },
+     "test": {
+      "n": 8,
+      "avgPrice": 0.5912499999999999,
+      "realizedRate": 0.75,
+      "bias": 0.15875000000000006
+     }
+    }
+   }
+  },
+  "spread": {
+   "h168": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": null
+    },
+    ">=0.40": {
+     "train": null,
+     "test": null
+    }
+   },
+   "h72": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": null
+    },
+    ">=0.40": {
+     "train": {
+      "n": 3,
+      "avgPrice": 0.4883333333333333,
+      "realizedRate": 0.3333333333333333,
+      "bias": -0.15499999999999997
+     },
+     "test": {
+      "n": 3,
+      "avgPrice": 0.49500000000000005,
+      "realizedRate": 1,
+      "bias": 0.5049999999999999
+     }
+    }
+   },
+   "h24": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": null
+    },
+    ">=0.40": {
+     "train": {
+      "n": 8,
+      "avgPrice": 0.49,
+      "realizedRate": 0.25,
+      "bias": -0.24
+     },
+     "test": {
+      "n": 8,
+      "avgPrice": 0.4875,
+      "realizedRate": 0.75,
+      "bias": 0.2625
+     }
+    }
+   },
+   "h3": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": {
+      "n": 1,
+      "avgPrice": 0.375,
+      "realizedRate": 0,
+      "bias": -0.375
+     },
+     "test": {
+      "n": 2,
+      "avgPrice": 0.3725,
+      "realizedRate": 0.5,
+      "bias": 0.1275
+     }
+    },
+    ">=0.40": {
+     "train": {
+      "n": 26,
+      "avgPrice": 0.4834615384615385,
+      "realizedRate": 0.5384615384615384,
+      "bias": 0.05499999999999994
+     },
+     "test": {
+      "n": 25,
+      "avgPrice": 0.4959999999999999,
+      "realizedRate": 0.4,
+      "bias": -0.09599999999999986
+     }
+    }
+   }
+  },
+  "total": {
+   "h168": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": null
+    },
+    ">=0.40": {
+     "train": null,
+     "test": null
+    }
+   },
+   "h72": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": null
+    },
+    ">=0.40": {
+     "train": null,
+     "test": null
+    }
+   },
+   "h24": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": null
+    },
+    ">=0.40": {
+     "train": {
+      "n": 4,
+      "avgPrice": 0.49250000000000005,
+      "realizedRate": 0,
+      "bias": -0.49250000000000005
+     },
+     "test": {
+      "n": 5,
+      "avgPrice": 0.5,
+      "realizedRate": 0.6,
+      "bias": 0.09999999999999998
+     }
+    }
+   },
+   "h3": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": {
+      "n": 1,
+      "avgPrice": 0.375,
+      "realizedRate": 0,
+      "bias": -0.375
+     }
+    },
+    ">=0.40": {
+     "train": {
+      "n": 24,
+      "avgPrice": 0.4845833333333333,
+      "realizedRate": 0.16666666666666666,
+      "bias": -0.3179166666666666
+     },
+     "test": {
+      "n": 24,
+      "avgPrice": 0.47791666666666655,
+      "realizedRate": 0.5,
+      "bias": 0.022083333333333455
+     }
+    }
+   }
+  }
+ },
+ "cbb": {
+  "moneyline": {
+   "h168": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": null
+    },
+    ">=0.40": {
+     "train": null,
+     "test": null
+    }
+   },
+   "h72": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": {
+      "n": 1,
+      "avgPrice": 0.375,
+      "realizedRate": 1,
+      "bias": 0.625
+     },
+     "test": null
+    },
+    ">=0.40": {
+     "train": null,
+     "test": {
+      "n": 2,
+      "avgPrice": 0.64,
+      "realizedRate": 0.5,
+      "bias": -0.14
+     }
+    }
+   },
+   "h24": {
+    "<=0.30": {
+     "train": {
+      "n": 82,
+      "avgPrice": 0.14726219512195124,
+      "realizedRate": 0.12195121951219512,
+      "bias": -0.02531097560975612
+     },
+     "test": {
+      "n": 76,
+      "avgPrice": 0.18513157894736837,
+      "realizedRate": 0.14473684210526316,
+      "bias": -0.040394736842105206
+     }
+    },
+    "0.30-0.40": {
+     "train": {
+      "n": 17,
+      "avgPrice": 0.351764705882353,
+      "realizedRate": 0.29411764705882354,
+      "bias": -0.05764705882352944
+     },
+     "test": {
+      "n": 40,
+      "avgPrice": 0.35087499999999994,
+      "realizedRate": 0.375,
+      "bias": 0.024125000000000063
+     }
+    },
+    ">=0.40": {
+     "train": {
+      "n": 210,
+      "avgPrice": 0.6484047619047618,
+      "realizedRate": 0.6190476190476191,
+      "bias": -0.02935714285714275
+     },
+     "test": {
+      "n": 193,
+      "avgPrice": 0.6380310880829017,
+      "realizedRate": 0.6580310880829016,
+      "bias": 0.019999999999999907
+     }
+    }
+   },
+   "h3": {
+    "<=0.30": {
+     "train": {
+      "n": 623,
+      "avgPrice": 0.16883306581059382,
+      "realizedRate": 0.17014446227929375,
+      "bias": 0.0013113964686999324
+     },
+     "test": {
+      "n": 651,
+      "avgPrice": 0.18757526881720443,
+      "realizedRate": 0.1889400921658986,
+      "bias": 0.0013648233486941719
+     }
+    },
+    "0.30-0.40": {
+     "train": {
+      "n": 220,
+      "avgPrice": 0.3533863636363636,
+      "realizedRate": 0.35454545454545455,
+      "bias": 0.001159090909090943
+     },
+     "test": {
+      "n": 300,
+      "avgPrice": 0.3515833333333333,
+      "realizedRate": 0.35,
+      "bias": -0.0015833333333333255
+     }
+    },
+    ">=0.40": {
+     "train": {
+      "n": 1012,
+      "avgPrice": 0.602148715415019,
+      "realizedRate": 0.6185770750988142,
+      "bias": 0.01642835968379519
+     },
+     "test": {
+      "n": 904,
+      "avgPrice": 0.5846913716814152,
+      "realizedRate": 0.5785398230088495,
+      "bias": -0.006151548672565621
+     }
+    }
+   }
+  },
+  "spread": {
+   "h168": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": null
+    },
+    ">=0.40": {
+     "train": null,
+     "test": null
+    }
+   },
+   "h72": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": null
+    },
+    ">=0.40": {
+     "train": null,
+     "test": {
+      "n": 1,
+      "avgPrice": 0.52,
+      "realizedRate": 0,
+      "bias": -0.52
+     }
+    }
+   },
+   "h24": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": null
+    },
+    ">=0.40": {
+     "train": {
+      "n": 24,
+      "avgPrice": 0.4935416666666667,
+      "realizedRate": 0.5833333333333334,
+      "bias": 0.08979166666666666
+     },
+     "test": {
+      "n": 24,
+      "avgPrice": 0.49345833333333333,
+      "realizedRate": 0.5833333333333334,
+      "bias": 0.08987500000000004
+     }
+    }
+   },
+   "h3": {
+    "<=0.30": {
+     "train": null,
+     "test": {
+      "n": 1,
+      "avgPrice": 0.18,
+      "realizedRate": 0,
+      "bias": -0.18
+     }
+    },
+    "0.30-0.40": {
+     "train": {
+      "n": 2,
+      "avgPrice": 0.38,
+      "realizedRate": 0,
+      "bias": -0.38
+     },
+     "test": {
+      "n": 1,
+      "avgPrice": 0.385,
+      "realizedRate": 0,
+      "bias": -0.385
+     }
+    },
+    ">=0.40": {
+     "train": {
+      "n": 941,
+      "avgPrice": 0.5063570669500533,
+      "realizedRate": 0.47927736450584485,
+      "bias": -0.027079702444208487
+     },
+     "test": {
+      "n": 942,
+      "avgPrice": 0.4996332271762211,
+      "realizedRate": 0.4851380042462845,
+      "bias": -0.014495222929936602
+     }
+    }
+   }
+  },
+  "total": {
+   "h168": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": null
+    },
+    ">=0.40": {
+     "train": null,
+     "test": null
+    }
+   },
+   "h72": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": null
+    },
+    ">=0.40": {
+     "train": null,
+     "test": null
+    }
+   },
+   "h24": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": null
+    },
+    ">=0.40": {
+     "train": {
+      "n": 17,
+      "avgPrice": 0.49500000000000005,
+      "realizedRate": 0.5294117647058824,
+      "bias": 0.03441176470588231
+     },
+     "test": {
+      "n": 18,
+      "avgPrice": 0.5016666666666667,
+      "realizedRate": 0.4444444444444444,
+      "bias": -0.057222222222222285
+     }
+    }
+   },
+   "h3": {
+    "<=0.30": {
+     "train": {
+      "n": 3,
+      "avgPrice": 0.09366666666666668,
+      "realizedRate": 0,
+      "bias": -0.09366666666666668
+     },
+     "test": {
+      "n": 3,
+      "avgPrice": 0.255,
+      "realizedRate": 0.3333333333333333,
+      "bias": 0.07833333333333331
+     }
+    },
+    "0.30-0.40": {
+     "train": {
+      "n": 3,
+      "avgPrice": 0.3633333333333333,
+      "realizedRate": 1,
+      "bias": 0.6366666666666667
+     },
+     "test": {
+      "n": 4,
+      "avgPrice": 0.34249999999999997,
+      "realizedRate": 0.25,
+      "bias": -0.09249999999999997
+     }
+    },
+    ">=0.40": {
+     "train": {
+      "n": 957,
+      "avgPrice": 0.5062168234064784,
+      "realizedRate": 0.4994775339602926,
+      "bias": -0.006739289446185848
+     },
+     "test": {
+      "n": 956,
+      "avgPrice": 0.4997384937238495,
+      "realizedRate": 0.5115062761506276,
+      "bias": 0.011767782426778117
+     }
+    }
+   }
+  }
+ },
+ "mlb": {
+  "moneyline": {
+   "h168": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": null
+    },
+    ">=0.40": {
+     "train": null,
+     "test": null
+    }
+   },
+   "h72": {
+    "<=0.30": {
+     "train": null,
+     "test": {
+      "n": 1,
+      "avgPrice": 0.285,
+      "realizedRate": 0,
+      "bias": -0.285
+     }
+    },
+    "0.30-0.40": {
+     "train": {
+      "n": 4,
+      "avgPrice": 0.35,
+      "realizedRate": 0.75,
+      "bias": 0.4
+     },
+     "test": null
+    },
+    ">=0.40": {
+     "train": {
+      "n": 8,
+      "avgPrice": 0.515,
+      "realizedRate": 0.625,
+      "bias": 0.10999999999999999
+     },
+     "test": {
+      "n": 12,
+      "avgPrice": 0.5558333333333333,
+      "realizedRate": 0.5,
+      "bias": -0.05583333333333329
+     }
+    }
+   },
+   "h24": {
+    "<=0.30": {
+     "train": {
+      "n": 4,
+      "avgPrice": 0.29,
+      "realizedRate": 0.5,
+      "bias": 0.21000000000000002
+     },
+     "test": {
+      "n": 5,
+      "avgPrice": 0.271,
+      "realizedRate": 0,
+      "bias": -0.271
+     }
+    },
+    "0.30-0.40": {
+     "train": {
+      "n": 43,
+      "avgPrice": 0.367906976744186,
+      "realizedRate": 0.3023255813953488,
+      "bias": -0.06558139534883717
+     },
+     "test": {
+      "n": 34,
+      "avgPrice": 0.3604411764705882,
+      "realizedRate": 0.23529411764705882,
+      "bias": -0.1251470588235294
+     }
+    },
+    ">=0.40": {
+     "train": {
+      "n": 277,
+      "avgPrice": 0.4983826714801446,
+      "realizedRate": 0.4729241877256318,
+      "bias": -0.025458483754512817
+     },
+     "test": {
+      "n": 285,
+      "avgPrice": 0.49666842105263176,
+      "realizedRate": 0.5087719298245614,
+      "bias": 0.012103508771929672
+     }
+    }
+   },
+   "h3": {
+    "<=0.30": {
+     "train": {
+      "n": 244,
+      "avgPrice": 0.09434221311475408,
+      "realizedRate": 0.11475409836065574,
+      "bias": 0.020411885245901665
+     },
+     "test": {
+      "n": 70,
+      "avgPrice": 0.20800714285714286,
+      "realizedRate": 0.34285714285714286,
+      "bias": 0.13485
+     }
+    },
+    "0.30-0.40": {
+     "train": {
+      "n": 63,
+      "avgPrice": 0.3580952380952381,
+      "realizedRate": 0.31746031746031744,
+      "bias": -0.040634920634920635
+     },
+     "test": {
+      "n": 119,
+      "avgPrice": 0.3590798319327731,
+      "realizedRate": 0.33613445378151263,
+      "bias": -0.022945378151260465
+     }
+    },
+    ">=0.40": {
+     "train": {
+      "n": 487,
+      "avgPrice": 0.6739096509240254,
+      "realizedRate": 0.6858316221765913,
+      "bias": 0.011921971252565888
+     },
+     "test": {
+      "n": 605,
+      "avgPrice": 0.5277677685950415,
+      "realizedRate": 0.5057851239669422,
+      "bias": -0.02198264462809929
+     }
+    }
+   }
+  },
+  "spread": {
+   "h168": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": null
+    },
+    ">=0.40": {
+     "train": null,
+     "test": null
+    }
+   },
+   "h72": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": null
+    },
+    ">=0.40": {
+     "train": {
+      "n": 1,
+      "avgPrice": 0.49,
+      "realizedRate": 0,
+      "bias": -0.49
+     },
+     "test": {
+      "n": 1,
+      "avgPrice": 0.425,
+      "realizedRate": 1,
+      "bias": 0.575
+     }
+    }
+   },
+   "h24": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": {
+      "n": 55,
+      "avgPrice": 0.37172727272727285,
+      "realizedRate": 0.43636363636363634,
+      "bias": 0.06463636363636349
+     },
+     "test": {
+      "n": 53,
+      "avgPrice": 0.37622641509433963,
+      "realizedRate": 0.22641509433962265,
+      "bias": -0.14981132075471698
+     }
+    },
+    ">=0.40": {
+     "train": {
+      "n": 74,
+      "avgPrice": 0.45135135135135124,
+      "realizedRate": 0.43243243243243246,
+      "bias": -0.01891891891891878
+     },
+     "test": {
+      "n": 77,
+      "avgPrice": 0.45454545454545436,
+      "realizedRate": 0.4155844155844156,
+      "bias": -0.03896103896103875
+     }
+    }
+   },
+   "h3": {
+    "<=0.30": {
+     "train": {
+      "n": 121,
+      "avgPrice": 0.16421487603305787,
+      "realizedRate": 0.21487603305785125,
+      "bias": 0.050661157024793374
+     },
+     "test": {
+      "n": 37,
+      "avgPrice": 0.209581081081081,
+      "realizedRate": 0.2972972972972973,
+      "bias": 0.08771621621621631
+     }
+    },
+    "0.30-0.40": {
+     "train": {
+      "n": 203,
+      "avgPrice": 0.3614532019704434,
+      "realizedRate": 0.3694581280788177,
+      "bias": 0.008004926108374333
+     },
+     "test": {
+      "n": 272,
+      "avgPrice": 0.36814338235294086,
+      "realizedRate": 0.35294117647058826,
+      "bias": -0.015202205882352604
+     }
+    },
+    ">=0.40": {
+     "train": {
+      "n": 282,
+      "avgPrice": 0.5809822695035463,
+      "realizedRate": 0.5851063829787234,
+      "bias": 0.00412411347517716
+     },
+     "test": {
+      "n": 298,
+      "avgPrice": 0.47823657718120816,
+      "realizedRate": 0.4563758389261745,
+      "bias": -0.02186073825503365
+     }
+    }
+   }
+  },
+  "total": {
+   "h168": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": null
+    },
+    ">=0.40": {
+     "train": null,
+     "test": null
+    }
+   },
+   "h72": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": null
+    },
+    ">=0.40": {
+     "train": null,
+     "test": null
+    }
+   },
+   "h24": {
+    "<=0.30": {
+     "train": null,
+     "test": null
+    },
+    "0.30-0.40": {
+     "train": null,
+     "test": {
+      "n": 2,
+      "avgPrice": 0.36250000000000004,
+      "realizedRate": 0,
+      "bias": -0.36250000000000004
+     }
+    },
+    ">=0.40": {
+     "train": {
+      "n": 103,
+      "avgPrice": 0.48257281553398085,
+      "realizedRate": 0.5339805825242718,
+      "bias": 0.05140776699029098
+     },
+     "test": {
+      "n": 102,
+      "avgPrice": 0.4848529411764704,
+      "realizedRate": 0.38235294117647056,
+      "bias": -0.10249999999999981
+     }
+    }
+   },
+   "h3": {
+    "<=0.30": {
+     "train": {
+      "n": 90,
+      "avgPrice": 0.1604611111111111,
+      "realizedRate": 0.17777777777777778,
+      "bias": 0.017316666666666675
+     },
+     "test": {
+      "n": 20,
+      "avgPrice": 0.20177500000000004,
+      "realizedRate": 0.05,
+      "bias": -0.15177500000000005
+     }
+    },
+    "0.30-0.40": {
+     "train": {
+      "n": 94,
+      "avgPrice": 0.3611170212765956,
+      "realizedRate": 0.3191489361702128,
+      "bias": -0.041968085106382835
+     },
+     "test": {
+      "n": 52,
+      "avgPrice": 0.3741346153846155,
+      "realizedRate": 0.4423076923076923,
+      "bias": 0.06817307692307678
+     }
+    },
+    ">=0.40": {
+     "train": {
+      "n": 416,
+      "avgPrice": 0.56021875,
+      "realizedRate": 0.6033653846153846,
+      "bias": 0.043146634615384594
+     },
+     "test": {
+      "n": 528,
+      "avgPrice": 0.4887395833333327,
+      "realizedRate": 0.49242424242424243,
+      "bias": 0.0036846590909097032
+     }
+    }
+   }
+  }
+ }
+}

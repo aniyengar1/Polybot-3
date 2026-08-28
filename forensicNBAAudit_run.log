@@ -1,0 +1,83 @@
+
+=== nba-mem-bos-2025-11-12 ===
+Market: Grizzlies (YES) vs Celtics (NO). Resolved: Celtics won. yesResolvedTo=0
+Recorded endDate (Gamma): 2025-11-13T00:30:00.000Z
+Inferred real settle point (price crosses to >95%/<5% and stays): 2025-11-13T01:46:28.000Z
+Biggest pre-settle trading gap (proxy for live game window): 2025-11-12T22:49:12.000Z -> 2025-11-12T22:56:44.000Z (8 min quiet)
+Checkpoint target (recordedEnd - 3h): 2025-11-12T21:30:00.000Z
+Checkpoint target vs inferred tip-off: BEFORE inferred tip-off (pre-game, safe)
+Checkpoint's actual matched real trade: 2025-11-12T21:30:07.000Z  (Grizzlies BUY @ 0.27, i.e. YES(Grizzlies)=0.270)
+Recorded dataset checkpoint price (from usSportsLiquidityFiltered_v2.json) should be close to the real fill above if timing is honest.
+
+=== nba-ind-cle-2025-11-21 ===
+Market: Pacers (YES) vs Cavaliers (NO). Resolved: Cavaliers won. yesResolvedTo=0
+Recorded endDate (Gamma): 2025-11-22T00:00:00.000Z
+Inferred real settle point (price crosses to >95%/<5% and stays): 2025-11-22T02:25:45.000Z
+Biggest pre-settle trading gap (proxy for live game window): 2025-11-21T22:01:53.000Z -> 2025-11-21T22:05:53.000Z (4 min quiet)
+Checkpoint target (recordedEnd - 3h): 2025-11-21T21:00:00.000Z
+Checkpoint target vs inferred tip-off: BEFORE inferred tip-off (pre-game, safe)
+Checkpoint's actual matched real trade: 2025-11-21T21:00:03.000Z  (Pacers BUY @ 0.1299999902, i.e. YES(Pacers)=0.130)
+Recorded dataset checkpoint price (from usSportsLiquidityFiltered_v2.json) should be close to the real fill above if timing is honest.
+
+=== nba-was-phi-2025-12-02 ===
+Market: Wizards (YES) vs 76ers (NO). Resolved: 76ers won. yesResolvedTo=0
+Recorded endDate (Gamma): 2025-12-03T00:00:00.000Z
+Inferred real settle point (price crosses to >95%/<5% and stays): 2025-12-03T01:34:41.000Z
+Biggest pre-settle trading gap (proxy for live game window): 2025-12-02T21:51:55.000Z -> 2025-12-02T21:58:47.000Z (7 min quiet)
+Checkpoint target (recordedEnd - 3h): 2025-12-02T21:00:00.000Z
+Checkpoint target vs inferred tip-off: BEFORE inferred tip-off (pre-game, safe)
+Checkpoint's actual matched real trade: 2025-12-02T21:00:59.000Z  (76ers BUY @ 0.8699999905, i.e. YES(Wizards)=0.130)
+Recorded dataset checkpoint price (from usSportsLiquidityFiltered_v2.json) should be close to the real fill above if timing is honest.
+
+=== nba-por-okc-2025-12-31 ===
+Market: Trail Blazers (YES) vs Thunder (NO). Resolved: Thunder won. yesResolvedTo=0
+Recorded endDate (Gamma): 2026-01-01T01:00:00.000Z
+Inferred real settle point (price crosses to >95%/<5% and stays): 2026-01-01T02:06:53.000Z
+Biggest pre-settle trading gap (proxy for live game window): 2025-12-31T22:28:03.000Z -> 2025-12-31T22:40:59.000Z (13 min quiet)
+Checkpoint target (recordedEnd - 3h): 2025-12-31T22:00:00.000Z
+Checkpoint target vs inferred tip-off: BEFORE inferred tip-off (pre-game, safe)
+Checkpoint's actual matched real trade: 2025-12-31T21:59:43.000Z  (Trail Blazers BUY @ 0.12, i.e. YES(Trail Blazers)=0.120)
+Recorded dataset checkpoint price (from usSportsLiquidityFiltered_v2.json) should be close to the real fill above if timing is honest.
+
+=== nba-mil-bos-2026-02-01 ===
+Market: Bucks (YES) vs Celtics (NO). Resolved: Celtics won. yesResolvedTo=0
+Recorded endDate (Gamma): 2026-02-01T20:30:00.000Z
+Inferred real settle point (price crosses to >95%/<5% and stays): 2026-02-01T21:53:04.000Z
+Biggest pre-settle trading gap (proxy for live game window): 2026-02-01T17:10:30.000Z -> 2026-02-01T17:13:56.000Z (3 min quiet)
+Checkpoint target (recordedEnd - 3h): 2026-02-01T17:30:00.000Z
+Checkpoint target vs inferred tip-off: *** AFTER the inferred live-game gap -- LEAKAGE RISK ***
+Checkpoint's actual matched real trade: 2026-02-01T17:29:12.000Z  (Bucks BUY @ 0.1699998738, i.e. YES(Bucks)=0.170)
+Recorded dataset checkpoint price (from usSportsLiquidityFiltered_v2.json) should be close to the real fill above if timing is honest.
+
+=== nba-sac-lal-2026-03-01 ===
+Market: Kings (YES) vs Lakers (NO). Resolved: Lakers won. yesResolvedTo=0
+Recorded endDate (Gamma): 2026-03-02T02:30:00.000Z
+Inferred real settle point (price crosses to >95%/<5% and stays): 2026-03-02T04:06:37.000Z
+Biggest pre-settle trading gap (proxy for live game window): 2026-03-02T00:52:03.000Z -> 2026-03-02T00:58:45.000Z (7 min quiet)
+Checkpoint target (recordedEnd - 3h): 2026-03-01T23:30:00.000Z
+Checkpoint target vs inferred tip-off: BEFORE inferred tip-off (pre-game, safe)
+Checkpoint's actual matched real trade: 2026-03-01T23:29:53.000Z  (Kings BUY @ 0.16, i.e. YES(Kings)=0.160)
+Recorded dataset checkpoint price (from usSportsLiquidityFiltered_v2.json) should be close to the real fill above if timing is honest.
+
+=== nba-mil-hou-2026-04-01 ===
+Market: Bucks (YES) vs Rockets (NO). Resolved: Rockets won. yesResolvedTo=0
+Recorded endDate (Gamma): 2026-04-02T00:00:00.000Z
+Inferred real settle point (price crosses to >95%/<5% and stays): 2026-04-02T02:10:37.000Z
+Biggest pre-settle trading gap (proxy for live game window): 2026-04-01T21:50:43.000Z -> 2026-04-01T21:59:11.000Z (8 min quiet)
+Checkpoint target (recordedEnd - 3h): 2026-04-01T21:00:00.000Z
+Checkpoint target vs inferred tip-off: BEFORE inferred tip-off (pre-game, safe)
+Checkpoint's actual matched real trade: 2026-04-01T20:59:43.000Z  (Rockets BUY @ 0.9399999624, i.e. YES(Bucks)=0.060)
+Recorded dataset checkpoint price (from usSportsLiquidityFiltered_v2.json) should be close to the real fill above if timing is honest.
+
+=== nba-mil-phi-2026-04-12 ===
+Market: Bucks (YES) vs 76ers (NO). Resolved: 76ers won. yesResolvedTo=0
+Recorded endDate (Gamma): 2026-04-12T22:00:00.000Z
+Inferred real settle point (price crosses to >95%/<5% and stays): 2026-04-12T23:38:45.000Z
+Biggest pre-settle trading gap (proxy for live game window): 2026-04-12T18:45:49.000Z -> 2026-04-12T18:56:57.000Z (11 min quiet)
+Checkpoint target (recordedEnd - 3h): 2026-04-12T19:00:00.000Z
+Checkpoint target vs inferred tip-off: *** AFTER the inferred live-game gap -- LEAKAGE RISK ***
+Checkpoint's actual matched real trade: 2026-04-12T19:00:29.000Z  (Bucks BUY @ 0.089999919, i.e. YES(Bucks)=0.090)
+Recorded dataset checkpoint price (from usSportsLiquidityFiltered_v2.json) should be close to the real fill above if timing is honest.
+
+
+Saved forensicNBAAudit_results.json

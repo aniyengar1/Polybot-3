@@ -1,0 +1,30 @@
+January 2026 NHL total >=0.40 h24 candidates: 23
+
+Pre-January model: n=15, pTrue(YES)=0.667
+
+  aec-nhl-min-ana-2026-01-02: UNFILLABLE
+  aec-nhl-dal-car-2026-01-06: UNFILLABLE
+  aec-nhl-nj-nyi-2026-01-06: checkpoint=0.485  realFill=0.509  gap=2.4pp  edge-vs-pTrue(0.667)=15.7pp  
+  aec-nhl-cbj-sj-2026-01-06: checkpoint=0.520  realFill=0.530  gap=1.0pp  edge-vs-pTrue(0.667)=13.7pp  
+  aec-nhl-ana-car-2026-01-08: checkpoint=0.525  realFill=0.550  gap=2.5pp  edge-vs-pTrue(0.667)=11.7pp  
+  aec-nhl-cbj-col-2026-01-10: checkpoint=0.545  realFill=0.550  gap=0.5pp  edge-vs-pTrue(0.667)=11.7pp  
+  aec-nhl-ana-buf-2026-01-10: UNFILLABLE
+  aec-nhl-sea-nyr-2026-01-12: checkpoint=0.530  realFill=0.550  gap=2.0pp  edge-vs-pTrue(0.667)=11.7pp  
+  aec-nhl-dal-ana-2026-01-13: checkpoint=0.515  realFill=0.530  gap=1.5pp  edge-vs-pTrue(0.667)=13.7pp  
+  aec-nhl-sea-nj-2026-01-14: UNFILLABLE
+  aec-nhl-nyi-edm-2026-01-15: UNFILLABLE
+  aec-nhl-sj-det-2026-01-16: checkpoint=0.460  realFill=0.462  gap=0.2pp  edge-vs-pTrue(0.667)=20.5pp  
+  aec-nhl-min-buf-2026-01-17: UNFILLABLE
+  aec-nhl-cbj-pit-2026-01-17: UNFILLABLE
+  aec-nhl-pit-sea-2026-01-19: checkpoint=0.535  realFill=0.560  gap=2.5pp  edge-vs-pTrue(0.667)=10.7pp  
+  aec-nhl-det-tor-2026-01-21: checkpoint=0.460  realFill=0.470  gap=1.0pp  edge-vs-pTrue(0.667)=19.7pp  
+  aec-nhl-pit-van-2026-01-25: checkpoint=0.475  realFill=0.470  gap=-0.5pp  edge-vs-pTrue(0.667)=19.7pp  
+  aec-nhl-ana-edm-2026-01-26: checkpoint=0.545  realFill=0.590  gap=4.5pp  edge-vs-pTrue(0.667)=7.7pp  
+  aec-nhl-bos-nyr-2026-01-26: checkpoint=0.490  realFill=0.510  gap=2.0pp  edge-vs-pTrue(0.667)=15.7pp  
+  aec-nhl-chi-min-2026-01-27: checkpoint=0.455  realFill=0.450  gap=-0.5pp  edge-vs-pTrue(0.667)=21.7pp  
+  aec-nhl-dal-stl-2026-01-27: checkpoint=0.415  realFill=0.410  gap=-0.5pp  edge-vs-pTrue(0.667)=25.7pp  
+  aec-nhl-col-ott-2026-01-28: checkpoint=0.520  realFill=0.540  gap=2.0pp  edge-vs-pTrue(0.667)=12.7pp  
+  aec-nhl-nyr-pit-2026-01-31: checkpoint=0.475  realFill=0.490  gap=1.5pp  edge-vs-pTrue(0.667)=17.7pp  
+
+January 2026: 16 positive-edge / 0 zero-or-negative-edge out of 16 fillable
+Average (realFill - checkpoint) gap: 1.4pp

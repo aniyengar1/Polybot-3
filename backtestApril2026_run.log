@@ -1,0 +1,56 @@
+=== Step 1: lookahead check + pre-April edge re-derivation ===
+
+nba moneyline h3 <=0.30 [side=NO]
+  original train range: 2025-11-09 .. 2026-01-08  (clean, entirely pre-April)
+  pre-April-only re-derived: n=106, avgPrice(YES)=0.170, realizedRate(YES)=0.057, bias=-11.4pp
+  April opportunities: all=14, regular-season-only=9
+
+nhl moneyline h24 >=0.40 [side=YES]
+  original train range: 2025-12-06 .. 2026-01-07  (clean, entirely pre-April)
+  pre-April-only re-derived: n=200, avgPrice(YES)=0.503, realizedRate(YES)=0.595, bias=9.2pp
+  April opportunities: all=5, regular-season-only=5
+
+nhl spread h3 <=0.30 [side=NO]
+  original train range: 2025-12-06 .. 2026-02-26  (clean, entirely pre-April)
+  pre-April-only re-derived: n=69, avgPrice(YES)=0.286, realizedRate(YES)=0.188, bias=-9.8pp
+  April opportunities: all=16, regular-season-only=10
+
+nhl total h24 >=0.40 [side=YES]
+  original train range: 2025-12-09 .. 2026-01-28  (clean, entirely pre-April)
+  pre-April-only re-derived: n=42, avgPrice(YES)=0.519, realizedRate(YES)=0.690, bias=17.1pp
+  April opportunities: all=23, regular-season-only=16
+
+mlb moneyline h24 0.30-0.40 [side=NO]
+  original train range: 2026-03-22 .. 2026-06-13  *** ORIGINAL TRAIN OVERLAPS APRIL -- lookahead if reused ***
+  pre-April-only re-derived: n=14, avgPrice(YES)=0.373, realizedRate(YES)=0.214, bias=-15.9pp  [THIN -- below the 30-obs threshold used everywhere else in this project]
+  April opportunities: all=25, regular-season-only=25
+
+=== Step 2: fetching real fills for April regular-season opportunities ===
+
+  SKIP (unfillable): nhl spread nhl-det-phi-2026-04-02
+  SKIP (unfillable): mlb moneyline mlb-sf-phi-2026-04-28
+
+Total fillable April regular-season opportunities: 63
+
+=== Step 3: event-driven walk-forward simulation, $100 shared bankroll ===
+
+Trades placed: 47
+Trades skipped (below minimum / no edge): 16
+  SKIPPED: nhl total nhl-bos-tb-2026-04-04 -- stake $0.00 below $1 minimum
+  SKIPPED: nhl total nhl-fla-pit-2026-04-04 -- stake $0.00 below $1 minimum
+  SKIPPED: nhl total nhl-wpg-cbj-2026-04-04 -- stake $0.00 below $1 minimum
+  SKIPPED: nhl total nhl-mon-nj-2026-04-04 -- stake $0.00 below $1 minimum
+  SKIPPED: nhl total nhl-nyi-car-2026-04-04 -- stake $0.00 below $1 minimum
+  SKIPPED: nhl total nhl-fla-pit-2026-04-05 -- stake $0.00 below $1 minimum
+  SKIPPED: nhl total nhl-car-ott-2026-04-05 -- stake $0.00 below $1 minimum
+  SKIPPED: nhl total nhl-nj-mon-2026-04-05 -- stake $0.00 below $1 minimum
+  SKIPPED: nhl total nhl-stl-col-2026-04-05 -- stake $0.00 below $1 minimum
+  SKIPPED: nhl total nhl-tb-ott-2026-04-07 -- stake $0.00 below $1 minimum
+  SKIPPED: nhl total nhl-bos-car-2026-04-07 -- stake $0.00 below $1 minimum
+  SKIPPED: nhl total nhl-cbj-det-2026-04-07 -- stake $0.00 below $1 minimum
+  SKIPPED: nhl total nhl-tor-nyi-2026-04-09 -- stake $0.00 below $1 minimum
+  SKIPPED: nhl total nhl-min-dal-2026-04-09 -- stake $0.00 below $1 minimum
+  SKIPPED: nhl total nhl-nyr-dal-2026-04-11 -- stake $0.00 below $1 minimum
+  SKIPPED: nhl total nhl-nyr-fla-2026-04-13 -- stake $0.00 below $1 minimum
+
+Saved backtestApril2026_results.json

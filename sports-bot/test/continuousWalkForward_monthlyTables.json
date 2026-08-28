@@ -1,0 +1,367 @@
+{
+ "NOV 2025": {
+  "nba|moneyline|h3|<=0.30": {
+   "n": 0,
+   "pTrue": null,
+   "side": "NO",
+   "sport": "nba",
+   "marketType": "moneyline",
+   "horizon": "h3",
+   "band": "<=0.30"
+  },
+  "nhl|moneyline|h24|>=0.40": {
+   "n": 0,
+   "pTrue": null,
+   "side": "YES",
+   "sport": "nhl",
+   "marketType": "moneyline",
+   "horizon": "h24",
+   "band": ">=0.40"
+  },
+  "mlb|moneyline|h24|0.30-0.40": {
+   "n": 0,
+   "pTrue": null,
+   "side": "NO",
+   "sport": "mlb",
+   "marketType": "moneyline",
+   "horizon": "h24",
+   "band": "0.30-0.40"
+  },
+  "mlb|spread_1.5|h3|<=0.30": {
+   "n": 0,
+   "pTrue": null,
+   "side": "YES",
+   "sport": "mlb",
+   "marketType": "spread_1.5",
+   "horizon": "h3",
+   "band": "<=0.30"
+  }
+ },
+ "DEC 2025": {
+  "nba|moneyline|h3|<=0.30": {
+   "n": 23,
+   "pTrue": 0.9565217391304348,
+   "side": "NO",
+   "sport": "nba",
+   "marketType": "moneyline",
+   "horizon": "h3",
+   "band": "<=0.30",
+   "tradingWindowStart": "2025-12-01T00:00:00.000Z"
+  },
+  "nhl|moneyline|h24|>=0.40": {
+   "n": 0,
+   "pTrue": null,
+   "side": "YES",
+   "sport": "nhl",
+   "marketType": "moneyline",
+   "horizon": "h24",
+   "band": ">=0.40"
+  },
+  "mlb|moneyline|h24|0.30-0.40": {
+   "n": 0,
+   "pTrue": null,
+   "side": "NO",
+   "sport": "mlb",
+   "marketType": "moneyline",
+   "horizon": "h24",
+   "band": "0.30-0.40"
+  },
+  "mlb|spread_1.5|h3|<=0.30": {
+   "n": 0,
+   "pTrue": null,
+   "side": "YES",
+   "sport": "mlb",
+   "marketType": "spread_1.5",
+   "horizon": "h3",
+   "band": "<=0.30"
+  }
+ },
+ "JAN 2026": {
+  "nba|moneyline|h3|<=0.30": {
+   "n": 48,
+   "pTrue": 0.875,
+   "side": "NO",
+   "sport": "nba",
+   "marketType": "moneyline",
+   "horizon": "h3",
+   "band": "<=0.30",
+   "tradingWindowStart": "2026-01-01T00:00:00.000Z"
+  },
+  "nhl|moneyline|h24|>=0.40": {
+   "n": 69,
+   "pTrue": 0.5797101449275363,
+   "side": "YES",
+   "sport": "nhl",
+   "marketType": "moneyline",
+   "horizon": "h24",
+   "band": ">=0.40",
+   "tradingWindowStart": "2026-01-01T00:00:00.000Z"
+  },
+  "mlb|moneyline|h24|0.30-0.40": {
+   "n": 0,
+   "pTrue": null,
+   "side": "NO",
+   "sport": "mlb",
+   "marketType": "moneyline",
+   "horizon": "h24",
+   "band": "0.30-0.40"
+  },
+  "mlb|spread_1.5|h3|<=0.30": {
+   "n": 0,
+   "pTrue": null,
+   "side": "YES",
+   "sport": "mlb",
+   "marketType": "spread_1.5",
+   "horizon": "h3",
+   "band": "<=0.30"
+  }
+ },
+ "FEB 2026": {
+  "nba|moneyline|h3|<=0.30": {
+   "n": 62,
+   "pTrue": 0.9032258064516129,
+   "side": "NO",
+   "sport": "nba",
+   "marketType": "moneyline",
+   "horizon": "h3",
+   "band": "<=0.30",
+   "tradingWindowStart": "2026-02-01T00:00:00.000Z"
+  },
+  "nhl|moneyline|h24|>=0.40": {
+   "n": 128,
+   "pTrue": 0.609375,
+   "side": "YES",
+   "sport": "nhl",
+   "marketType": "moneyline",
+   "horizon": "h24",
+   "band": ">=0.40",
+   "tradingWindowStart": "2026-02-01T00:00:00.000Z"
+  },
+  "mlb|moneyline|h24|0.30-0.40": {
+   "n": 0,
+   "pTrue": null,
+   "side": "NO",
+   "sport": "mlb",
+   "marketType": "moneyline",
+   "horizon": "h24",
+   "band": "0.30-0.40"
+  },
+  "mlb|spread_1.5|h3|<=0.30": {
+   "n": 0,
+   "pTrue": null,
+   "side": "YES",
+   "sport": "mlb",
+   "marketType": "spread_1.5",
+   "horizon": "h3",
+   "band": "<=0.30"
+  }
+ },
+ "MAR 2026": {
+  "nba|moneyline|h3|<=0.30": {
+   "n": 82,
+   "pTrue": 0.926829268292683,
+   "side": "NO",
+   "sport": "nba",
+   "marketType": "moneyline",
+   "horizon": "h3",
+   "band": "<=0.30",
+   "tradingWindowStart": "2026-03-01T00:00:00.000Z"
+  },
+  "nhl|moneyline|h24|>=0.40": {
+   "n": 140,
+   "pTrue": 0.6,
+   "side": "YES",
+   "sport": "nhl",
+   "marketType": "moneyline",
+   "horizon": "h24",
+   "band": ">=0.40",
+   "tradingWindowStart": "2026-03-01T00:00:00.000Z"
+  },
+  "mlb|moneyline|h24|0.30-0.40": {
+   "n": 0,
+   "pTrue": null,
+   "side": "NO",
+   "sport": "mlb",
+   "marketType": "moneyline",
+   "horizon": "h24",
+   "band": "0.30-0.40"
+  },
+  "mlb|spread_1.5|h3|<=0.30": {
+   "n": 0,
+   "pTrue": null,
+   "side": "YES",
+   "sport": "mlb",
+   "marketType": "spread_1.5",
+   "horizon": "h3",
+   "band": "<=0.30"
+  }
+ },
+ "APR 2026": {
+  "nba|moneyline|h3|<=0.30": {
+   "n": 105,
+   "pTrue": 0.9428571428571428,
+   "side": "NO",
+   "sport": "nba",
+   "marketType": "moneyline",
+   "horizon": "h3",
+   "band": "<=0.30",
+   "tradingWindowStart": "2026-04-01T00:00:00.000Z"
+  },
+  "nhl|moneyline|h24|>=0.40": {
+   "n": 165,
+   "pTrue": 0.6060606060606061,
+   "side": "YES",
+   "sport": "nhl",
+   "marketType": "moneyline",
+   "horizon": "h24",
+   "band": ">=0.40",
+   "tradingWindowStart": "2026-04-01T00:00:00.000Z"
+  },
+  "mlb|moneyline|h24|0.30-0.40": {
+   "n": 8,
+   "pTrue": 0.625,
+   "side": "NO",
+   "sport": "mlb",
+   "marketType": "moneyline",
+   "horizon": "h24",
+   "band": "0.30-0.40",
+   "tradingWindowStart": "2026-04-01T00:00:00.000Z"
+  },
+  "mlb|spread_1.5|h3|<=0.30": {
+   "n": 14,
+   "pTrue": 0.21428571428571427,
+   "side": "YES",
+   "sport": "mlb",
+   "marketType": "spread_1.5",
+   "horizon": "h3",
+   "band": "<=0.30",
+   "tradingWindowStart": "2026-04-01T00:00:00.000Z"
+  }
+ },
+ "MAY 2026": {
+  "nba|moneyline|h3|<=0.30": {
+   "n": 119,
+   "pTrue": 0.9495798319327731,
+   "side": "NO",
+   "sport": "nba",
+   "marketType": "moneyline",
+   "horizon": "h3",
+   "band": "<=0.30",
+   "tradingWindowStart": "2026-05-01T00:00:00.000Z"
+  },
+  "nhl|moneyline|h24|>=0.40": {
+   "n": 170,
+   "pTrue": 0.611764705882353,
+   "side": "YES",
+   "sport": "nhl",
+   "marketType": "moneyline",
+   "horizon": "h24",
+   "band": ">=0.40",
+   "tradingWindowStart": "2026-05-01T00:00:00.000Z"
+  },
+  "mlb|moneyline|h24|0.30-0.40": {
+   "n": 27,
+   "pTrue": 0.7037037037037037,
+   "side": "NO",
+   "sport": "mlb",
+   "marketType": "moneyline",
+   "horizon": "h24",
+   "band": "0.30-0.40",
+   "tradingWindowStart": "2026-05-01T00:00:00.000Z"
+  },
+  "mlb|spread_1.5|h3|<=0.30": {
+   "n": 117,
+   "pTrue": 0.27350427350427353,
+   "side": "YES",
+   "sport": "mlb",
+   "marketType": "spread_1.5",
+   "horizon": "h3",
+   "band": "<=0.30",
+   "tradingWindowStart": "2026-05-01T00:00:00.000Z"
+  }
+ },
+ "JUN 2026": {
+  "nba|moneyline|h3|<=0.30": {
+   "n": 119,
+   "pTrue": 0.9495798319327731,
+   "side": "NO",
+   "sport": "nba",
+   "marketType": "moneyline",
+   "horizon": "h3",
+   "band": "<=0.30",
+   "tradingWindowStart": "2026-06-01T00:00:00.000Z"
+  },
+  "nhl|moneyline|h24|>=0.40": {
+   "n": 172,
+   "pTrue": 0.6104651162790697,
+   "side": "YES",
+   "sport": "nhl",
+   "marketType": "moneyline",
+   "horizon": "h24",
+   "band": ">=0.40",
+   "tradingWindowStart": "2026-06-01T00:00:00.000Z"
+  },
+  "mlb|moneyline|h24|0.30-0.40": {
+   "n": 42,
+   "pTrue": 0.6904761904761905,
+   "side": "NO",
+   "sport": "mlb",
+   "marketType": "moneyline",
+   "horizon": "h24",
+   "band": "0.30-0.40",
+   "tradingWindowStart": "2026-06-01T00:00:00.000Z"
+  },
+  "mlb|spread_1.5|h3|<=0.30": {
+   "n": 281,
+   "pTrue": 0.24199288256227758,
+   "side": "YES",
+   "sport": "mlb",
+   "marketType": "spread_1.5",
+   "horizon": "h3",
+   "band": "<=0.30",
+   "tradingWindowStart": "2026-06-01T00:00:00.000Z"
+  }
+ },
+ "JUL 2026": {
+  "nba|moneyline|h3|<=0.30": {
+   "n": 119,
+   "pTrue": 0.9495798319327731,
+   "side": "NO",
+   "sport": "nba",
+   "marketType": "moneyline",
+   "horizon": "h3",
+   "band": "<=0.30",
+   "tradingWindowStart": "2026-07-01T00:00:00.000Z"
+  },
+  "nhl|moneyline|h24|>=0.40": {
+   "n": 172,
+   "pTrue": 0.6104651162790697,
+   "side": "YES",
+   "sport": "nhl",
+   "marketType": "moneyline",
+   "horizon": "h24",
+   "band": ">=0.40",
+   "tradingWindowStart": "2026-07-01T00:00:00.000Z"
+  },
+  "mlb|moneyline|h24|0.30-0.40": {
+   "n": 54,
+   "pTrue": 0.7222222222222222,
+   "side": "NO",
+   "sport": "mlb",
+   "marketType": "moneyline",
+   "horizon": "h24",
+   "band": "0.30-0.40",
+   "tradingWindowStart": "2026-07-01T00:00:00.000Z"
+  },
+  "mlb|spread_1.5|h3|<=0.30": {
+   "n": 392,
+   "pTrue": 0.2602040816326531,
+   "side": "YES",
+   "sport": "mlb",
+   "marketType": "spread_1.5",
+   "horizon": "h3",
+   "band": "<=0.30",
+   "tradingWindowStart": "2026-07-01T00:00:00.000Z"
+  }
+ }
+}

@@ -1,0 +1,340 @@
+
+=== nba-mem-bos-2025-11-12 ===
+Grizzlies (YES) vs Celtics (NO). Winner: Celtics. Recorded endDate: 2025-11-13T00:30:00.000Z (day of week: Thu)
+Checkpoint target (recordedEnd - 3h): 2025-11-12T21:30:00.000Z
+Price trajectory (YES=Grizzlies price), sampled ~hourly, T-30h to T+8h relative to recorded endDate:
+  2025-11-11T18:30:21.000Z (T-30.0h)  Grizzlies=0.355
+  2025-11-11T19:30:07.000Z (T-29.0h)  Grizzlies=0.355
+  2025-11-11T20:30:06.000Z (T-28.0h)  Grizzlies=0.365
+  2025-11-11T21:30:21.000Z (T-27.0h)  Grizzlies=0.340
+  2025-11-11T22:30:07.000Z (T-26.0h)  Grizzlies=0.310
+  2025-11-11T23:30:08.000Z (T-25.0h)  Grizzlies=0.305
+  2025-11-12T00:30:06.000Z (T-24.0h)  Grizzlies=0.315
+  2025-11-12T01:30:08.000Z (T-23.0h)  Grizzlies=0.315
+  2025-11-12T02:30:07.000Z (T-22.0h)  Grizzlies=0.305
+  2025-11-12T03:30:07.000Z (T-21.0h)  Grizzlies=0.310
+  2025-11-12T04:30:07.000Z (T-20.0h)  Grizzlies=0.305
+  2025-11-12T05:30:08.000Z (T-19.0h)  Grizzlies=0.305
+  2025-11-12T06:30:21.000Z (T-18.0h)  Grizzlies=0.305
+  2025-11-12T07:30:07.000Z (T-17.0h)  Grizzlies=0.305
+  2025-11-12T08:30:06.000Z (T-16.0h)  Grizzlies=0.295
+  2025-11-12T09:30:06.000Z (T-15.0h)  Grizzlies=0.295
+  2025-11-12T10:30:07.000Z (T-14.0h)  Grizzlies=0.295
+  2025-11-12T11:30:07.000Z (T-13.0h)  Grizzlies=0.295
+  2025-11-12T12:30:06.000Z (T-12.0h)  Grizzlies=0.295
+  2025-11-12T13:30:07.000Z (T-11.0h)  Grizzlies=0.295
+  2025-11-12T14:30:07.000Z (T-10.0h)  Grizzlies=0.300
+  2025-11-12T15:30:07.000Z (T-9.0h)  Grizzlies=0.295
+  2025-11-12T16:30:07.000Z (T-8.0h)  Grizzlies=0.295
+  2025-11-12T17:30:07.000Z (T-7.0h)  Grizzlies=0.305
+  2025-11-12T18:30:07.000Z (T-6.0h)  Grizzlies=0.285
+  2025-11-12T19:30:07.000Z (T-5.0h)  Grizzlies=0.265
+  2025-11-12T20:30:08.000Z (T-4.0h)  Grizzlies=0.265
+  2025-11-12T21:30:07.000Z (T-3.0h)  Grizzlies=0.265  <== CHECKPOINT WINDOW
+  2025-11-12T22:30:08.000Z (T-2.0h)  Grizzlies=0.265
+  2025-11-12T23:30:07.000Z (T-1.0h)  Grizzlies=0.265
+  2025-11-13T00:30:07.000Z (T+0.0h)  Grizzlies=0.265
+  2025-11-13T01:30:07.000Z (T+1.0h)  Grizzlies=0.115
+  2025-11-13T02:30:06.000Z (T+2.0h)  Grizzlies=0.001
+  2025-11-13T03:30:22.000Z (T+3.0h)  Grizzlies=0.001
+  2025-11-13T04:30:07.000Z (T+4.0h)  Grizzlies=0.001
+Inferred settle time (price locks >0.97/<0.03 and stays): 2025-11-13T02:00:06.000Z (T1.5h rel. to recorded end)
+Checkpoint's real price-history value: 0.265
+
+=== nba-ind-cle-2025-11-21 ===
+Pacers (YES) vs Cavaliers (NO). Winner: Cavaliers. Recorded endDate: 2025-11-22T00:00:00.000Z (day of week: Sat)
+Checkpoint target (recordedEnd - 3h): 2025-11-21T21:00:00.000Z
+Price trajectory (YES=Pacers price), sampled ~hourly, T-30h to T+8h relative to recorded endDate:
+  2025-11-20T18:00:17.000Z (T-30.0h)  Pacers=0.120
+  2025-11-20T19:00:12.000Z (T-29.0h)  Pacers=0.135
+  2025-11-20T20:00:14.000Z (T-28.0h)  Pacers=0.115
+  2025-11-20T21:00:18.000Z (T-27.0h)  Pacers=0.140
+  2025-11-20T22:00:28.000Z (T-26.0h)  Pacers=0.125
+  2025-11-20T23:00:13.000Z (T-25.0h)  Pacers=0.125
+  2025-11-21T00:00:25.000Z (T-24.0h)  Pacers=0.125
+  2025-11-21T01:00:12.000Z (T-23.0h)  Pacers=0.135
+  2025-11-21T02:00:12.000Z (T-22.0h)  Pacers=0.125
+  2025-11-21T03:00:15.000Z (T-21.0h)  Pacers=0.125
+  2025-11-21T04:00:26.000Z (T-20.0h)  Pacers=0.125
+  2025-11-21T05:00:18.000Z (T-19.0h)  Pacers=0.120
+  2025-11-21T06:00:15.000Z (T-18.0h)  Pacers=0.115
+  2025-11-21T07:00:13.000Z (T-17.0h)  Pacers=0.115
+  2025-11-21T08:00:12.000Z (T-16.0h)  Pacers=0.135
+  2025-11-21T09:00:14.000Z (T-15.0h)  Pacers=0.125
+  2025-11-21T10:00:12.000Z (T-14.0h)  Pacers=0.125
+  2025-11-21T11:00:15.000Z (T-13.0h)  Pacers=0.125
+  2025-11-21T12:00:16.000Z (T-12.0h)  Pacers=0.125
+  2025-11-21T13:00:26.000Z (T-11.0h)  Pacers=0.125
+  2025-11-21T14:00:15.000Z (T-10.0h)  Pacers=0.125
+  2025-11-21T15:00:15.000Z (T-9.0h)  Pacers=0.125
+  2025-11-21T16:00:14.000Z (T-8.0h)  Pacers=0.125
+  2025-11-21T17:00:29.000Z (T-7.0h)  Pacers=0.125
+  2025-11-21T18:00:15.000Z (T-6.0h)  Pacers=0.125
+  2025-11-21T19:00:13.000Z (T-5.0h)  Pacers=0.125
+  2025-11-21T20:00:14.000Z (T-4.0h)  Pacers=0.125
+  2025-11-21T21:00:15.000Z (T-3.0h)  Pacers=0.125  <== CHECKPOINT WINDOW
+  2025-11-21T22:00:13.000Z (T-2.0h)  Pacers=0.115
+  2025-11-21T23:00:19.000Z (T-1.0h)  Pacers=0.105
+  2025-11-22T00:00:16.000Z (T+0.0h)  Pacers=0.130
+  2025-11-22T01:00:13.000Z (T+1.0h)  Pacers=0.145
+  2025-11-22T02:00:12.000Z (T+2.0h)  Pacers=0.025
+  2025-11-22T03:00:14.000Z (T+3.0h)  Pacers=0.001
+  2025-11-22T04:00:28.000Z (T+4.0h)  Pacers=0.001
+Inferred settle time (price locks >0.97/<0.03 and stays): 2025-11-22T02:00:12.000Z (T2.0h rel. to recorded end)
+Checkpoint's real price-history value: 0.125
+
+=== nba-was-phi-2025-12-02 ===
+Wizards (YES) vs 76ers (NO). Winner: 76ers. Recorded endDate: 2025-12-03T00:00:00.000Z (day of week: Wed)
+Checkpoint target (recordedEnd - 3h): 2025-12-02T21:00:00.000Z
+Price trajectory (YES=Wizards price), sampled ~hourly, T-30h to T+8h relative to recorded endDate:
+  2025-12-01T18:00:31.000Z (T-30.0h)  Wizards=0.150
+  2025-12-01T19:00:19.000Z (T-29.0h)  Wizards=0.150
+  2025-12-01T20:00:19.000Z (T-28.0h)  Wizards=0.150
+  2025-12-01T21:00:20.000Z (T-27.0h)  Wizards=0.150
+  2025-12-01T22:00:19.000Z (T-26.0h)  Wizards=0.150
+  2025-12-01T23:00:19.000Z (T-25.0h)  Wizards=0.175
+  2025-12-02T00:00:12.000Z (T-24.0h)  Wizards=0.155
+  2025-12-02T01:00:13.000Z (T-23.0h)  Wizards=0.150
+  2025-12-02T02:00:14.000Z (T-22.0h)  Wizards=0.140
+  2025-12-02T03:00:16.000Z (T-21.0h)  Wizards=0.125
+  2025-12-02T04:00:17.000Z (T-20.0h)  Wizards=0.135
+  2025-12-02T05:00:16.000Z (T-19.0h)  Wizards=0.135
+  2025-12-02T06:00:18.000Z (T-18.0h)  Wizards=0.145
+  2025-12-02T07:00:18.000Z (T-17.0h)  Wizards=0.145
+  2025-12-02T08:00:16.000Z (T-16.0h)  Wizards=0.145
+  2025-12-02T09:00:18.000Z (T-15.0h)  Wizards=0.155
+  2025-12-02T10:00:17.000Z (T-14.0h)  Wizards=0.155
+  2025-12-02T11:00:18.000Z (T-13.0h)  Wizards=0.155
+  2025-12-02T12:00:21.000Z (T-12.0h)  Wizards=0.145
+  2025-12-02T13:00:17.000Z (T-11.0h)  Wizards=0.145
+  2025-12-02T14:00:18.000Z (T-10.0h)  Wizards=0.145
+  2025-12-02T15:00:18.000Z (T-9.0h)  Wizards=0.145
+  2025-12-02T16:00:09.000Z (T-8.0h)  Wizards=0.135
+  2025-12-02T17:00:20.000Z (T-7.0h)  Wizards=0.145
+  2025-12-02T18:00:19.000Z (T-6.0h)  Wizards=0.135
+  2025-12-02T19:00:19.000Z (T-5.0h)  Wizards=0.135
+  2025-12-02T20:00:18.000Z (T-4.0h)  Wizards=0.135
+  2025-12-02T21:00:20.000Z (T-3.0h)  Wizards=0.135  <== CHECKPOINT WINDOW
+  2025-12-02T22:00:18.000Z (T-2.0h)  Wizards=0.135
+  2025-12-02T23:00:19.000Z (T-1.0h)  Wizards=0.135
+  2025-12-03T00:00:18.000Z (T+0.0h)  Wizards=0.135
+  2025-12-03T01:00:16.000Z (T+1.0h)  Wizards=0.035
+  2025-12-03T02:00:18.000Z (T+2.0h)  Wizards=0.001
+  2025-12-03T03:00:19.000Z (T+3.0h)  Wizards=0.001
+  2025-12-03T04:00:19.000Z (T+4.0h)  Wizards=0.001
+Inferred settle time (price locks >0.97/<0.03 and stays): 2025-12-03T01:45:08.000Z (T1.8h rel. to recorded end)
+Checkpoint's real price-history value: 0.135
+
+=== nba-por-okc-2025-12-31 ===
+Trail Blazers (YES) vs Thunder (NO). Winner: Thunder. Recorded endDate: 2026-01-01T01:00:00.000Z (day of week: Thu)
+Checkpoint target (recordedEnd - 3h): 2025-12-31T22:00:00.000Z
+Price trajectory (YES=Trail Blazers price), sampled ~hourly, T-30h to T+8h relative to recorded endDate:
+  2025-12-30T19:00:09.000Z (T-30.0h)  Trail Blazers=0.115
+  2025-12-30T20:00:14.000Z (T-29.0h)  Trail Blazers=0.115
+  2025-12-30T21:00:09.000Z (T-28.0h)  Trail Blazers=0.115
+  2025-12-30T22:00:10.000Z (T-27.0h)  Trail Blazers=0.115
+  2025-12-30T23:00:10.000Z (T-26.0h)  Trail Blazers=0.110
+  2025-12-31T00:00:10.000Z (T-25.0h)  Trail Blazers=0.110
+  2025-12-31T01:00:10.000Z (T-24.0h)  Trail Blazers=0.115
+  2025-12-31T02:00:09.000Z (T-23.0h)  Trail Blazers=0.105
+  2025-12-31T03:00:11.000Z (T-22.0h)  Trail Blazers=0.105
+  2025-12-31T04:00:14.000Z (T-21.0h)  Trail Blazers=0.105
+  2025-12-31T05:00:09.000Z (T-20.0h)  Trail Blazers=0.105
+  2025-12-31T06:00:09.000Z (T-19.0h)  Trail Blazers=0.105
+  2025-12-31T07:00:09.000Z (T-18.0h)  Trail Blazers=0.105
+  2025-12-31T08:00:10.000Z (T-17.0h)  Trail Blazers=0.105
+  2025-12-31T09:00:10.000Z (T-16.0h)  Trail Blazers=0.105
+  2025-12-31T10:00:10.000Z (T-15.0h)  Trail Blazers=0.115
+  2025-12-31T11:00:20.000Z (T-14.0h)  Trail Blazers=0.115
+  2025-12-31T12:00:10.000Z (T-13.0h)  Trail Blazers=0.115
+  2025-12-31T13:00:08.000Z (T-12.0h)  Trail Blazers=0.115
+  2025-12-31T14:00:09.000Z (T-11.0h)  Trail Blazers=0.115
+  2025-12-31T15:00:09.000Z (T-10.0h)  Trail Blazers=0.115
+  2025-12-31T16:00:11.000Z (T-9.0h)  Trail Blazers=0.115
+  2025-12-31T17:00:12.000Z (T-8.0h)  Trail Blazers=0.115
+  2025-12-31T18:00:11.000Z (T-7.0h)  Trail Blazers=0.115
+  2025-12-31T19:00:30.000Z (T-6.0h)  Trail Blazers=0.115
+  2025-12-31T20:00:10.000Z (T-5.0h)  Trail Blazers=0.115
+  2025-12-31T21:00:11.000Z (T-4.0h)  Trail Blazers=0.115
+  2025-12-31T22:00:10.000Z (T-3.0h)  Trail Blazers=0.115  <== CHECKPOINT WINDOW
+  2025-12-31T23:00:10.000Z (T-2.0h)  Trail Blazers=0.115
+  2026-01-01T00:00:11.000Z (T-1.0h)  Trail Blazers=0.115
+  2026-01-01T01:00:09.000Z (T+0.0h)  Trail Blazers=0.115
+  2026-01-01T02:00:09.000Z (T+1.0h)  Trail Blazers=0.065
+  2026-01-01T03:00:09.000Z (T+2.0h)  Trail Blazers=0.002
+  2026-01-01T04:00:25.000Z (T+3.0h)  Trail Blazers=0.001
+  2026-01-01T05:00:09.000Z (T+4.0h)  Trail Blazers=0.001
+Inferred settle time (price locks >0.97/<0.03 and stays): 2026-01-01T02:15:08.000Z (T1.3h rel. to recorded end)
+Checkpoint's real price-history value: 0.115
+
+=== nba-mil-bos-2026-02-01 ===
+Bucks (YES) vs Celtics (NO). Winner: Celtics. Recorded endDate: 2026-02-01T20:30:00.000Z (day of week: Sun)
+Checkpoint target (recordedEnd - 3h): 2026-02-01T17:30:00.000Z
+Price trajectory (YES=Bucks price), sampled ~hourly, T-30h to T+8h relative to recorded endDate:
+  2026-01-31T14:30:15.000Z (T-30.0h)  Bucks=0.200
+  2026-01-31T15:30:15.000Z (T-29.0h)  Bucks=0.190
+  2026-01-31T16:30:15.000Z (T-28.0h)  Bucks=0.205
+  2026-01-31T17:30:16.000Z (T-27.0h)  Bucks=0.180
+  2026-01-31T18:30:15.000Z (T-26.0h)  Bucks=0.185
+  2026-01-31T19:30:15.000Z (T-25.0h)  Bucks=0.190
+  2026-01-31T20:30:15.000Z (T-24.0h)  Bucks=0.185
+  2026-01-31T21:30:16.000Z (T-23.0h)  Bucks=0.185
+  2026-01-31T22:30:15.000Z (T-22.0h)  Bucks=0.175
+  2026-01-31T23:30:15.000Z (T-21.0h)  Bucks=0.160
+  2026-02-01T00:30:14.000Z (T-20.0h)  Bucks=0.150
+  2026-02-01T01:30:14.000Z (T-19.0h)  Bucks=0.145
+  2026-02-01T02:30:29.000Z (T-18.0h)  Bucks=0.145
+  2026-02-01T03:30:18.000Z (T-17.0h)  Bucks=0.145
+  2026-02-01T04:30:14.000Z (T-16.0h)  Bucks=0.145
+  2026-02-01T05:30:18.000Z (T-15.0h)  Bucks=0.145
+  2026-02-01T06:30:13.000Z (T-14.0h)  Bucks=0.145
+  2026-02-01T07:30:14.000Z (T-13.0h)  Bucks=0.145
+  2026-02-01T08:30:29.000Z (T-12.0h)  Bucks=0.155
+  2026-02-01T09:30:14.000Z (T-11.0h)  Bucks=0.155
+  2026-02-01T10:30:13.000Z (T-10.0h)  Bucks=0.155
+  2026-02-01T11:30:14.000Z (T-9.0h)  Bucks=0.165
+  2026-02-01T12:30:13.000Z (T-8.0h)  Bucks=0.155
+  2026-02-01T13:30:14.000Z (T-7.0h)  Bucks=0.155
+  2026-02-01T14:30:14.000Z (T-6.0h)  Bucks=0.155
+  2026-02-01T15:30:15.000Z (T-5.0h)  Bucks=0.145
+  2026-02-01T16:30:15.000Z (T-4.0h)  Bucks=0.160
+  2026-02-01T17:30:14.000Z (T-3.0h)  Bucks=0.165  <== CHECKPOINT WINDOW
+  2026-02-01T18:30:15.000Z (T-2.0h)  Bucks=0.155
+  2026-02-01T19:30:15.000Z (T-1.0h)  Bucks=0.155
+  2026-02-01T20:30:14.000Z (T+0.0h)  Bucks=0.165
+  2026-02-01T21:30:15.000Z (T+1.0h)  Bucks=0.145
+  2026-02-01T22:30:15.000Z (T+2.0h)  Bucks=0.018
+  2026-02-01T23:30:14.000Z (T+3.0h)  Bucks=0.001
+  2026-02-02T00:30:14.000Z (T+4.0h)  Bucks=0.001
+  2026-02-02T01:30:15.000Z (T+5.0h)  Bucks=0.001
+Inferred settle time (price locks >0.97/<0.03 and stays): 2026-02-01T22:00:15.000Z (T1.5h rel. to recorded end)
+Checkpoint's real price-history value: 0.155
+
+=== nba-sac-lal-2026-03-01 ===
+Kings (YES) vs Lakers (NO). Winner: Lakers. Recorded endDate: 2026-03-02T02:30:00.000Z (day of week: Mon)
+Checkpoint target (recordedEnd - 3h): 2026-03-01T23:30:00.000Z
+Price trajectory (YES=Kings price), sampled ~hourly, T-30h to T+8h relative to recorded endDate:
+  2026-02-28T20:30:40.000Z (T-30.0h)  Kings=0.175
+  2026-02-28T21:30:42.000Z (T-29.0h)  Kings=0.170
+  2026-02-28T22:30:27.000Z (T-28.0h)  Kings=0.170
+  2026-02-28T23:30:25.000Z (T-27.0h)  Kings=0.170
+  2026-03-01T00:30:40.000Z (T-26.0h)  Kings=0.170
+  2026-03-01T01:30:27.000Z (T-25.0h)  Kings=0.165
+  2026-03-01T02:30:26.000Z (T-24.0h)  Kings=0.170
+  2026-03-01T03:30:29.000Z (T-23.0h)  Kings=0.160
+  2026-03-01T04:30:26.000Z (T-22.0h)  Kings=0.145
+  2026-03-01T05:30:27.000Z (T-21.0h)  Kings=0.145
+  2026-03-01T06:30:25.000Z (T-20.0h)  Kings=0.135
+  2026-03-01T07:30:29.000Z (T-19.0h)  Kings=0.145
+  2026-03-01T08:30:26.000Z (T-18.0h)  Kings=0.145
+  2026-03-01T09:30:26.000Z (T-17.0h)  Kings=0.145
+  2026-03-01T10:30:25.000Z (T-16.0h)  Kings=0.145
+  2026-03-01T11:30:39.000Z (T-15.0h)  Kings=0.135
+  2026-03-01T12:30:34.000Z (T-14.0h)  Kings=0.135
+  2026-03-01T13:30:26.000Z (T-13.0h)  Kings=0.135
+  2026-03-01T14:30:38.000Z (T-12.0h)  Kings=0.135
+  2026-03-01T15:30:35.000Z (T-11.0h)  Kings=0.135
+  2026-03-01T16:30:28.000Z (T-10.0h)  Kings=0.135
+  2026-03-01T17:30:28.000Z (T-9.0h)  Kings=0.135
+  2026-03-01T18:30:27.000Z (T-8.0h)  Kings=0.135
+  2026-03-01T19:30:39.000Z (T-7.0h)  Kings=0.135
+  2026-03-01T20:30:27.000Z (T-6.0h)  Kings=0.135
+  2026-03-01T21:30:42.000Z (T-5.0h)  Kings=0.155
+  2026-03-01T22:30:25.000Z (T-4.0h)  Kings=0.155
+  2026-03-01T23:30:24.000Z (T-3.0h)  Kings=0.155  <== CHECKPOINT WINDOW
+  2026-03-02T00:30:26.000Z (T-2.0h)  Kings=0.145
+  2026-03-02T01:30:27.000Z (T-1.0h)  Kings=0.155
+  2026-03-02T02:30:25.000Z (T+0.0h)  Kings=0.135
+  2026-03-02T03:30:24.000Z (T+1.0h)  Kings=0.021
+  2026-03-02T04:30:24.000Z (T+2.0h)  Kings=0.002
+  2026-03-02T05:30:33.000Z (T+3.0h)  Kings=0.001
+  2026-03-02T06:30:24.000Z (T+4.0h)  Kings=0.001
+Inferred settle time (price locks >0.97/<0.03 and stays): 2026-03-02T03:15:21.000Z (T0.8h rel. to recorded end)
+Checkpoint's real price-history value: 0.155
+
+=== nba-mil-hou-2026-04-01 ===
+Bucks (YES) vs Rockets (NO). Winner: Rockets. Recorded endDate: 2026-04-02T00:00:00.000Z (day of week: Thu)
+Checkpoint target (recordedEnd - 3h): 2026-04-01T21:00:00.000Z
+Price trajectory (YES=Bucks price), sampled ~hourly, T-30h to T+8h relative to recorded endDate:
+  2026-03-31T18:15:58.000Z (T-29.7h)  Bucks=0.095
+  2026-03-31T19:15:04.000Z (T-28.7h)  Bucks=0.095
+  2026-03-31T20:15:56.000Z (T-27.7h)  Bucks=0.095
+  2026-03-31T21:15:55.000Z (T-26.7h)  Bucks=0.095
+  2026-03-31T22:15:49.000Z (T-25.7h)  Bucks=0.095
+  2026-03-31T23:15:51.000Z (T-24.7h)  Bucks=0.095
+  2026-04-01T00:15:45.000Z (T-23.7h)  Bucks=0.095
+  2026-04-01T01:00:49.000Z (T-23.0h)  Bucks=0.095
+  2026-04-01T02:00:52.000Z (T-22.0h)  Bucks=0.095
+  2026-04-01T03:00:58.000Z (T-21.0h)  Bucks=0.075
+  2026-04-01T04:15:47.000Z (T-19.7h)  Bucks=0.075
+  2026-04-01T05:00:49.000Z (T-19.0h)  Bucks=0.075
+  2026-04-01T06:00:53.000Z (T-18.0h)  Bucks=0.075
+  2026-04-01T07:00:59.000Z (T-17.0h)  Bucks=0.075
+  2026-04-01T08:00:57.000Z (T-16.0h)  Bucks=0.075
+  2026-04-01T09:00:57.000Z (T-15.0h)  Bucks=0.065
+  2026-04-01T10:00:49.000Z (T-14.0h)  Bucks=0.065
+  2026-04-01T11:00:48.000Z (T-13.0h)  Bucks=0.065
+  2026-04-01T12:15:45.000Z (T-11.7h)  Bucks=0.065
+  2026-04-01T13:00:49.000Z (T-11.0h)  Bucks=0.065
+  2026-04-01T14:00:55.000Z (T-10.0h)  Bucks=0.065
+  2026-04-01T15:00:59.000Z (T-9.0h)  Bucks=0.065
+  2026-04-01T16:15:46.000Z (T-7.7h)  Bucks=0.065
+  2026-04-01T17:15:52.000Z (T-6.7h)  Bucks=0.065
+  2026-04-01T18:00:58.000Z (T-6.0h)  Bucks=0.075
+  2026-04-01T19:15:49.000Z (T-4.7h)  Bucks=0.065
+  2026-04-01T20:15:46.000Z (T-3.7h)  Bucks=0.065
+  2026-04-01T21:00:21.000Z (T-3.0h)  Bucks=0.065  <== CHECKPOINT WINDOW
+  2026-04-01T22:00:53.000Z (T-2.0h)  Bucks=0.065
+  2026-04-01T23:15:54.000Z (T-0.7h)  Bucks=0.055
+  2026-04-02T00:15:56.000Z (T+0.3h)  Bucks=0.045
+  2026-04-02T01:15:45.000Z (T+1.3h)  Bucks=0.029
+  2026-04-02T02:00:54.000Z (T+2.0h)  Bucks=0.028
+  2026-04-02T03:15:48.000Z (T+3.3h)  Bucks=0.001
+  2026-04-02T04:00:54.000Z (T+4.0h)  Bucks=0.001
+  2026-04-02T05:00:53.000Z (T+5.0h)  Bucks=0.001
+Inferred settle time (price locks >0.97/<0.03 and stays): 2026-04-02T01:15:45.000Z (T1.3h rel. to recorded end)
+Checkpoint's real price-history value: 0.065
+
+=== nba-mil-phi-2026-04-12 ===
+Bucks (YES) vs 76ers (NO). Winner: 76ers. Recorded endDate: 2026-04-12T22:00:00.000Z (day of week: Sun)
+Checkpoint target (recordedEnd - 3h): 2026-04-12T19:00:00.000Z
+Price trajectory (YES=Bucks price), sampled ~hourly, T-30h to T+8h relative to recorded endDate:
+  2026-04-11T16:00:54.000Z (T-30.0h)  Bucks=0.080
+  2026-04-11T17:00:59.000Z (T-29.0h)  Bucks=0.085
+  2026-04-11T18:15:47.000Z (T-27.7h)  Bucks=0.090
+  2026-04-11T19:00:56.000Z (T-27.0h)  Bucks=0.095
+  2026-04-11T20:15:51.000Z (T-25.7h)  Bucks=0.105
+  2026-04-11T21:15:43.000Z (T-24.7h)  Bucks=0.100
+  2026-04-11T22:15:42.000Z (T-23.7h)  Bucks=0.105
+  2026-04-11T23:00:57.000Z (T-23.0h)  Bucks=0.105
+  2026-04-12T00:15:43.000Z (T-21.7h)  Bucks=0.085
+  2026-04-12T01:00:49.000Z (T-21.0h)  Bucks=0.085
+  2026-04-12T02:00:53.000Z (T-20.0h)  Bucks=0.085
+  2026-04-12T03:00:55.000Z (T-19.0h)  Bucks=0.095
+  2026-04-12T04:00:52.000Z (T-18.0h)  Bucks=0.095
+  2026-04-12T05:00:54.000Z (T-17.0h)  Bucks=0.095
+  2026-04-12T06:15:41.000Z (T-15.7h)  Bucks=0.095
+  2026-04-12T07:00:50.000Z (T-15.0h)  Bucks=0.095
+  2026-04-12T08:00:53.000Z (T-14.0h)  Bucks=0.095
+  2026-04-12T09:15:43.000Z (T-12.7h)  Bucks=0.095
+  2026-04-12T10:00:54.000Z (T-12.0h)  Bucks=0.095
+  2026-04-12T11:00:49.000Z (T-11.0h)  Bucks=0.085
+  2026-04-12T12:15:46.000Z (T-9.7h)  Bucks=0.085
+  2026-04-12T13:00:57.000Z (T-9.0h)  Bucks=0.085
+  2026-04-12T14:00:57.000Z (T-8.0h)  Bucks=0.085
+  2026-04-12T15:15:44.000Z (T-6.7h)  Bucks=0.085
+  2026-04-12T16:15:45.000Z (T-5.7h)  Bucks=0.085
+  2026-04-12T17:00:59.000Z (T-5.0h)  Bucks=0.085
+  2026-04-12T18:15:44.000Z (T-3.7h)  Bucks=0.085
+  2026-04-12T19:00:56.000Z (T-3.0h)  Bucks=0.085  <== CHECKPOINT WINDOW
+  2026-04-12T20:00:55.000Z (T-2.0h)  Bucks=0.085
+  2026-04-12T21:15:43.000Z (T-0.7h)  Bucks=0.085
+  2026-04-12T22:00:58.000Z (T+0.0h)  Bucks=0.075
+  2026-04-12T23:00:57.000Z (T+1.0h)  Bucks=0.085
+  2026-04-13T00:15:56.000Z (T+2.3h)  Bucks=0.001
+  2026-04-13T01:00:47.000Z (T+3.0h)  Bucks=0.001
+  2026-04-13T02:00:58.000Z (T+4.0h)  Bucks=0.001
+Inferred settle time (price locks >0.97/<0.03 and stays): 2026-04-12T23:45:49.000Z (T1.8h rel. to recorded end)
+Checkpoint's real price-history value: 0.085
+
+Saved forensicNBAAudit2_results.json

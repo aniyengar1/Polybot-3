@@ -1,0 +1,53 @@
+Target events across nfl, nba, nhl, cfb, mlb, cbb: 9274
+By sport: { nfl: 199, nba: 1288, cfb: 56, nhl: 1005, cbb: 4656, mlb: 2070 }
+  200/9274 events, 143 mapped, 380 submarket records so far
+  400/9274 events, 313 mapped, 766 submarket records so far
+  600/9274 events, 513 mapped, 1107 submarket records so far
+  800/9274 events, 701 mapped, 1493 submarket records so far
+  1000/9274 events, 863 mapped, 1851 submarket records so far
+  1200/9274 events, 1049 mapped, 2320 submarket records so far
+  1400/9274 events, 1216 mapped, 2756 submarket records so far
+  1600/9274 events, 1397 mapped, 3143 submarket records so far
+  1800/9274 events, 1581 mapped, 3595 submarket records so far
+  2000/9274 events, 1757 mapped, 4074 submarket records so far
+  2200/9274 events, 1943 mapped, 4612 submarket records so far
+  2400/9274 events, 2126 mapped, 5123 submarket records so far
+  2600/9274 events, 2308 mapped, 5566 submarket records so far
+  2800/9274 events, 2496 mapped, 6125 submarket records so far
+  3000/9274 events, 2680 mapped, 6531 submarket records so far
+  3200/9274 events, 2868 mapped, 6906 submarket records so far
+  3400/9274 events, 3046 mapped, 7294 submarket records so far
+  3600/9274 events, 3233 mapped, 7694 submarket records so far
+  3800/9274 events, 3413 mapped, 8074 submarket records so far
+  4000/9274 events, 3596 mapped, 8433 submarket records so far
+  4200/9274 events, 3790 mapped, 8840 submarket records so far
+  4400/9274 events, 3986 mapped, 9316 submarket records so far
+  4600/9274 events, 4186 mapped, 9874 submarket records so far
+  4800/9274 events, 4380 mapped, 10410 submarket records so far
+  5000/9274 events, 4563 mapped, 10952 submarket records so far
+  5200/9274 events, 4752 mapped, 11515 submarket records so far
+  5400/9274 events, 4937 mapped, 12060 submarket records so far
+  5600/9274 events, 5117 mapped, 12592 submarket records so far
+  5800/9274 events, 5281 mapped, 13082 submarket records so far
+  6000/9274 events, 5459 mapped, 13616 submarket records so far
+  6200/9274 events, 5618 mapped, 14093 submarket records so far
+  6400/9274 events, 5777 mapped, 14544 submarket records so far
+  6600/9274 events, 5925 mapped, 14988 submarket records so far
+  6800/9274 events, 6083 mapped, 15460 submarket records so far
+  7000/9274 events, 6249 mapped, 15950 submarket records so far
+  7200/9274 events, 6395 mapped, 16388 submarket records so far
+  7400/9274 events, 6564 mapped, 16893 submarket records so far
+  7600/9274 events, 6730 mapped, 17388 submarket records so far
+  7800/9274 events, 6904 mapped, 17910 submarket records so far
+  8000/9274 events, 7063 mapped, 18384 submarket records so far
+  8200/9274 events, 7196 mapped, 18778 submarket records so far
+  8400/9274 events, 7345 mapped, 19214 submarket records so far
+  8600/9274 events, 7515 mapped, 19724 submarket records so far
+  8800/9274 events, 7677 mapped, 20208 submarket records so far
+  9000/9274 events, 7847 mapped, 20718 submarket records so far
+  9200/9274 events, 8014 mapped, 21215 submarket records so far
+  9274/9274 events, 8077 mapped, 21404 submarket records so far
+
+Mapping rate: 8077/9274
+Total submarket records: 21404
+Saved usSportsLiquidityFiltered.json

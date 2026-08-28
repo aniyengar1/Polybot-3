@@ -1,0 +1,45 @@
+=== DEC2025: holdout (strict data before 2025-12-01T00:00:00.000Z) ===
+  nba moneyline h3 <=0.30 [side=NO]: holdout n=23 [THIN], pTrue=0.957, test-month opportunities=25
+  nhl moneyline h24 >=0.40: holdout n=0 -- NO PRE-PERIOD DATA, bucket skipped entirely for this month (not faked).
+  nhl spread h3 <=0.30: holdout n=0 -- NO PRE-PERIOD DATA, bucket skipped entirely for this month (not faked).
+  nhl total h24 >=0.40: holdout n=0 -- NO PRE-PERIOD DATA, bucket skipped entirely for this month (not faked).
+  mlb moneyline h24 0.30-0.40: holdout n=0 -- NO PRE-PERIOD DATA, bucket skipped entirely for this month (not faked).
+
+Fetched 25 fillable opportunities for DEC2025.
+
+--- DEC2025 EV/holdout-based ---
+Trades: 25 (20W/5L, 80.0% realized win rate) | skipped: 0
+End-of-month bankroll: $109.36 (return: 9.4%)
+Max drawdown: $0.09 (0.1% of peak $109.36)
+Bets/day: min=1, max=3, avg=1.79 (14 active days)
+Stake/trade: min=$1.94, max=$2.18, avg=$2.07
+--- DEC2025 REAL outcomes ---
+Trades: 25 (20W/5L, 80.0% realized win rate) | skipped: 0
+End-of-month bankroll: $98.71 (return: -1.3%)
+Max drawdown: $4.85 (4.8% of peak $100.45)
+Bets/day: min=1, max=3, avg=1.79 (14 active days)
+Stake/trade: min=$1.84, max=$2.01, avg=$1.93
+
+=== JAN2026: holdout (strict data before 2026-01-01T00:00:00.000Z) ===
+  nba moneyline h3 <=0.30 [side=NO]: holdout n=48, pTrue=0.875, test-month opportunities=15
+  nhl moneyline h24 >=0.40 [side=YES]: holdout n=92, pTrue=0.598, test-month opportunities=66
+  nhl spread h3 <=0.30 [side=NO]: holdout n=21 [THIN], pTrue=0.810, test-month opportunities=21
+  nhl total h24 >=0.40 [side=YES]: holdout n=15 [THIN], pTrue=0.667, test-month opportunities=23
+  mlb moneyline h24 0.30-0.40: holdout n=0 -- NO PRE-PERIOD DATA, bucket skipped entirely for this month (not faked).
+
+Fetched 115 fillable opportunities for JAN2026.
+
+--- JAN2026 EV/holdout-based ---
+Trades: 100 (69W/31L, 69.0% realized win rate) | skipped: 15
+End-of-month bankroll: $142.34 (return: 42.3%)
+Max drawdown: $0.36 (0.3% of peak $142.34)
+Bets/day: min=1, max=10, avg=3.57 (28 active days)
+Stake/trade: min=$1.19, max=$2.80, avg=$2.20
+--- JAN2026 REAL outcomes ---
+Trades: 100 (69W/31L, 69.0% realized win rate) | skipped: 15
+End-of-month bankroll: $141.54 (return: 41.5%)
+Max drawdown: $10.48 (9.9% of peak $141.54)
+Bets/day: min=1, max=10, avg=3.57 (28 active days)
+Stake/trade: min=$1.07, max=$2.72, avg=$2.04
+
+Saved walkForwardMonth_summary.json
