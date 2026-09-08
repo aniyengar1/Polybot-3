@@ -1,0 +1,10 @@
+{
+  "name": "kalshi-bot",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Kalshi KXGOLD15M/KXSILVER15M 15-minute band-strategy paper trading bot -- independent integration, own auth/DB/execution. No relation to sports-bot or polybot-v2 beyond shared architectural conventions (deliberately not shared code, see README).",
+  "dependencies": {
+    "better-sqlite3": "^11.9.1",
+    "commander": "^12.1.0"
+  }
+}

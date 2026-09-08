@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Bot Dashboard</title>
+<style>
+  :root {
+    --bg1: #0a0c1e; --bg2: #131a3d; --card: rgba(20, 25, 51, 0.72); --card-solid: #141933;
+    --border: rgba(255,255,255,0.08); --text: #eef1fb; --dim: #8f96b8; --dim2: #6b7295;
+    --blue: #5b8cff; --purple: #8b5cf6; --green: #34d399; --red: #f87171; --amber: #fbbf24;
+    --glow-blue: rgba(91,140,255,0.35); --glow-purple: rgba(139,92,246,0.30);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; min-height: 100%; }
+  body {
+    background:
+      radial-gradient(circle at 15% -10%, rgba(43,62,232,0.45) 0%, transparent 42%),
+      radial-gradient(circle at 95% 5%, rgba(139,62,232,0.35) 0%, transparent 38%),
+      radial-gradient(circle at 50% 110%, rgba(52,211,153,0.08) 0%, transparent 40%),
+      linear-gradient(180deg, var(--bg1) 0%, #05060f 100%);
+    background-attachment: fixed;
+    color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 15px;
+  }
+  header {
+    padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
+    position: sticky; top: 0; z-index: 20; backdrop-filter: blur(14px); background: rgba(8,10,26,0.55);
+    border-bottom: 1px solid var(--border);
+  }
+  header .brand { display: flex; align-items: center; gap: 10px; }
+  header .brand .mark { width: 30px; height: 30px; border-radius: 9px; background: linear-gradient(135deg, var(--blue), var(--purple)); box-shadow: 0 0 18px var(--glow-blue); }
+  header h1 { font-size: 17px; margin: 0; font-weight: 600; letter-spacing: 0.01em; }
+  header .right { display: flex; align-items: center; gap: 10px; }
+  #meta { font-size: 12px; color: var(--dim); }
+  #refreshBtn {
+    background: rgba(255,255,255,0.06); border: 1px solid var(--border); color: var(--text);
+    padding: 6px 12px; border-radius: 8px; font-size: 12px; cursor: pointer; transition: background 0.15s;
+  }
+  #refreshBtn:hover { background: rgba(255,255,255,0.12); }
+  main { padding: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; max-width: 1500px; margin: 0 auto; align-items: start; }
+  @media (max-width: 980px) { main { grid-template-columns: 1fr; padding: 12px; } }
+
+  .card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 18px;
+    backdrop-filter: blur(18px); box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+  }
+  .card-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+  .card-head h2 { margin: 0; font-size: 17px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+  .tag { font-size: 10.5px; padding: 2px 8px; border-radius: 20px; background: rgba(255,255,255,0.07); color: var(--dim); border: 1px solid var(--border); }
+
+  .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+  .dot.up { background: var(--green); box-shadow: 0 0 8px var(--green); }
+  .dot.down { background: var(--red); box-shadow: 0 0 8px var(--red); }
+  .healthline { font-size: 12px; color: var(--dim); margin: 6px 0 16px 0; display: flex; align-items: center; gap: 6px; }
+
+  .kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(96px, 1fr)); gap: 8px; margin-bottom: 16px; }
+  .kpi {
+    background: rgba(255,255,255,0.035); border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px;
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .kpi .v { font-size: 19px; font-weight: 700; letter-spacing: -0.01em; }
+  .kpi .l { font-size: 10.5px; color: var(--dim2); text-transform: uppercase; letter-spacing: 0.05em; }
+  .pos { color: var(--green); } .neg { color: var(--red); }
+
+  .gauge-wrap { display: flex; align-items: center; gap: 6px; }
+  .gauge-wrap svg { flex-shrink: 0; }
+  .gauge-num { font-size: 15px; font-weight: 700; }
+
+  .equity-card-inner { position: relative; margin-bottom: 16px; }
+  .equity-svg-wrap { position: relative; }
+  .equity-tooltip {
+    position: absolute; pointer-events: none; background: rgba(10,12,30,0.95); border: 1px solid var(--border);
+    border-radius: 8px; padding: 6px 10px; font-size: 11.5px; color: var(--text); white-space: nowrap;
+    transform: translate(-50%, -115%); opacity: 0; transition: opacity 0.1s; z-index: 5; box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  }
+  .equity-title { font-size: 12px; color: var(--dim); margin-bottom: 6px; display: flex; justify-content: space-between; }
+
+  .gate-wrap { margin-bottom: 16px; }
+  .gate-label { font-size: 12px; color: var(--dim); margin-bottom: 5px; display: flex; justify-content: space-between; }
+  .gate-bar { height: 9px; background: rgba(255,255,255,0.05); border-radius: 5px; overflow: hidden; border: 1px solid var(--border); }
+  .gate-fill { height: 100%; background: linear-gradient(90deg, var(--blue), var(--purple)); border-radius: 5px; }
+
+  .alert-banner {
+    background: linear-gradient(135deg, rgba(248,113,113,0.16), rgba(248,113,113,0.06)); border: 1px solid rgba(248,113,113,0.4);
+    color: #ffc9cd; border-radius: 12px; padding: 10px 12px; margin-bottom: 14px; font-size: 12.5px;
+  }
+  .alert-banner b { color: #ffdde0; }
+  .note { font-size: 12px; color: var(--dim2); font-style: italic; padding: 4px 0 12px 0; }
+
+  .tabs { display: flex; gap: 6px; margin-bottom: 12px; }
+  .tab-btn {
+    background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: var(--dim); padding: 6px 14px;
+    border-radius: 20px; font-size: 12.5px; cursor: pointer; transition: all 0.15s;
+  }
+  .tab-btn.active { background: linear-gradient(135deg, var(--blue), var(--purple)); color: white; border-color: transparent; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  .bucket-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 10px; }
+  .bucket-card { background: rgba(255,255,255,0.035); border: 1px solid var(--border); border-radius: 12px; padding: 12px; cursor: pointer; transition: border-color 0.15s, background 0.15s; }
+  .bucket-card:hover { border-color: var(--blue); background: rgba(91,140,255,0.07); }
+  .bucket-card .bname { font-size: 12.5px; font-weight: 600; margin-bottom: 8px; line-height: 1.3; min-height: 32px; }
+  .bucket-card .brow { display: flex; align-items: center; justify-content: space-between; }
+  .bucket-card .compare { margin-top: 8px; font-size: 10.5px; color: var(--dim2); }
+  .compare-bars { display: flex; gap: 3px; align-items: flex-end; height: 26px; margin-top: 4px; }
+  .compare-bars .bar { width: 14px; border-radius: 3px 3px 0 0; position: relative; }
+  .compare-bars .bar.live { background: var(--blue); }
+  .compare-bars .bar.baseline { background: var(--dim2); opacity: 0.6; }
+  .badge-logonly { font-size: 9.5px; padding: 1px 6px; border-radius: 4px; border: 1px solid var(--amber); color: var(--amber); margin-left: 4px; }
+  .badge-probation { font-size: 9.5px; padding: 1px 6px; border-radius: 4px; border: 1px solid var(--purple); color: #c4b5fd; margin-left: 4px; }
+  .badge-retired { font-size: 9.5px; padding: 1px 6px; border-radius: 4px; border: 1px solid var(--dim2); color: var(--dim2); margin-left: 4px; }
+  .badge-review { font-size: 9.5px; padding: 1px 6px; border-radius: 4px; border: 1px solid var(--red); color: var(--red); }
+
+  .modal-backdrop { position: fixed; inset: 0; background: rgba(4,5,14,0.72); backdrop-filter: blur(3px); z-index: 50; display: flex; align-items: center; justify-content: center; padding: 20px; }
+  .modal { background: var(--card-solid); border: 1px solid var(--border); border-radius: 18px; padding: 20px; max-width: 780px; width: 100%; max-height: 82vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+  .modal-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 4px; }
+  .modal-head h3 { margin: 0; font-size: 15.5px; font-weight: 600; }
+  .modal-close { background: rgba(255,255,255,0.06); border: 1px solid var(--border); color: var(--text); width: 28px; height: 28px; flex-shrink: 0; border-radius: 8px; cursor: pointer; font-size: 15px; line-height: 1; }
+  .modal-close:hover { background: rgba(255,255,255,0.14); }
+  .modal-sub { font-size: 11.5px; color: var(--dim); margin: 4px 0 12px 0; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+  th { color: var(--dim); font-weight: 500; position: sticky; top: 0; background: var(--card-solid); cursor: pointer; user-select: none; }
+  th:hover { color: var(--text); }
+  th .arrow { font-size: 9px; margin-left: 3px; opacity: 0.7; }
+  .tablewrap { overflow-x: auto; max-height: 320px; overflow-y: auto; border: 1px solid var(--border); border-radius: 10px; }
+  tbody tr:hover { background: rgba(255,255,255,0.03); }
+  .mono { font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><div class="mark"></div><h1>Bot Performance Dashboard</h1></div>
+  <div class="right">
+    <span id="meta">loading&hellip;</span>
+    <button id="refreshBtn">Refresh now</button>
+  </div>
+</header>
+<main id="app">
+  <div class="card"><div class="card-head"><h2>Loading kalshi-bot&hellip;</h2></div></div>
+  <div class="card"><div class="card-head"><h2>Loading sports-bot&hellip;</h2></div></div>
+</main>
+<div id="modalRoot"></div>
+<script>
+const REFRESH_MS = 30000;
+const uiState = {
+  tabs: { kalshi: 'buckets', sports: 'buckets' },
+  sort: {
+    kalshiRecent: { col: 'createdAt', dir: 'desc' },
+    sportsRecent: { col: 'createdAt', dir: 'desc' },
+    bucketModal: { col: 'createdAt', dir: 'desc' },
+  },
+  showProbationary: true,
+  bucketModal: { open: false, bucketKey: null, label: null, trades: null, loading: false, error: null },
+};
+let lastData = null;
+
+// ---------- formatting helpers ----------
+function fmtMoney(n) {
+  if (n === null || n === undefined) return '—';
+  const sign = n < 0 ? '-' : '';
+  return sign + '$' + Math.abs(n).toFixed(2);
+}
+function fmtMoneyShort(n) {
+  if (n === null || n === undefined) return '—';
+  const sign = n < 0 ? '-' : '';
+  return sign + '$' + Math.abs(n).toFixed(0);
+}
+function fmtPct(n) { return (n === null || n === undefined) ? '—' : (n * 100).toFixed(1) + '%'; }
+function fmtPctSigned(n) {
+  if (n === null || n === undefined) return '—';
+  const sign = n > 0 ? '+' : n < 0 ? '-' : '';
+  return sign + Math.abs(n * 100).toFixed(2) + '%';
+}
+function fmtTimeAgo(iso) {
+  if (!iso) return 'never';
+  const diffMin = Math.round((Date.now() - new Date(iso).getTime()) / 60000);
+  if (diffMin < 1) return 'just now';
+  if (diffMin < 60) return diffMin + 'm ago';
+  if (diffMin < 1440) return Math.round(diffMin / 60) + 'h ago';
+  return Math.round(diffMin / 1440) + 'd ago';
+}
+function fmtDateShort(iso) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) + ' ' + d.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
+}
+function pnlClass(n) { return n > 0 ? 'pos' : n < 0 ? 'neg' : ''; }
+function esc(s) { return String(s === null || s === undefined ? '' : s).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c])); }
+
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const KALSHI_ASSET_NAMES = { WTI: 'WTI Oil', GOLD: 'Gold', SILVER: 'Silver', NATGAS: 'Natural Gas', COPPER: 'Copper', DOGE: 'Dogecoin', BTC: 'Bitcoin', ETH: 'Ethereum' };
+
+// Turns a raw Kalshi ticker like "KXWTI15M-26SEP041915-15" into "WTI Oil · Sep 4, 7:15 PM window"
+function humanizeKalshiTicker(ticker) {
+  const m = /^KX([A-Z]+)15M-(\d{2})([A-Z]{3})(\d{2})(\d{2})(\d{2})-\d{2}$/.exec(ticker || '');
+  if (!m) return ticker;
+  const [, asset, , mon, dd, hh, mi] = m;
+  const name = KALSHI_ASSET_NAMES[asset] || asset;
+  const monIdx = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'].indexOf(mon);
+  const monName = monIdx >= 0 ? MONTHS[monIdx] : mon;
+  let h = parseInt(hh, 10);
+  const ampm = h >= 12 ? 'PM' : 'AM';
+  h = h % 12; if (h === 0) h = 12;
+  return name + ' · ' + monName + ' ' + parseInt(dd, 10) + ', ' + h + ':' + mi + ' ' + ampm + ' window';
+}
+
+// Turns "aec-mlb-laa-pit-2026-09-05" into "MLB Moneyline: LAA vs PIT · Sep 5" (marketType comes
+// from the DB field, not guessed from the slug prefix -- team order isn't a confirmed
+// away/home convention, so "vs" is used rather than asserting one with "@").
+function humanizeSportsSlug(slug, marketType) {
+  const parts = (slug || '').split('-');
+  if (parts.length < 7) return slug;
+  const sport = parts[1], team1 = parts[2], team2 = parts[3];
+  const mm = parseInt(parts[5], 10), dd = parseInt(parts[6], 10);
+  const typeLabel = marketType ? marketType.charAt(0).toUpperCase() + marketType.slice(1) : '';
+  const monName = MONTHS[mm - 1] || parts[5];
+  return sport.toUpperCase() + (typeLabel ? ' ' + typeLabel : '') + ': ' + team1.toUpperCase() + ' vs ' + team2.toUpperCase() + ' · ' + monName + ' ' + dd;
+}
+
+// ---------- SVG radial gauge (win rate) ----------
+function renderGauge(pct, size, color) {
+  size = size || 46;
+  const r = size / 2 - 4, c = size / 2, circumference = 2 * Math.PI * r;
+  const frac = pct === null || pct === undefined ? 0 : Math.max(0, Math.min(1, pct));
+  const dash = circumference * frac;
+  return '<svg width="' + size + '" height="' + size + '" viewBox="0 0 ' + size + ' ' + size + '">' +
+    '<circle cx="' + c + '" cy="' + c + '" r="' + r + '" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="5"/>' +
+    '<circle cx="' + c + '" cy="' + c + '" r="' + r + '" fill="none" stroke="' + color + '" stroke-width="5" stroke-linecap="round" ' +
+      'stroke-dasharray="' + dash.toFixed(1) + ' ' + circumference.toFixed(1) + '" transform="rotate(-90 ' + c + ' ' + c + ')"/>' +
+    '</svg>';
+}
+
+// ---------- interactive equity chart (axes + hover tooltip), built via DOM APIs so listeners attach cleanly ----------
+const SVG_NS = 'http://www.w3.org/2000/svg';
+function el(tag, attrs) {
+  const e = document.createElementNS(SVG_NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  return e;
+}
+function buildEquityChart(container, curve, gradId) {
+  container.innerHTML = '';
+  if (!curve || curve.length < 2) {
+    container.innerHTML = '<div class="note">Not enough settled trades yet for an equity curve.</div>';
+    return;
+  }
+  const w = 560, h = 150, padL = 46, padR = 10, padT = 10, padB = 22;
+  const vals = curve.map((p) => p.bankroll);
+  let min = Math.min(...vals), max = Math.max(...vals);
+  if (min === max) { min -= 1; max += 1; }
+  const pad = (max - min) * 0.08;
+  min -= pad; max += pad;
+
+  const x = (i) => padL + (i / (curve.length - 1)) * (w - padL - padR);
+  const y = (v) => (h - padB) - ((v - min) / (max - min)) * (h - padT - padB);
+
+  const svg = el('svg', { viewBox: '0 0 ' + w + ' ' + h, width: '100%', height: h, preserveAspectRatio: 'none' });
+  const defs = el('defs');
+  const grad = el('linearGradient', { id: gradId, x1: '0', y1: '0', x2: '0', y2: '1' });
+  const last = vals[vals.length - 1], first = vals[0];
+  const lineColor = last >= first ? '#34d399' : '#f87171';
+  grad.appendChild(el('stop', { offset: '0%', 'stop-color': lineColor, 'stop-opacity': '0.35' }));
+  grad.appendChild(el('stop', { offset: '100%', 'stop-color': lineColor, 'stop-opacity': '0' }));
+  defs.appendChild(grad);
+  svg.appendChild(defs);
+
+  // Y-axis gridlines + $ labels (4 ticks)
+  const ticks = 4;
+  for (let t = 0; t <= ticks; t++) {
+    const v = min + (t / ticks) * (max - min);
+    const yy = y(v);
+    svg.appendChild(el('line', { x1: padL, x2: w - padR, y1: yy.toFixed(1), y2: yy.toFixed(1), stroke: 'rgba(255,255,255,0.06)', 'stroke-width': '1' }));
+    const label = el('text', { x: padL - 6, y: (yy + 3).toFixed(1), 'text-anchor': 'end', 'font-size': '9.5', fill: '#8f96b8' });
+    label.textContent = '$' + Math.round(v);
+    svg.appendChild(label);
+  }
+
+  // X-axis labels (start, mid, end dates)
+  [0, Math.floor((curve.length - 1) / 2), curve.length - 1].forEach((i) => {
+    const pt = curve[i];
+    if (!pt.at) return;
+    const lab = el('text', { x: x(i).toFixed(1), y: h - 5, 'text-anchor': i === 0 ? 'start' : i === curve.length - 1 ? 'end' : 'middle', 'font-size': '9.5', fill: '#8f96b8' });
+    lab.textContent = new Date(pt.at).toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+    svg.appendChild(lab);
+  });
+
+  // Area fill
+  let areaD = 'M ' + x(0).toFixed(1) + ' ' + y(vals[0]).toFixed(1);
+  for (let i = 1; i < curve.length; i++) areaD += ' L ' + x(i).toFixed(1) + ' ' + y(vals[i]).toFixed(1);
+  areaD += ' L ' + x(curve.length - 1).toFixed(1) + ' ' + (h - padB) + ' L ' + x(0).toFixed(1) + ' ' + (h - padB) + ' Z';
+  svg.appendChild(el('path', { d: areaD, fill: 'url(#' + gradId + ')', stroke: 'none' }));
+
+  // Line
+  let lineD = 'M ' + x(0).toFixed(1) + ' ' + y(vals[0]).toFixed(1);
+  for (let i = 1; i < curve.length; i++) lineD += ' L ' + x(i).toFixed(1) + ' ' + y(vals[i]).toFixed(1);
+  svg.appendChild(el('path', { d: lineD, fill: 'none', stroke: lineColor, 'stroke-width': '2', 'vector-effect': 'non-scaling-stroke' }));
+
+  // Hover interaction: guideline + dot + tooltip
+  const guide = el('line', { y1: padT, y2: h - padB, stroke: 'rgba(255,255,255,0.25)', 'stroke-width': '1', style: 'display:none' });
+  const dot = el('circle', { r: '3.5', fill: lineColor, stroke: '#0a0c1e', 'stroke-width': '1.5', style: 'display:none' });
+  svg.appendChild(guide);
+  svg.appendChild(dot);
+  const hitArea = el('rect', { x: padL, y: padT, width: w - padL - padR, height: h - padT - padB, fill: 'transparent' });
+  svg.appendChild(hitArea);
+
+  const wrap = document.createElement('div');
+  wrap.className = 'equity-svg-wrap';
+  const tooltip = document.createElement('div');
+  tooltip.className = 'equity-tooltip';
+  wrap.appendChild(svg);
+  wrap.appendChild(tooltip);
+  container.appendChild(wrap);
+
+  hitArea.addEventListener('mousemove', (evt) => {
+    const rect = svg.getBoundingClientRect();
+    const relX = ((evt.clientX - rect.left) / rect.width) * w;
+    const frac = Math.max(0, Math.min(1, (relX - padL) / (w - padL - padR)));
+    const idx = Math.round(frac * (curve.length - 1));
+    const pt = curve[idx];
+    const px = x(idx), py = y(pt.bankroll);
+    guide.setAttribute('x1', px.toFixed(1)); guide.setAttribute('x2', px.toFixed(1)); guide.style.display = 'block';
+    dot.setAttribute('cx', px.toFixed(1)); dot.setAttribute('cy', py.toFixed(1)); dot.style.display = 'block';
+    const pctX = (px / w) * 100;
+    tooltip.style.left = pctX + '%';
+    tooltip.style.top = (py / h) * 100 + '%';
+    tooltip.style.opacity = '1';
+    tooltip.innerHTML = '<b>' + fmtMoney(pt.bankroll) + '</b><br>' + (pt.at ? fmtDateShort(pt.at) : 'start');
+  });
+  hitArea.addEventListener('mouseleave', () => {
+    guide.style.display = 'none'; dot.style.display = 'none'; tooltip.style.opacity = '0';
+  });
+}
+
+// ---------- shared render pieces ----------
+function gateBar(gate) {
+  if (!gate) return '<div class="note">No go-live trade-count gate is defined for this bot yet.</div>';
+  const pct = Math.min(100, (gate.current / gate.target) * 100);
+  return '<div class="gate-wrap"><div class="gate-label"><span>Go-live gate · ' + esc(gate.label) + '</span><span>' + gate.current + ' / ' + gate.target + '</span></div>' +
+    '<div class="gate-bar"><div class="gate-fill" style="width:' + pct.toFixed(1) + '%"></div></div></div>';
+}
+function healthLine(bot) {
+  const dotClass = bot.serviceActive ? 'up' : 'down';
+  const label = bot.serviceActive ? 'Active' : 'Inactive / down';
+  return '<span class="dot ' + dotClass + '"></span> ' + label + ' · last activity ' + fmtTimeAgo(bot.lastActivityAt);
+}
+function kpiRow(bot) {
+  const wr = bot.totals.winRate;
+  const gaugeColor = wr === null ? '#8f96b8' : wr >= 0.5 ? '#34d399' : '#f87171';
+  // Today's Return is kalshi-only for now (its own statsServer.js computes it) -- sports-bot's
+  // payload has no todaysReturn field, so this tile is simply omitted there rather than
+  // rendering a meaningless dash.
+  const todaysReturnTile = bot.todaysReturn !== undefined
+    ? '<div class="kpi"><div class="v ' + pnlClass(bot.todaysReturn) + '">' + fmtPctSigned(bot.todaysReturn) + '</div><div class="l">Today&rsquo;s Return</div></div>'
+    : '';
+  return '<div class="kpi-row">' +
+    '<div class="kpi"><div class="v">' + bot.totals.trades + '</div><div class="l">Trades</div></div>' +
+    '<div class="kpi"><div class="gauge-wrap">' + renderGauge(wr, 40, gaugeColor) + '<span class="gauge-num">' + fmtPct(wr) + '</span></div><div class="l">Win rate</div></div>' +
+    '<div class="kpi"><div class="v ' + pnlClass(bot.totals.totalPnl) + '">' + fmtMoney(bot.totals.totalPnl) + '</div><div class="l">Total P&amp;L</div></div>' +
+    '<div class="kpi"><div class="v">' + fmtMoney(bot.bankrollUsd) + '</div><div class="l">Bankroll</div></div>' +
+    '<div class="kpi"><div class="v">' + bot.totals.openPositions + '</div><div class="l">Open</div></div>' +
+    todaysReturnTile +
+    '</div>';
+}
+function decayBanner(bot) {
+  if (bot.decayAlerts === null || bot.decayAlerts === undefined) {
+    return bot.decayMonitoringImplemented === false ? '<div class="note">No signal-decay monitoring exists in this bot yet.</div>' : '';
+  }
+  if (bot.decayAlerts.length === 0) return '';
+  return '<div class="alert-banner"><b>' + bot.decayAlerts.length + ' decay alert(s)</b><br>' +
+    bot.decayAlerts.slice(0, 5).map((a) => esc(a.bucket_key) + ': ' + esc(a.reason)).join('<br>') + '</div>';
+}
+function probationBanner(bot) {
+  if (!bot.probationReviewAlerts || bot.probationReviewAlerts.length === 0) return '';
+  return '<div class="alert-banner" style="border-color:var(--amber);background:linear-gradient(135deg, rgba(251,191,36,0.16), rgba(251,191,36,0.05))"><b style="color:var(--amber)">' + bot.probationReviewAlerts.length + ' probationary bucket(s) ready for review</b><br>' +
+    bot.probationReviewAlerts.map((a) => esc(a.bucket_key) + ': reached n=' + a.n_at_trigger + ' -- go evaluate vs. original search/holdout edge').join('<br>') + '</div>';
+}
+
+// ---------- bucket cards (kalshi) ----------
+function kalshiBucketCards(bot) {
+  const visible = uiState.showProbationary ? bot.byBucket : bot.byBucket.filter((b) => b.status !== 'probationary');
+  const cards = visible.map((b) => {
+    const barMaxH = 26;
+    const liveH = b.winRate === null ? 0 : Math.round(b.winRate * barMaxH);
+    const baseH = Math.round(b.baselineWinRate * barMaxH);
+    return '<div class="bucket-card" data-bucket-key="' + esc(b.bucketKey) + '" data-bucket-label="' + esc(b.label) + '" title="Click for full trade history">' +
+      '<div class="bname">' + esc(b.label.replace(/ -- LOG-ONLY.*/, '')) + (b.logOnly ? '<span class="badge-logonly">LOG-ONLY</span>' : '') + (b.status === 'probationary' ? '<span class="badge-probation">PROBATIONARY</span>' : '') + (b.status === 'retired' ? '<span class="badge-retired">RETIRED</span>' : '') + '</div>' +
+      '<div class="brow"><div class="gauge-wrap">' + renderGauge(b.winRate, 36, b.winRate === null ? '#8f96b8' : (b.winRate >= b.baselineWinRate ? '#34d399' : '#fbbf24')) + '<span class="gauge-num">' + fmtPct(b.winRate) + '</span></div>' +
+      '<div style="text-align:right"><div class="' + pnlClass(b.pnl) + '" style="font-weight:700">' + fmtMoney(b.pnl) + '</div><div style="font-size:10.5px;color:var(--dim2)">n=' + b.trades + '</div></div></div>' +
+      '<div class="compare">Live vs. backtest baseline (' + fmtPct(b.baselineWinRate) + ')</div>' +
+      '<div class="compare-bars"><div class="bar live" style="height:' + Math.max(2, liveH) + 'px" title="Live"></div><div class="bar baseline" style="height:' + Math.max(2, baseH) + 'px" title="Baseline"></div></div>' +
+      '</div>';
+  }).join('');
+  const hasProbationary = bot.byBucket.some((b) => b.status === 'probationary');
+  const toggle = hasProbationary
+    ? '<label style="font-size:11.5px;color:var(--dim);display:flex;align-items:center;gap:5px;margin-bottom:8px;cursor:pointer">' +
+      '<input type="checkbox" id="toggleProbationary"' + (uiState.showProbationary ? ' checked' : '') + '> Show probationary buckets</label>'
+    : '';
+  return toggle + '<div class="bucket-grid">' + cards + '</div>';
+}
+function kalshiSeriesRow(bot) {
+  if (!bot.bySeries.length) return '<div class="note">No settled trades yet in any series.</div>';
+  return '<div class="kpi-row">' + bot.bySeries.map((s) =>
+    '<div class="kpi"><div class="v">' + esc(s.series.replace('KX','').replace('15M','')) + '</div><div class="l">' + s.trades + ' trades · ' + fmtPct(s.winRate) + '</div><div class="' + pnlClass(s.pnl) + '" style="font-size:12px;font-weight:600">' + fmtMoney(s.pnl) + '</div></div>'
+  ).join('') + '</div>';
+}
+
+// ---------- sortable recent-trades tables ----------
+function sortRows(rows, col, dir, getter) {
+  const sorted = rows.slice().sort((a, b) => {
+    const va = getter(a, col), vb = getter(b, col);
+    if (va === vb) return 0;
+    if (va === null || va === undefined) return 1;
+    if (vb === null || vb === undefined) return -1;
+    return va < vb ? -1 : 1;
+  });
+  if (dir === 'desc') sorted.reverse();
+  return sorted;
+}
+function sortArrow(state, col) { return state.col === col ? (state.dir === 'asc' ? '<span class="arrow">▲</span>' : '<span class="arrow">▼</span>') : ''; }
+
+// Shared by the Recent Trades tab and the per-bucket drill-down modal -- same columns
+// (Time/Market/Side/Price/Stake/Status/P&L), just a different row set and sort-state key.
+function kalshiTradeGetter(r, col) { return { createdAt: r.createdAt, price: r.price, stakeUsd: r.stakeUsd, exitPnl: r.exitPnl, status: r.status }[col]; }
+function kalshiTradeTableHtml(tradeRows, sortKey, state) {
+  const rows = sortRows(tradeRows, state.col, state.dir, kalshiTradeGetter);
+  const trs = rows.map((t) =>
+    '<tr><td>' + fmtTimeAgo(t.createdAt) + '</td><td>' + esc(humanizeKalshiTicker(t.ticker)) + (t.logOnly ? '<span class="badge-logonly">LOG</span>' : '') + '</td>' +
+    '<td>' + esc(t.side) + '</td><td class="mono">' + t.price + '</td><td class="mono">' + fmtMoney(t.stakeUsd) + '</td>' +
+    '<td>' + esc(t.status) + '</td><td class="mono ' + pnlClass(t.exitPnl) + '">' + fmtMoney(t.exitPnl) + '</td></tr>'
+  ).join('');
+  return '<div class="tablewrap"><table data-sortkey="' + sortKey + '"><thead><tr>' +
+    '<th data-col="createdAt">Time' + sortArrow(state, 'createdAt') + '</th><th>Market</th><th>Side</th>' +
+    '<th data-col="price">Price' + sortArrow(state, 'price') + '</th><th data-col="stakeUsd">Stake' + sortArrow(state, 'stakeUsd') + '</th>' +
+    '<th data-col="status">Status' + sortArrow(state, 'status') + '</th><th data-col="exitPnl">P&amp;L' + sortArrow(state, 'exitPnl') + '</th>' +
+    '</tr></thead><tbody>' + trs + '</tbody></table></div>';
+}
+function kalshiRecentTable(bot) {
+  return kalshiTradeTableHtml(bot.recentTrades, 'kalshiRecent', uiState.sort.kalshiRecent);
+}
+function kalshiDailyReturnsTable(bot) {
+  const rows = bot.dailyReturns || [];
+  if (!rows.length) return '<div class="note">No daily history yet.</div>';
+  const trs = rows.map((d) =>
+    '<tr><td>' + esc(d.date) + '</td><td class="mono">' + fmtMoney(d.startBankroll) + '</td>' +
+    '<td class="mono">' + fmtMoney(d.endBankroll) + '</td><td class="mono">' + d.trades + '</td>' +
+    '<td class="mono ' + pnlClass(d.returnPct) + '">' + fmtPctSigned(d.returnPct) + '</td></tr>'
+  ).join('');
+  return '<div class="tablewrap"><table><thead><tr>' +
+    '<th>Date</th><th>Start Bankroll</th><th>End Bankroll</th><th>Trades</th><th>Return</th>' +
+    '</tr></thead><tbody>' + trs + '</tbody></table></div>';
+}
+function sportsRecentTable(bot) {
+  const state = uiState.sort.sportsRecent;
+  const getter = (r, col) => ({ createdAt: r.createdAt, price: r.price, stakeUsd: r.stakeUsd, exitPnl: r.exitPnl, status: r.status }[col]);
+  const rows = sortRows(bot.recentTrades, state.col, state.dir, getter);
+  const trs = rows.map((t) =>
+    '<tr><td>' + fmtTimeAgo(t.createdAt) + '</td><td>' + esc(humanizeSportsSlug(t.marketSlug, t.marketType)) + (t.needsManualReview ? '<span class="badge-review">REVIEW</span>' : '') + '</td>' +
+    '<td>' + esc(t.side) + '</td><td class="mono">' + t.price + '</td><td class="mono">' + fmtMoney(t.stakeUsd) + '</td>' +
+    '<td>' + esc(t.status) + '</td><td class="mono ' + pnlClass(t.exitPnl) + '">' + fmtMoney(t.exitPnl) + '</td></tr>'
+  ).join('');
+  return '<div class="tablewrap"><table data-sortkey="sportsRecent"><thead><tr>' +
+    '<th data-col="createdAt">Time' + sortArrow(state, 'createdAt') + '</th><th>Matchup</th><th>Side</th>' +
+    '<th data-col="price">Price' + sortArrow(state, 'price') + '</th><th data-col="stakeUsd">Stake' + sortArrow(state, 'stakeUsd') + '</th>' +
+    '<th data-col="status">Status' + sortArrow(state, 'status') + '</th><th data-col="exitPnl">P&amp;L' + sortArrow(state, 'exitPnl') + '</th>' +
+    '</tr></thead><tbody>' + trs + '</tbody></table></div>';
+}
+function sportsBreakdown(bot) {
+  if (!bot.bySportType.length) return '<div class="note">No settled trades yet.</div>';
+  return '<div class="kpi-row">' + bot.bySportType.map((s) =>
+    '<div class="kpi"><div class="v">' + esc(s.sport.toUpperCase()) + '</div><div class="l">' + esc(s.marketType) + ' · n=' + s.trades + '</div>' +
+    '<div style="font-size:12px">' + fmtPct(s.winRate) + ' · <span class="' + pnlClass(s.pnl) + '">' + fmtMoney(s.pnl) + '</span></div></div>'
+  ).join('') + '</div>';
+}
+
+// ---------- top-level card renderers ----------
+function renderKalshiCard(bot) {
+  if (bot.error) return '<div class="card"><div class="card-head"><h2><span class="dot down"></span> kalshi-bot</h2></div><div class="alert-banner">Unreachable: ' + esc(bot.error) + '</div></div>';
+  const tab = uiState.tabs.kalshi;
+  return '<div class="card" id="card-kalshi">' +
+    '<div class="card-head"><h2>kalshi-bot</h2><span class="tag">Gold · Silver · WTI · DOGE · BTC</span></div>' +
+    '<div class="healthline">' + healthLine(bot) + '</div>' +
+    decayBanner(bot) +
+    probationBanner(bot) +
+    kpiRow(bot) +
+    '<div class="equity-card-inner"><div class="equity-title"><span>Equity curve</span><span>starting $' + bot.startingBankrollUsd + '</span></div>' +
+    '<div id="equity-kalshi"></div></div>' +
+    gateBar(bot.goLiveGate) +
+    (bot.logOnly.signals > 0 ? '<div class="note">Log-only track (never staked): ' + bot.logOnly.signals + ' signals, ' + fmtPct(bot.logOnly.winRate) + ' win rate, ' + fmtMoney(bot.logOnly.pnl) + ' would-be P&amp;L</div>' : '') +
+    (bot.probationary.trades > 0 ? '<div class="note">Probationary buckets (included above, shown separately here): ' + bot.probationary.trades + ' trades, ' + fmtPct(bot.probationary.winRate) + ' win rate, ' + fmtMoney(bot.probationary.pnl) + ' P&amp;L</div>' : '') +
+    '<div class="tabs" data-tabgroup="kalshi">' +
+      '<button class="tab-btn' + (tab === 'buckets' ? ' active' : '') + '" data-tab="buckets">Buckets</button>' +
+      '<button class="tab-btn' + (tab === 'series' ? ' active' : '') + '" data-tab="series">By Series</button>' +
+      '<button class="tab-btn' + (tab === 'recent' ? ' active' : '') + '" data-tab="recent">Recent Trades</button>' +
+      '<button class="tab-btn' + (tab === 'daily' ? ' active' : '') + '" data-tab="daily">Daily Returns</button>' +
+    '</div>' +
+    '<div class="tab-panel' + (tab === 'buckets' ? ' active' : '') + '" data-panel="buckets">' + kalshiBucketCards(bot) + '</div>' +
+    '<div class="tab-panel' + (tab === 'series' ? ' active' : '') + '" data-panel="series">' + kalshiSeriesRow(bot) + '</div>' +
+    '<div class="tab-panel' + (tab === 'recent' ? ' active' : '') + '" data-panel="recent">' + kalshiRecentTable(bot) + '</div>' +
+    '<div class="tab-panel' + (tab === 'daily' ? ' active' : '') + '" data-panel="daily">' + kalshiDailyReturnsTable(bot) + '</div>' +
+    '</div>';
+}
+function renderSportsCard(bot) {
+  if (bot.error) return '<div class="card"><div class="card-head"><h2><span class="dot down"></span> sports-bot</h2></div><div class="alert-banner">Unreachable: ' + esc(bot.error) + '</div></div>';
+  const tab = uiState.tabs.sports;
+  return '<div class="card" id="card-sports">' +
+    '<div class="card-head"><h2>sports-bot</h2><span class="tag">Polymarket US FLB</span></div>' +
+    '<div class="healthline">' + healthLine(bot) + '</div>' +
+    (bot.needsManualReviewCount > 0 ? '<div class="alert-banner"><b>' + bot.needsManualReviewCount + '</b> trade(s) need manual review</div>' : '') +
+    decayBanner(bot) +
+    kpiRow(bot) +
+    '<div class="equity-card-inner"><div class="equity-title"><span>Equity curve</span><span>starting $' + bot.startingBankrollUsd + '</span></div>' +
+    '<div id="equity-sports"></div></div>' +
+    gateBar(bot.goLiveGate) +
+    '<div class="tabs" data-tabgroup="sports">' +
+      '<button class="tab-btn' + (tab === 'buckets' ? ' active' : '') + '" data-tab="buckets">By Sport &amp; Type</button>' +
+      '<button class="tab-btn' + (tab === 'recent' ? ' active' : '') + '" data-tab="recent">Recent Trades</button>' +
+    '</div>' +
+    '<div class="tab-panel' + (tab === 'buckets' ? ' active' : '') + '" data-panel="buckets">' + sportsBreakdown(bot) + '</div>' +
+    '<div class="tab-panel' + (tab === 'recent' ? ' active' : '') + '" data-panel="recent">' + sportsRecentTable(bot) + '</div>' +
+    '</div>';
+}
+
+// ---------- bucket trade drill-down modal ----------
+// Rendered into #modalRoot, a sibling of #app -- refresh()/rerenderOnly() replace #app's
+// innerHTML wholesale every 30s, which would otherwise wipe out an open modal mid-view.
+async function openBucketModal(bucketKey, label) {
+  uiState.bucketModal = { open: true, bucketKey, label, trades: null, loading: true, error: null };
+  uiState.sort.bucketModal = { col: 'createdAt', dir: 'desc' };
+  renderModal();
+  try {
+    const res = await fetch('/api/kalshi/bucket-trades?bucketKey=' + encodeURIComponent(bucketKey), { cache: 'no-store' });
+    const data = await res.json();
+    if (!res.ok || data.error) throw new Error(data.error || ('HTTP ' + res.status));
+    uiState.bucketModal.trades = data.trades;
+  } catch (err) {
+    uiState.bucketModal.error = String(err.message || err);
+  }
+  uiState.bucketModal.loading = false;
+  renderModal();
+}
+function closeBucketModal() {
+  uiState.bucketModal = { open: false, bucketKey: null, label: null, trades: null, loading: false, error: null };
+  renderModal();
+}
+function renderModal() {
+  const root = document.getElementById('modalRoot');
+  const m = uiState.bucketModal;
+  if (!m.open) { root.innerHTML = ''; return; }
+  let body;
+  if (m.loading) body = '<div class="note">Loading trade history&hellip;</div>';
+  else if (m.error) body = '<div class="alert-banner">Failed to load: ' + esc(m.error) + '</div>';
+  else body = kalshiTradeTableHtml(m.trades || [], 'bucketModal', uiState.sort.bucketModal);
+  root.innerHTML = '<div class="modal-backdrop" id="modalBackdrop"><div class="modal">' +
+    '<div class="modal-head"><h3>' + esc((m.label || '').replace(/ -- LOG-ONLY.*/, '')) + '</h3>' +
+    '<button class="modal-close" id="modalCloseBtn">&times;</button></div>' +
+    '<div class="modal-sub">' + (m.trades ? m.trades.length + ' total trade(s), most recent first' : '') + '</div>' +
+    body + '</div></div>';
+}
+
+// ---------- refresh + event delegation ----------
+async function refresh() {
+  try {
+    const res = await fetch('/api/stats', { cache: 'no-store' });
+    if (res.status === 401) { document.body.innerHTML = '<p style="padding:20px">Session expired — reload and re-enter credentials.</p>'; return; }
+    const data = await res.json();
+    lastData = data;
+    document.getElementById('app').innerHTML = renderKalshiCard(data.kalshiBot) + renderSportsCard(data.sportsBot);
+    if (!data.kalshiBot.error) buildEquityChart(document.getElementById('equity-kalshi'), data.kalshiBot.equityCurve, 'gradKalshi');
+    if (!data.sportsBot.error) buildEquityChart(document.getElementById('equity-sports'), data.sportsBot.equityCurve, 'gradSports');
+    document.getElementById('meta').textContent = 'updated ' + new Date(data.generatedAt).toLocaleTimeString() + ' · auto-refresh 30s';
+  } catch (err) {
+    document.getElementById('meta').textContent = 'refresh failed: ' + err;
+  }
+}
+function rerenderOnly() {
+  if (!lastData) return;
+  document.getElementById('app').innerHTML = renderKalshiCard(lastData.kalshiBot) + renderSportsCard(lastData.sportsBot);
+  if (!lastData.kalshiBot.error) buildEquityChart(document.getElementById('equity-kalshi'), lastData.kalshiBot.equityCurve, 'gradKalshi');
+  if (!lastData.sportsBot.error) buildEquityChart(document.getElementById('equity-sports'), lastData.sportsBot.equityCurve, 'gradSports');
+}
+
+document.body.addEventListener('click', (evt) => {
+  if (evt.target.id === 'modalBackdrop' || evt.target.id === 'modalCloseBtn') {
+    closeBucketModal();
+    return;
+  }
+  const bucketCard = evt.target.closest('.bucket-card');
+  if (bucketCard && bucketCard.dataset.bucketKey) {
+    openBucketModal(bucketCard.dataset.bucketKey, bucketCard.dataset.bucketLabel);
+    return;
+  }
+  const tabBtn = evt.target.closest('.tab-btn');
+  if (tabBtn) {
+    const group = tabBtn.closest('[data-tabgroup]').dataset.tabgroup;
+    uiState.tabs[group] = tabBtn.dataset.tab;
+    rerenderOnly();
+    return;
+  }
+  const th = evt.target.closest('th[data-col]');
+  if (th) {
+    const key = th.closest('table').dataset.sortkey;
+    const state = uiState.sort[key];
+    if (state.col === th.dataset.col) state.dir = state.dir === 'asc' ? 'desc' : 'asc';
+    else { state.col = th.dataset.col; state.dir = 'desc'; }
+    if (key === 'bucketModal') renderModal(); else rerenderOnly();
+    return;
+  }
+  if (evt.target.id === 'refreshBtn') refresh();
+  if (evt.target.id === 'toggleProbationary') {
+    uiState.showProbationary = evt.target.checked;
+    rerenderOnly();
+  }
+});
+
+refresh();
+setInterval(refresh, REFRESH_MS);
+</script>
+</body>
+</html>

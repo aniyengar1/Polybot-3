@@ -34,3 +34,10 @@ sports-bot/node_modules/
 
 # Local Claude Code tool settings -- machine-local config, not project source.
 .claude/
+
+# kalshi-bot equivalents of the sports-bot exclusions above
+kalshi-bot/node_modules/
+kalshi-bot/data/*.db
+kalshi-bot/data/*.db-wal
+kalshi-bot/data/*.db-shm
+**/.fuse_hidden*
