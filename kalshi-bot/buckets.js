@@ -195,6 +195,18 @@ const BUCKET_CONFIG = {
     shrinkageK: 40,
     backtestBaseline: { n: 156, hits: 124, winRate: 0.795, pnlPerTrade: 42.88 / 156 }, // 124 = round(156*0.795)
     validatedSide: 'yes', // search+holdout confirmed direction only -- see 2026-09-08 header block
+    // RETIRED 2026-09-16 -- never showed real edge across paper OR either live window, a
+    // different failure mode than any retirement above (not organic decay off a formerly-good
+    // track, not a calibration bug, not a single bad live streak). Paper track: 55 settled
+    // trades, 76.4% win rate vs. 79.5% backtested baseline, -$1.17 total -- already net negative
+    // before this bucket ever went live. First live sample: 9 trades, -$1.45. Second live
+    // sample: 2 losses in the most recent 6 resolved trades, -$1.46 net -- this is what actually
+    // triggered the retirement rule set in advance for this bucket. Combined across all three
+    // windows (paper + both live samples), this bucket has never been profitable at any point.
+    // Pure go-forward stop, same as every other retirement here -- every trade already recorded
+    // used the live calibration that existed at the time and is left completely untouched.
+    status: 'retired',
+    retiredReason: 'bucket retired from live trading -- never showed real edge across paper track (-$1.17/55 trades) or either live sample (-$1.45/9, then -$1.46/6 with 2 losses triggering the pre-set retirement rule) (2026-09-16)',
   },
   'KXGOLD15M|0.5-0.6|cp8': {
     label: 'Gold 0.5-0.6',
