@@ -29,29 +29,17 @@ function columnExists(db, table, column) {
 }
 
 function migrate(db) {
-  // Additive column upgrades for databases created before the WTI multi-checkpoint refactor --
-  // CREATE TABLE IF NOT EXISTS below won't add columns to a table that already exists, and
-  // these two are NOT NULL, so they need a real ALTER TABLE with a default for old rows.
-  const tableNames = db.prepare(`SELECT name FROM sqlite_master WHERE type='table'`).all().map((r) => r.name);
-  if (tableNames.includes('observations') && !columnExists(db, 'observations', 'checkpoint_minutes')) {
-    db.exec(`ALTER TABLE observations ADD COLUMN checkpoint_minutes INTEGER NOT NULL DEFAULT 8`);
-  }
-  if (tableNames.includes('trades') && !columnExists(db, 'trades', 'log_only')) {
-    db.exec(`ALTER TABLE trades ADD COLUMN log_only INTEGER NOT NULL DEFAULT 0`);
-  }
-  if (tableNames.includes('trades') && !columnExists(db, 'trades', 'bucket_status')) {
-    db.exec(`ALTER TABLE trades ADD COLUMN bucket_status TEXT NOT NULL DEFAULT 'validated'`);
-  }
-  if (tableNames.includes('trades') && !columnExists(db, 'trades', 'yes_bid_at_checkpoint')) {
-    db.exec(`ALTER TABLE trades ADD COLUMN yes_bid_at_checkpoint REAL`);
-  }
-  if (tableNames.includes('trades') && !columnExists(db, 'trades', 'yes_ask_at_checkpoint')) {
-    db.exec(`ALTER TABLE trades ADD COLUMN yes_ask_at_checkpoint REAL`);
-  }
-  if (tableNames.includes('observations')) {
-    db.exec(`DROP INDEX IF EXISTS idx_obs_ticker_unique`); // pre-refactor: unique on ticker alone
-  }
-
+  // CREATE TABLE IF NOT EXISTS runs FIRST, unconditionally -- this guarantees every table below
+  // exists (whether newly created just now, or already existing from a prior startup) BEFORE any
+  // ALTER-based column backfill is attempted. Ordering matters: on a genuinely fresh database,
+  // computing "does this table already exist" before CREATE TABLE has run would see zero tables
+  // and skip every backfill below -- which is exactly the bug this ordering fixes (found
+  // 2026-09-10, during task #12's smoke testing; a fresh DB's very first checkpoint cycle would
+  // crash at orchestrator.js's getBankrollUsd(), which queries trades.log_only -- an ALTER-only
+  // column that would never have been added, since CREATE TABLE's own base column list predates
+  // it and was deliberately never rebuilt to include later-added columns, see the backfill
+  // section below for why). Self-heals after exactly one crash-and-restart today; this ordering
+  // fix removes the crash entirely.
   db.exec(`
     -- One row per checkpoint evaluation, for EVERY band (not just the 3 traded buckets) --
     -- calibration.js needs the full observation stream to recompute each traded bucket's
@@ -238,7 +226,124 @@ function migrate(db) {
     CREATE INDEX IF NOT EXISTS idx_shadow_observation_id ON shadow_execution_trials(observation_id);
     CREATE INDEX IF NOT EXISTS idx_shadow_bucket_key ON shadow_execution_trials(bucket_key);
     CREATE INDEX IF NOT EXISTS idx_shadow_status ON shadow_execution_trials(status);
+
+    -- Drawdown breaker state (added 2026-09-09, see drawdownBreaker.js) -- one row per scope
+    -- ('global', or a bucket_key for a per-bucket breaker): a durable high-water mark plus halt
+    -- record, so a halt survives a process restart (the entire point of persisting this at all --
+    -- an in-memory-only halt that silently clears on reboot defeats the breaker). NEVER
+    -- auto-cleared by any code in this project: halted=1 stays 1 until a human manually resets
+    -- it (there is deliberately no un-halt function anywhere in drawdownBreaker.js). This table
+    -- is prerequisite schema only -- nothing in the live checkpoint path reads or writes it yet,
+    -- see drawdownBreaker.js's header for what's still needed to wire it in.
+    -- Ambiguous live-order-placement alerts (added 2026-09-09, see liveExecution.js's
+    -- placeLivePosition). Fires when placeOrderSafely comes back 'unresolved' -- an order
+    -- placement attempt whose outcome is genuinely unknown (network failure, timeout, or a 5xx
+    -- during the initial POST, AND the list-and-scan resolution afterward found no matching
+    -- client_order_id). Deliberately NOT inserted into trades -- a phantom 'pending' row would
+    -- misrepresent a fact nobody actually knows (an order may or may not exist on Kalshi's own
+    -- book). Same "surfaced, never auto-cleared, a human must look" pattern as decay_alerts /
+    -- probation_review_alerts above, not a new design idiom.
+    CREATE TABLE IF NOT EXISTS live_order_alerts (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      created_at TEXT NOT NULL,
+      observation_id INTEGER REFERENCES observations(id),
+      bucket_key TEXT NOT NULL,
+      client_order_id TEXT NOT NULL,
+      base TEXT NOT NULL CHECK (base IN ('demo','live')),
+      details TEXT NOT NULL,
+      resolved_manually INTEGER NOT NULL DEFAULT 0
+    );
+
+    CREATE TABLE IF NOT EXISTS drawdown_breaker_state (
+      scope TEXT PRIMARY KEY,             -- 'global' | a bucket_key
+      peak_value REAL NOT NULL DEFAULT 0, -- high-water mark: bankroll USD for 'global', cumulative realized P&L USD for a bucket
+      halted INTEGER NOT NULL DEFAULT 0,
+      halted_at TEXT,
+      halted_reason TEXT,
+      halted_peak_value REAL,
+      halted_current_value REAL,
+      updated_at TEXT NOT NULL
+    );
   `);
+
+  // Additive column upgrades for databases created before the WTI multi-checkpoint refactor, and
+  // for every column added to trades/live_order_alerts since -- CREATE TABLE IF NOT EXISTS above
+  // won't add columns to a table that already exists, so these need a real ALTER TABLE with a
+  // default for old rows. Now that CREATE TABLE IF NOT EXISTS above has already run, every table
+  // referenced below is guaranteed to exist (see this function's opening comment) -- columnExists()
+  // alone is sufficient to detect a missing column, no separate table-existence guard needed.
+  if (!columnExists(db, 'observations', 'checkpoint_minutes')) {
+    db.exec(`ALTER TABLE observations ADD COLUMN checkpoint_minutes INTEGER NOT NULL DEFAULT 8`);
+  }
+  if (!columnExists(db, 'trades', 'log_only')) {
+    db.exec(`ALTER TABLE trades ADD COLUMN log_only INTEGER NOT NULL DEFAULT 0`);
+  }
+  if (!columnExists(db, 'trades', 'bucket_status')) {
+    db.exec(`ALTER TABLE trades ADD COLUMN bucket_status TEXT NOT NULL DEFAULT 'validated'`);
+  }
+  if (!columnExists(db, 'trades', 'yes_bid_at_checkpoint')) {
+    db.exec(`ALTER TABLE trades ADD COLUMN yes_bid_at_checkpoint REAL`);
+  }
+  if (!columnExists(db, 'trades', 'yes_ask_at_checkpoint')) {
+    db.exec(`ALTER TABLE trades ADD COLUMN yes_ask_at_checkpoint REAL`);
+  }
+  // Real-order execution columns (added 2026-09-09, see liveExecution.js) -- all NULL for every
+  // existing (paper) row and every future paper row. execution_env gets its own single-column
+  // CHECK (valid via ALTER TABLE ADD COLUMN); the mode='live' <-> execution_env-not-null PAIRING
+  // is deliberately NOT a DB-level constraint -- SQLite's ALTER TABLE ADD COLUMN cannot add a
+  // CHECK that references another column, and a cross-column CHECK could only be added via a
+  // full CREATE TABLE rebuild, which this project has never done against a live database with
+  // real trade history and isn't starting here. That pairing is enforced in application code
+  // instead -- see orchestrator.js's trades INSERT, which never sets execution_env on a paper
+  // row or omits it on a live row.
+  if (!columnExists(db, 'trades', 'execution_env')) {
+    db.exec(`ALTER TABLE trades ADD COLUMN execution_env TEXT CHECK (execution_env IS NULL OR execution_env IN ('demo','live'))`);
+  }
+  if (!columnExists(db, 'trades', 'client_order_id')) {
+    db.exec(`ALTER TABLE trades ADD COLUMN client_order_id TEXT`);
+  }
+  if (!columnExists(db, 'trades', 'kalshi_order_id')) {
+    db.exec(`ALTER TABLE trades ADD COLUMN kalshi_order_id TEXT`);
+  }
+  if (!columnExists(db, 'trades', 'expiration_time')) {
+    db.exec(`ALTER TABLE trades ADD COLUMN expiration_time INTEGER`);
+  }
+  if (!columnExists(db, 'trades', 'live_fill_checked_at')) {
+    db.exec(`ALTER TABLE trades ADD COLUMN live_fill_checked_at TEXT`);
+  }
+  // Taker-escalation columns (added 2026-09-10, see liveExecution.js). All NULL for paper rows
+  // and for any live row that never needed escalation (maker filled within the 60s window).
+  // fill_type deliberately mirrors shadow_execution_trials.fill_type's own name/CHECK values,
+  // not a differently-named equivalent -- see liveExecution.js's header for why. The
+  // maker/taker order id pair is tracked separately (taker_* columns distinct from the
+  // existing client_order_id/kalshi_order_id, which stay the MAKER order's identifiers,
+  // untouched) so both legs of an escalated trade are independently auditable.
+  if (!columnExists(db, 'trades', 'fill_type')) {
+    db.exec(`ALTER TABLE trades ADD COLUMN fill_type TEXT CHECK (fill_type IS NULL OR fill_type IN ('maker','taker'))`);
+  }
+  if (!columnExists(db, 'trades', 'taker_client_order_id')) {
+    db.exec(`ALTER TABLE trades ADD COLUMN taker_client_order_id TEXT`);
+  }
+  if (!columnExists(db, 'trades', 'taker_kalshi_order_id')) {
+    db.exec(`ALTER TABLE trades ADD COLUMN taker_kalshi_order_id TEXT`);
+  }
+  // Set atomically, BEFORE any escalation order is placed -- the guard that stops two racing
+  // finalizeLiveOrder calls (the fire-and-forget monitor vs. reconcileLiveOrders) from both
+  // placing a taker order for the same unfilled maker leg. See liveExecution.js's header for
+  // the crash-recovery handling this column enables (claimed-but-not-yet-recorded vs.
+  // recorded-but-not-yet-finalized are distinguishable via this column plus taker_kalshi_order_id).
+  if (!columnExists(db, 'trades', 'escalation_claimed_at')) {
+    db.exec(`ALTER TABLE trades ADD COLUMN escalation_claimed_at TEXT`);
+  }
+  // live_order_alerts already exists on both real databases (created earlier tonight) -- same
+  // ALTER-TABLE-ADD-COLUMN requirement as the trades columns above, not something the CREATE
+  // TABLE IF NOT EXISTS block above can retroactively add. Distinguishes "the very first
+  // placement was ambiguous" from "the maker leg placed fine but the taker escalation was
+  // ambiguous" -- see liveExecution.js's header.
+  if (!columnExists(db, 'live_order_alerts', 'stage')) {
+    db.exec(`ALTER TABLE live_order_alerts ADD COLUMN stage TEXT CHECK (stage IS NULL OR stage IN ('initial','escalation'))`);
+  }
+  db.exec(`DROP INDEX IF EXISTS idx_obs_ticker_unique`); // pre-refactor: unique on ticker alone -- observations is guaranteed to exist by this point, see opening comment
 
   migrateLegacyBucketKeys(db);
 }

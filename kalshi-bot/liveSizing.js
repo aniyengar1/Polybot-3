@@ -28,6 +28,34 @@ function feeUsd(contracts, p) {
 }
 
 /**
+ * Given an ALREADY-DECIDED side and an already-calibrated pShrunk (frozen at the original
+ * signal), checks whether the edge still clears the fee at a NEW price. Built 2026-09-10 for
+ * liveExecution.js's taker-escalation price re-check (see its own header) -- does NOT re-select
+ * a side or re-run calibration, those are fixed by the time escalation happens; this only
+ * answers "is the edge still there at this price."
+ *
+ * `costOfSide` MUST be the cost of buying the given `side` -- i.e. the SAME convention as
+ * decision.entryCost and shadowExecution.js's own currentTouchPrice (side==='yes' ?
+ * book.bestYesAsk : (1 - book.bestYesBid)), NOT a raw YES-side market price. This is
+ * deliberately a single side-agnostic formula (pRelevant - costOfSide), not two branches that
+ * each do their own "1 - price" conversion the way evaluateOpportunity's inline edgeYes/edgeNo
+ * do below -- caught during review that feeding an already-side-converted price into that
+ * two-branch shape double-converts on the 'no' side and silently produces the wrong (and not
+ * just wrongly-scaled, economically meaningless) edge value. This shape can't be fed the wrong
+ * convention by construction: it takes exactly the value every call site already has on hand
+ * (a "cost of my side" figure), with no conversion step left for a caller to get wrong.
+ * Verified algebraically equivalent to evaluateOpportunity's edgeYes/edgeNo when given a raw
+ * price ((1-pShrunk)-(1-rawPrice) simplifies to rawPrice-pShrunk, same as pRelevant-costOfSide
+ * when costOfSide=1-rawPrice) -- not a behavior change for existing math, just a shape that
+ * can't silently double-convert.
+ */
+function edgeClearsFeeAtPrice(side, pShrunk, costOfSide) {
+  const feePerContractApprox = 0.07 * costOfSide * (1 - costOfSide); // symmetric under p vs 1-p -- same value regardless of which side's convention costOfSide is already in
+  const pRelevant = side === 'yes' ? pShrunk : (1 - pShrunk);
+  return (pRelevant - costOfSide) > feePerContractApprox;
+}
+
+/**
  * Evaluates one checkpoint against current bankroll. Pure except for the calibration read
  * (getShrunkHitRate hits the DB but takes no other I/O / mutation here).
  *
@@ -117,4 +145,4 @@ function evaluateOpportunity(opp, cashUsd) {
   };
 }
 
-module.exports = { evaluateOpportunity, feeUsd };
+module.exports = { evaluateOpportunity, feeUsd, edgeClearsFeeAtPrice };

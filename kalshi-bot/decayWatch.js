@@ -54,13 +54,19 @@ function checkBucketDecay(bucketKey) {
   // apples to a partially-oranges mix. Without this filter, those opposite-direction losses drag
   // down the rolling win rate/P&L and inflate progress toward the n=30 probation-review trigger
   // with trades that never tested the validated hypothesis at all.
+  // mode = 'paper' (added 2026-09-11, ahead of the live flip): without this, a bucket's rolling
+  // decay window would silently blend real-money and paper-money trades together the instant any
+  // live trade settles -- this alerting exists specifically to protect the paper track's
+  // calibration signal, and probationary buckets (the exact buckets going live tonight) are the
+  // ones most likely to have both paper and live history at once. Paper-scoped by design now,
+  // not by accident of zero live rows existing.
   if (config.status === 'probationary') {
-    const settled = db.prepare(`SELECT COUNT(*) c FROM trades WHERE bucket_key = ? AND side = ? AND status IN ('won','lost')`).get(bucketKey, config.validatedSide).c;
+    const settled = db.prepare(`SELECT COUNT(*) c FROM trades WHERE bucket_key = ? AND side = ? AND status IN ('won','lost') AND mode = 'paper'`).get(bucketKey, config.validatedSide).c;
     if (settled < PROBATION_REVIEW_N) return null;
   }
 
   const rows = db
-    .prepare(`SELECT status, exit_pnl_usd FROM trades WHERE bucket_key = ? AND side = ? AND status IN ('won','lost') ORDER BY resolved_at DESC LIMIT ?`)
+    .prepare(`SELECT status, exit_pnl_usd FROM trades WHERE bucket_key = ? AND side = ? AND status IN ('won','lost') AND mode = 'paper' ORDER BY resolved_at DESC LIMIT ?`)
     .all(bucketKey, config.validatedSide, ROLLING_WINDOW_N);
 
   if (rows.length < MIN_ROLLING_N_TO_FLAG) return null;
@@ -111,8 +117,12 @@ function runDecayWatch(log = () => {}) {
 
     const lastAlert = db.prepare(`SELECT created_at FROM decay_alerts WHERE bucket_key = ? ORDER BY created_at DESC LIMIT 1`).get(bucketKey);
     if (lastAlert) {
+      // mode = 'paper' -- a newly-settled LIVE trade must never be treated as "the rolling window
+      // moved" for this alert's own re-fire gate; checkBucketDecay's own window is paper-only now
+      // (see above), so this de-dup check needs the same scoping or it could re-fire on live-only
+      // settlement activity that the alert itself never actually looked at.
       const newerSettlement = db
-        .prepare(`SELECT 1 FROM trades WHERE bucket_key = ? AND status IN ('won','lost') AND resolved_at > ? LIMIT 1`)
+        .prepare(`SELECT 1 FROM trades WHERE bucket_key = ? AND status IN ('won','lost') AND mode = 'paper' AND resolved_at > ? LIMIT 1`)
         .get(bucketKey, lastAlert.created_at);
       if (!newerSettlement) continue; // nothing new since the last alert -- don't re-fire
     }
@@ -153,7 +163,11 @@ function checkProbationReviews(log = () => {}) {
     // specifically about reaching enough live data to evaluate the VALIDATED hypothesis --
     // an opposite-direction trade (now gated off going forward in liveSizing.js) never tested
     // that hypothesis, so it shouldn't count toward the n=30 sample-size trigger for it.
-    const settled = db.prepare(`SELECT COUNT(*) c FROM trades WHERE bucket_key = ? AND side = ? AND status IN ('won','lost')`).get(bucketKey, BUCKET_CONFIG[bucketKey].validatedSide).c;
+    // mode = 'paper' (added 2026-09-11, ahead of the live flip) -- same reasoning as
+    // checkBucketDecay above: this is specifically the paper-track review gate ("enough
+    // never-touched PAPER data to evaluate the original search/holdout edge"), not a count of
+    // real-money fills, which would reach n=30 for a different, unrelated reason.
+    const settled = db.prepare(`SELECT COUNT(*) c FROM trades WHERE bucket_key = ? AND side = ? AND status IN ('won','lost') AND mode = 'paper'`).get(bucketKey, BUCKET_CONFIG[bucketKey].validatedSide).c;
     if (settled < PROBATION_REVIEW_N) continue;
 
     const message = `${bucketKey} reached n=${settled} settled live paper trades -- enough forward, never-touched data now exists to evaluate this rule against its original search/holdout edge. See buckets.js's header for that rule's provenance doc.`;

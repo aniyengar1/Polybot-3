@@ -201,10 +201,28 @@ const BUCKET_CONFIG = {
     series: 'KXGOLD15M',
     band: '0.5-0.6',
     checkpointMinutes: 8,
+    // kellyFraction/shrinkageK left as originally set (unused now that status:'retired' stops
+    // this bucket from ever sizing a new trade) -- same "not touching what retirement doesn't
+    // need" convention as Silver 0.8-0.9's retirement below.
     kellyFraction: 0.08,
     shrinkageK: 40,
     backtestBaseline: { n: 185, hits: 108, winRate: 0.584, pnlPerTrade: 27.31 / 185 }, // 108 = round(185*0.584)
     validatedSide: 'yes', // search+holdout confirmed direction only -- see 2026-09-08 header block
+    // RETIRED 2026-09-10 -- organic decay, confirmed via decayWatch.js's own decay_alerts
+    // (5 alerts fired 2026-09-07 through 2026-09-10, id 44-53, this exact bucket_key): rolling
+    // win rate over the most recent 17 trades is 52.9% vs the 58.4% backtested baseline, with
+    // rolling P&L -$0.13 over that window despite a positive $0.148/trade backtested
+    // expectation -- the sustained-underperformance pattern decayWatch.js exists to catch, not
+    // a single bad streak (5 separate alerts across 3 days, each on a growing trade count).
+    // Full settled record at retirement time: 18 trades, 55.6% win rate, +$0.77 total -- still
+    // net positive lifetime, which is exactly why this is a decay call (recent performance
+    // trending away from baseline) rather than a Silver-0.8-0.9-style "never had edge" call;
+    // contrast Silver's retirement below, a calibration BUG (never a real edge, confirmed from
+    // raw checkpoint records), not decay. Unlike Silver's retroactive correction, this is a
+    // pure go-forward stop -- every trade already recorded for this bucket used the live
+    // calibration that actually existed at the time and is left completely untouched.
+    status: 'retired',
+    retiredReason: 'bucket retired from live trading -- persistent decay on cp8, underperforming baseline (decay_alerts id 44-53, 2026-09-10)',
   },
   'KXSILVER15M|0.8-0.9|cp8': {
     label: 'Silver 0.8-0.9',
@@ -225,6 +243,12 @@ const BUCKET_CONFIG = {
     // preserved old number. Do not restore without a fresh, independent re-derivation.
     backtestBaseline: { n: 262, hits: 227, winRate: 0.866, pnlPerTrade: 0 }, // 227 = round(262*0.866); pnlPerTrade: 0, no legitimate walk-forward $ figure exists for the corrected number (the old one was itself built on the same flawed mixed-side backtest) and "no edge" implies ~$0 expected value
     status: 'retired',
+    // Verbatim relocation of the reason string that used to be hardcoded in orchestrator.js's
+    // retired-bucket check -- moved here 2026-09-10 when Gold 0.5-0.6's retirement above needed
+    // its OWN distinct reason and a single hardcoded string could no longer serve both. No
+    // semantic change to Silver's own retirement -- same text, same meaning, just relocated to
+    // live alongside the bucket it actually describes instead of in the orchestrator.
+    retiredReason: 'bucket retired from live trading (calibration bug found 2026-09-07)',
   },
   'KXWTI15M|0.3-0.4|cp3': {
     label: 'WTI 0.3-0.4 (cp3, longshot-overpriced, buy-NO)',
@@ -325,7 +349,21 @@ const BUCKET_CONFIG = {
     kellyFraction: 0.08,
     shrinkageK: 30,
     backtestBaseline: { n: 304, hits: 58, winRate: 0.809, pnlPerTrade: 32.12 / 304 }, // 58 = round(304*(1-0.809))
-    status: 'probationary',
+    // RETIRED 2026-09-10 -- persistent underperformance across the FULL live sample, a
+    // different failure mode than Gold 0.5-0.6's retirement above (recent decay -- 5 escalating
+    // decay_alerts over 3 days on a subset of trades) or Silver 0.8-0.9's (a calibration bug,
+    // never a real edge at all). Live record at retirement: 43 settled trades, 74.4% win rate
+    // (32/43) vs. 80.9% backtested baseline, lifetime P&L -$0.10 -- never net profitable at any
+    // point in the sample, not a recent slide from a formerly-profitable run. Confirmed via the
+    // trade-by-trade chronology (not just the aggregate): losses land on every single day from
+    // 2026-09-06 through 2026-09-10 (1-4/day), not clustered in a recent window -- and only ONE
+    // decay_alerts row ever fired (2026-09-09, rolling P&L -$0.76/30 trades), vs. Gold 0.5-0.6's
+    // five escalating alerts, consistent with underperformance that was present from early on
+    // rather than accelerating recently. Pure go-forward stop, same as both retirements above --
+    // every trade already recorded for this bucket used the live calibration that existed at
+    // the time and is left completely untouched.
+    status: 'retired',
+    retiredReason: 'bucket retired from live trading -- persistent underperformance vs. backtest baseline across full 43-trade sample, never net profitable (2026-09-10)',
     validatedSide: 'no', // search+holdout confirmed direction only -- see 2026-09-08 header block
   },
   'KXBTC15M|0.8-0.9|cp9': {

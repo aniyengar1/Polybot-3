@@ -110,6 +110,8 @@
   .badge-probation { font-size: 9.5px; padding: 1px 6px; border-radius: 4px; border: 1px solid var(--purple); color: #c4b5fd; margin-left: 4px; }
   .badge-retired { font-size: 9.5px; padding: 1px 6px; border-radius: 4px; border: 1px solid var(--dim2); color: var(--dim2); margin-left: 4px; }
   .badge-review { font-size: 9.5px; padding: 1px 6px; border-radius: 4px; border: 1px solid var(--red); color: var(--red); }
+  .badge-live { font-size: 9.5px; padding: 1px 6px; border-radius: 4px; border: 1px solid var(--red); background: var(--red); color: #1a0505; font-weight: 700; margin-left: 4px; }
+  .badge-demotest { font-size: 9.5px; padding: 1px 6px; border-radius: 4px; border: 1px solid var(--blue); color: var(--blue); margin-left: 4px; }
 
   .modal-backdrop { position: fixed; inset: 0; background: rgba(4,5,14,0.72); backdrop-filter: blur(3px); z-index: 50; display: flex; align-items: center; justify-content: center; padding: 20px; }
   .modal { background: var(--card-solid); border: 1px solid var(--border); border-radius: 18px; padding: 20px; max-width: 780px; width: 100%; max-height: 82vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
@@ -145,14 +147,15 @@
 <script>
 const REFRESH_MS = 30000;
 const uiState = {
-  tabs: { kalshi: 'buckets', sports: 'buckets' },
+  tabs: { kalshi: 'buckets', kalshiLive: 'buckets', sports: 'buckets' },
   sort: {
     kalshiRecent: { col: 'createdAt', dir: 'desc' },
+    kalshiLiveRecent: { col: 'createdAt', dir: 'desc' },
     sportsRecent: { col: 'createdAt', dir: 'desc' },
     bucketModal: { col: 'createdAt', dir: 'desc' },
   },
   showProbationary: true,
-  bucketModal: { open: false, bucketKey: null, label: null, trades: null, loading: false, error: null },
+  bucketModal: { open: false, bucketKey: null, label: null, mode: null, trades: null, loading: false, error: null },
 };
 let lastData = null;
 
@@ -353,6 +356,14 @@ function kpiRow(bot) {
   const todaysReturnTile = bot.todaysReturn !== undefined
     ? '<div class="kpi"><div class="v ' + pnlClass(bot.todaysReturn) + '">' + fmtPctSigned(bot.todaysReturn) + '</div><div class="l">Today&rsquo;s Return</div></div>'
     : '';
+  // Since Inception (2026-09-11) -- same "omit if this bot's payload doesn't have it" pattern as
+  // todaysReturnTile above; sports-bot's own backend doesn't compute this field either. Kept as a
+  // distinct tile from Today's Return on purpose: the two answer different questions ("how did
+  // today go" vs "how is this track doing overall") and can diverge sharply for a track with only
+  // a couple days of history -- see statsServer.js's own comment on sinceInceptionReturn.
+  const sinceInceptionTile = bot.sinceInceptionReturn !== undefined
+    ? '<div class="kpi"><div class="v ' + pnlClass(bot.sinceInceptionReturn) + '">' + fmtPctSigned(bot.sinceInceptionReturn) + '</div><div class="l">Since Inception</div></div>'
+    : '';
   return '<div class="kpi-row">' +
     '<div class="kpi"><div class="v">' + bot.totals.trades + '</div><div class="l">Trades</div></div>' +
     '<div class="kpi"><div class="gauge-wrap">' + renderGauge(wr, 40, gaugeColor) + '<span class="gauge-num">' + fmtPct(wr) + '</span></div><div class="l">Win rate</div></div>' +
@@ -360,6 +371,7 @@ function kpiRow(bot) {
     '<div class="kpi"><div class="v">' + fmtMoney(bot.bankrollUsd) + '</div><div class="l">Bankroll</div></div>' +
     '<div class="kpi"><div class="v">' + bot.totals.openPositions + '</div><div class="l">Open</div></div>' +
     todaysReturnTile +
+    sinceInceptionTile +
     '</div>';
 }
 function decayBanner(bot) {
@@ -377,13 +389,21 @@ function probationBanner(bot) {
 }
 
 // ---------- bucket cards (kalshi) ----------
-function kalshiBucketCards(bot) {
+// bucketModeParam (task: live dashboard tab, 2026-09-11): undefined/null for the paper card
+// (unchanged -- its bucket-card click still opens the modal with no mode filter, exactly as
+// before). 'live' for the new live card, so its own bucket cards' drill-down only shows that
+// bucket's live-track history. tabGroup is only used to namespace the "show probationary"
+// checkbox's id (both cards share ONE uiState.showProbationary flag -- toggling either checkbox
+// updates both cards' visibility together, same single-preference behavior as before this change,
+// just now rendered from two places that need distinct DOM ids).
+function kalshiBucketCards(bot, tabGroup, bucketModeParam) {
+  tabGroup = tabGroup || 'kalshi';
   const visible = uiState.showProbationary ? bot.byBucket : bot.byBucket.filter((b) => b.status !== 'probationary');
   const cards = visible.map((b) => {
     const barMaxH = 26;
     const liveH = b.winRate === null ? 0 : Math.round(b.winRate * barMaxH);
     const baseH = Math.round(b.baselineWinRate * barMaxH);
-    return '<div class="bucket-card" data-bucket-key="' + esc(b.bucketKey) + '" data-bucket-label="' + esc(b.label) + '" title="Click for full trade history">' +
+    return '<div class="bucket-card" data-bucket-key="' + esc(b.bucketKey) + '" data-bucket-label="' + esc(b.label) + '"' + (bucketModeParam ? ' data-bucket-mode="' + esc(bucketModeParam) + '"' : '') + ' title="Click for full trade history">' +
       '<div class="bname">' + esc(b.label.replace(/ -- LOG-ONLY.*/, '')) + (b.logOnly ? '<span class="badge-logonly">LOG-ONLY</span>' : '') + (b.status === 'probationary' ? '<span class="badge-probation">PROBATIONARY</span>' : '') + (b.status === 'retired' ? '<span class="badge-retired">RETIRED</span>' : '') + '</div>' +
       '<div class="brow"><div class="gauge-wrap">' + renderGauge(b.winRate, 36, b.winRate === null ? '#8f96b8' : (b.winRate >= b.baselineWinRate ? '#34d399' : '#fbbf24')) + '<span class="gauge-num">' + fmtPct(b.winRate) + '</span></div>' +
       '<div style="text-align:right"><div class="' + pnlClass(b.pnl) + '" style="font-weight:700">' + fmtMoney(b.pnl) + '</div><div style="font-size:10.5px;color:var(--dim2)">n=' + b.trades + '</div></div></div>' +
@@ -394,7 +414,7 @@ function kalshiBucketCards(bot) {
   const hasProbationary = bot.byBucket.some((b) => b.status === 'probationary');
   const toggle = hasProbationary
     ? '<label style="font-size:11.5px;color:var(--dim);display:flex;align-items:center;gap:5px;margin-bottom:8px;cursor:pointer">' +
-      '<input type="checkbox" id="toggleProbationary"' + (uiState.showProbationary ? ' checked' : '') + '> Show probationary buckets</label>'
+      '<input type="checkbox" id="toggleProbationary-' + tabGroup + '" class="probationary-toggle"' + (uiState.showProbationary ? ' checked' : '') + '> Show probationary buckets</label>'
     : '';
   return toggle + '<div class="bucket-grid">' + cards + '</div>';
 }
@@ -425,7 +445,14 @@ function kalshiTradeGetter(r, col) { return { createdAt: r.createdAt, price: r.p
 function kalshiTradeTableHtml(tradeRows, sortKey, state) {
   const rows = sortRows(tradeRows, state.col, state.dir, kalshiTradeGetter);
   const trs = rows.map((t) =>
-    '<tr><td>' + fmtTimeAgo(t.createdAt) + '</td><td>' + esc(humanizeKalshiTicker(t.ticker)) + (t.logOnly ? '<span class="badge-logonly">LOG</span>' : '') + '</td>' +
+    // isLive alone (mode==='live') covers both a genuine production order AND a demo test of
+    // the real order-placement code -- executionEnv is what actually distinguishes them (see
+    // liveExecution.js/statsServer.js's mapTradeRow). Real capital gets the strong red badge;
+    // a demo test gets a neutral, distinctly-colored tag so it never reads as "real money."
+    '<tr><td>' + fmtTimeAgo(t.createdAt) + '</td><td>' + esc(humanizeKalshiTicker(t.ticker)) +
+      (t.isLive && t.executionEnv === 'live' ? '<span class="badge-live">LIVE</span>' : '') +
+      (t.isLive && t.executionEnv === 'demo' ? '<span class="badge-demotest">DEMO TEST</span>' : '') +
+      (t.logOnly ? '<span class="badge-logonly">LOG</span>' : '') + '</td>' +
     '<td>' + esc(t.side) + '</td><td class="mono">' + t.price + '</td><td class="mono">' + fmtMoney(t.stakeUsd) + '</td>' +
     '<td>' + esc(t.status) + '</td><td class="mono ' + pnlClass(t.exitPnl) + '">' + fmtMoney(t.exitPnl) + '</td></tr>'
   ).join('');
@@ -435,8 +462,9 @@ function kalshiTradeTableHtml(tradeRows, sortKey, state) {
     '<th data-col="status">Status' + sortArrow(state, 'status') + '</th><th data-col="exitPnl">P&amp;L' + sortArrow(state, 'exitPnl') + '</th>' +
     '</tr></thead><tbody>' + trs + '</tbody></table></div>';
 }
-function kalshiRecentTable(bot) {
-  return kalshiTradeTableHtml(bot.recentTrades, 'kalshiRecent', uiState.sort.kalshiRecent);
+function kalshiRecentTable(bot, sortKey) {
+  sortKey = sortKey || 'kalshiRecent';
+  return kalshiTradeTableHtml(bot.recentTrades, sortKey, uiState.sort[sortKey]);
 }
 function kalshiDailyReturnsTable(bot) {
   const rows = bot.dailyReturns || [];
@@ -474,29 +502,46 @@ function sportsBreakdown(bot) {
 }
 
 // ---------- top-level card renderers ----------
-function renderKalshiCard(bot) {
-  if (bot.error) return '<div class="card"><div class="card-head"><h2><span class="dot down"></span> kalshi-bot</h2></div><div class="alert-banner">Unreachable: ' + esc(bot.error) + '</div></div>';
-  const tab = uiState.tabs.kalshi;
-  return '<div class="card" id="card-kalshi">' +
-    '<div class="card-head"><h2>kalshi-bot</h2><span class="tag">Gold · Silver · WTI · DOGE · BTC</span></div>' +
+// variant (task: live dashboard tab, 2026-09-11) -- optional. Called with no second argument
+// (today's existing paper-card call site), every field below falls back to its original literal,
+// so the paper card's markup is byte-for-byte what it was before this change. The live card
+// passes an explicit variant: showAlerts:false / showGoLiveGate:false (see the plan -- decay/
+// probation alerts and the go-live gate are paper-specific concepts, not mirrored), and its own
+// cardId/tabGroup/recentSortKey/bucketModeParam so it never collides with the paper card's DOM
+// ids or uiState keys.
+function renderKalshiCard(bot, variant) {
+  variant = variant || {};
+  const cardId = variant.cardId || 'kalshi';
+  const title = variant.title || 'kalshi-bot';
+  const tag = variant.tag || 'Gold · Silver · WTI · DOGE · BTC';
+  const tabGroup = variant.tabGroup || 'kalshi';
+  const recentSortKey = variant.recentSortKey || 'kalshiRecent';
+  const showAlerts = variant.showAlerts !== false;
+  const showGoLiveGate = variant.showGoLiveGate !== false;
+  const bucketModeParam = variant.bucketModeParam || null;
+
+  if (bot.error) return '<div class="card"><div class="card-head"><h2><span class="dot down"></span> ' + esc(title) + '</h2></div><div class="alert-banner">Unreachable: ' + esc(bot.error) + '</div></div>';
+  const tab = uiState.tabs[tabGroup];
+  return '<div class="card" id="card-' + cardId + '">' +
+    '<div class="card-head"><h2>' + esc(title) + '</h2><span class="tag">' + esc(tag) + '</span></div>' +
     '<div class="healthline">' + healthLine(bot) + '</div>' +
-    decayBanner(bot) +
-    probationBanner(bot) +
+    (showAlerts ? decayBanner(bot) : '') +
+    (showAlerts ? probationBanner(bot) : '') +
     kpiRow(bot) +
     '<div class="equity-card-inner"><div class="equity-title"><span>Equity curve</span><span>starting $' + bot.startingBankrollUsd + '</span></div>' +
-    '<div id="equity-kalshi"></div></div>' +
-    gateBar(bot.goLiveGate) +
+    '<div id="equity-' + cardId + '"></div></div>' +
+    (showGoLiveGate ? gateBar(bot.goLiveGate) : '') +
     (bot.logOnly.signals > 0 ? '<div class="note">Log-only track (never staked): ' + bot.logOnly.signals + ' signals, ' + fmtPct(bot.logOnly.winRate) + ' win rate, ' + fmtMoney(bot.logOnly.pnl) + ' would-be P&amp;L</div>' : '') +
     (bot.probationary.trades > 0 ? '<div class="note">Probationary buckets (included above, shown separately here): ' + bot.probationary.trades + ' trades, ' + fmtPct(bot.probationary.winRate) + ' win rate, ' + fmtMoney(bot.probationary.pnl) + ' P&amp;L</div>' : '') +
-    '<div class="tabs" data-tabgroup="kalshi">' +
+    '<div class="tabs" data-tabgroup="' + tabGroup + '">' +
       '<button class="tab-btn' + (tab === 'buckets' ? ' active' : '') + '" data-tab="buckets">Buckets</button>' +
       '<button class="tab-btn' + (tab === 'series' ? ' active' : '') + '" data-tab="series">By Series</button>' +
       '<button class="tab-btn' + (tab === 'recent' ? ' active' : '') + '" data-tab="recent">Recent Trades</button>' +
       '<button class="tab-btn' + (tab === 'daily' ? ' active' : '') + '" data-tab="daily">Daily Returns</button>' +
     '</div>' +
-    '<div class="tab-panel' + (tab === 'buckets' ? ' active' : '') + '" data-panel="buckets">' + kalshiBucketCards(bot) + '</div>' +
+    '<div class="tab-panel' + (tab === 'buckets' ? ' active' : '') + '" data-panel="buckets">' + kalshiBucketCards(bot, tabGroup, bucketModeParam) + '</div>' +
     '<div class="tab-panel' + (tab === 'series' ? ' active' : '') + '" data-panel="series">' + kalshiSeriesRow(bot) + '</div>' +
-    '<div class="tab-panel' + (tab === 'recent' ? ' active' : '') + '" data-panel="recent">' + kalshiRecentTable(bot) + '</div>' +
+    '<div class="tab-panel' + (tab === 'recent' ? ' active' : '') + '" data-panel="recent">' + kalshiRecentTable(bot, recentSortKey) + '</div>' +
     '<div class="tab-panel' + (tab === 'daily' ? ' active' : '') + '" data-panel="daily">' + kalshiDailyReturnsTable(bot) + '</div>' +
     '</div>';
 }
@@ -524,12 +569,17 @@ function renderSportsCard(bot) {
 // ---------- bucket trade drill-down modal ----------
 // Rendered into #modalRoot, a sibling of #app -- refresh()/rerenderOnly() replace #app's
 // innerHTML wholesale every 30s, which would otherwise wipe out an open modal mid-view.
-async function openBucketModal(bucketKey, label) {
-  uiState.bucketModal = { open: true, bucketKey, label, trades: null, loading: true, error: null };
+// mode (task: live dashboard tab, 2026-09-11) -- optional, passed through from the bucket card's
+// data-bucket-mode attribute. Omitted (paper card): unfiltered fetch, unchanged from before this
+// change -- a bucket's drill-down still shows its complete history, both tracks blended. 'live'
+// (live card): fetches only that bucket's live-track rows.
+async function openBucketModal(bucketKey, label, mode) {
+  uiState.bucketModal = { open: true, bucketKey, label, mode: mode || null, trades: null, loading: true, error: null };
   uiState.sort.bucketModal = { col: 'createdAt', dir: 'desc' };
   renderModal();
   try {
-    const res = await fetch('/api/kalshi/bucket-trades?bucketKey=' + encodeURIComponent(bucketKey), { cache: 'no-store' });
+    const url = '/api/kalshi/bucket-trades?bucketKey=' + encodeURIComponent(bucketKey) + (mode ? '&mode=' + encodeURIComponent(mode) : '');
+    const res = await fetch(url, { cache: 'no-store' });
     const data = await res.json();
     if (!res.ok || data.error) throw new Error(data.error || ('HTTP ' + res.status));
     uiState.bucketModal.trades = data.trades;
@@ -540,7 +590,7 @@ async function openBucketModal(bucketKey, label) {
   renderModal();
 }
 function closeBucketModal() {
-  uiState.bucketModal = { open: false, bucketKey: null, label: null, trades: null, loading: false, error: null };
+  uiState.bucketModal = { open: false, bucketKey: null, label: null, mode: null, trades: null, loading: false, error: null };
   renderModal();
 }
 function renderModal() {
@@ -552,22 +602,41 @@ function renderModal() {
   else if (m.error) body = '<div class="alert-banner">Failed to load: ' + esc(m.error) + '</div>';
   else body = kalshiTradeTableHtml(m.trades || [], 'bucketModal', uiState.sort.bucketModal);
   root.innerHTML = '<div class="modal-backdrop" id="modalBackdrop"><div class="modal">' +
-    '<div class="modal-head"><h3>' + esc((m.label || '').replace(/ -- LOG-ONLY.*/, '')) + '</h3>' +
+    '<div class="modal-head"><h3>' + esc((m.label || '').replace(/ -- LOG-ONLY.*/, '')) + (m.mode === 'live' ? ' — LIVE' : '') + '</h3>' +
     '<button class="modal-close" id="modalCloseBtn">&times;</button></div>' +
     '<div class="modal-sub">' + (m.trades ? m.trades.length + ' total trade(s), most recent first' : '') + '</div>' +
     body + '</div></div>';
 }
 
 // ---------- refresh + event delegation ----------
+// Live card variant (task: live dashboard tab, 2026-09-11) -- see renderKalshiCard's own header
+// comment for what each field means. Falls back to bot.error's shared error-card rendering if the
+// whole kalshiBot fetch failed (data.kalshiBot.live wouldn't exist in that case either).
+const KALSHI_LIVE_VARIANT = {
+  cardId: 'kalshi-live', title: 'kalshi-bot (live)', tag: 'Real capital',
+  tabGroup: 'kalshiLive', recentSortKey: 'kalshiLiveRecent',
+  showAlerts: false, showGoLiveGate: false, bucketModeParam: 'live',
+};
+function renderAllCards(data) {
+  return renderKalshiCard(data.kalshiBot)
+    + renderKalshiCard(data.kalshiBot.error ? { error: data.kalshiBot.error } : data.kalshiBot.live, KALSHI_LIVE_VARIANT)
+    + renderSportsCard(data.sportsBot);
+}
+function buildAllEquityCharts(data) {
+  if (!data.kalshiBot.error) {
+    buildEquityChart(document.getElementById('equity-kalshi'), data.kalshiBot.equityCurve, 'gradKalshi');
+    buildEquityChart(document.getElementById('equity-kalshi-live'), data.kalshiBot.live.equityCurve, 'gradKalshiLive');
+  }
+  if (!data.sportsBot.error) buildEquityChart(document.getElementById('equity-sports'), data.sportsBot.equityCurve, 'gradSports');
+}
 async function refresh() {
   try {
     const res = await fetch('/api/stats', { cache: 'no-store' });
     if (res.status === 401) { document.body.innerHTML = '<p style="padding:20px">Session expired — reload and re-enter credentials.</p>'; return; }
     const data = await res.json();
     lastData = data;
-    document.getElementById('app').innerHTML = renderKalshiCard(data.kalshiBot) + renderSportsCard(data.sportsBot);
-    if (!data.kalshiBot.error) buildEquityChart(document.getElementById('equity-kalshi'), data.kalshiBot.equityCurve, 'gradKalshi');
-    if (!data.sportsBot.error) buildEquityChart(document.getElementById('equity-sports'), data.sportsBot.equityCurve, 'gradSports');
+    document.getElementById('app').innerHTML = renderAllCards(data);
+    buildAllEquityCharts(data);
     document.getElementById('meta').textContent = 'updated ' + new Date(data.generatedAt).toLocaleTimeString() + ' · auto-refresh 30s';
   } catch (err) {
     document.getElementById('meta').textContent = 'refresh failed: ' + err;
@@ -575,9 +644,8 @@ async function refresh() {
 }
 function rerenderOnly() {
   if (!lastData) return;
-  document.getElementById('app').innerHTML = renderKalshiCard(lastData.kalshiBot) + renderSportsCard(lastData.sportsBot);
-  if (!lastData.kalshiBot.error) buildEquityChart(document.getElementById('equity-kalshi'), lastData.kalshiBot.equityCurve, 'gradKalshi');
-  if (!lastData.sportsBot.error) buildEquityChart(document.getElementById('equity-sports'), lastData.sportsBot.equityCurve, 'gradSports');
+  document.getElementById('app').innerHTML = renderAllCards(lastData);
+  buildAllEquityCharts(lastData);
 }
 
 document.body.addEventListener('click', (evt) => {
@@ -587,7 +655,7 @@ document.body.addEventListener('click', (evt) => {
   }
   const bucketCard = evt.target.closest('.bucket-card');
   if (bucketCard && bucketCard.dataset.bucketKey) {
-    openBucketModal(bucketCard.dataset.bucketKey, bucketCard.dataset.bucketLabel);
+    openBucketModal(bucketCard.dataset.bucketKey, bucketCard.dataset.bucketLabel, bucketCard.dataset.bucketMode);
     return;
   }
   const tabBtn = evt.target.closest('.tab-btn');
@@ -607,7 +675,7 @@ document.body.addEventListener('click', (evt) => {
     return;
   }
   if (evt.target.id === 'refreshBtn') refresh();
-  if (evt.target.id === 'toggleProbationary') {
+  if (evt.target.classList && evt.target.classList.contains('probationary-toggle')) {
     uiState.showProbationary = evt.target.checked;
     rerenderOnly();
   }

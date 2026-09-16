@@ -23,8 +23,8 @@ program
     // 2026-09-06, then was promoted to probationary) never staked real bankroll -- see
     // buckets.js/db.js -- so open exposure/position counts here are staked positions only;
     // `node cli.js positions` shows any log-only signals separately, not folded into these.
-    const openCount = db.prepare(`SELECT COUNT(*) AS c FROM trades WHERE status = 'pending' AND log_only = 0`).get().c;
-    const openExposure = db.prepare(`SELECT COALESCE(SUM(stake_usd),0) AS s FROM trades WHERE status = 'pending' AND log_only = 0`).get().s;
+    const openCount = db.prepare(`SELECT COUNT(*) AS c FROM trades WHERE status = 'pending' AND log_only = 0 AND mode = 'paper'`).get().c;
+    const openExposure = db.prepare(`SELECT COALESCE(SUM(stake_usd),0) AS s FROM trades WHERE status = 'pending' AND log_only = 0 AND mode = 'paper'`).get().s;
     const openLogOnlyCount = db.prepare(`SELECT COUNT(*) AS c FROM trades WHERE status = 'pending' AND log_only = 1`).get().c;
     const alertCount = db.prepare(`SELECT COUNT(*) AS c FROM decay_alerts`).get().c;
     const probationCount = db.prepare(`SELECT COUNT(*) AS c FROM probation_review_alerts`).get().c;
@@ -45,7 +45,7 @@ program
       console.log('='.repeat(60));
     }
 
-    console.log(`Mode:              PAPER (no live order path exists in this bot)`);
+    console.log(`Mode:              PAPER (this command reports staked paper trades only)`);
     console.log(`Bankroll:          $${bankroll.toFixed(2)}`);
     console.log(`Open positions:    ${openCount} (staked)${openLogOnlyCount > 0 ? ` + ${openLogOnlyCount} log-only (unstaked, see \`positions\`)` : ''}`);
     console.log(`Open exposure:     $${openExposure.toFixed(2)}`);
@@ -74,8 +74,8 @@ program
   .description('List open (pending) positions -- staked and log-only, shown separately')
   .action(() => {
     const db = getDb();
-    const staked = db.prepare(`SELECT id, bucket_key, side, market_price, contracts, stake_usd, opened_at, ticker FROM trades WHERE status = 'pending' AND log_only = 0 ORDER BY opened_at DESC`).all();
-    const logOnly = db.prepare(`SELECT id, bucket_key, side, market_price, contracts, stake_usd, opened_at, ticker FROM trades WHERE status = 'pending' AND log_only = 1 ORDER BY opened_at DESC`).all();
+    const staked = db.prepare(`SELECT id, bucket_key, side, market_price, contracts, stake_usd, opened_at, ticker FROM trades WHERE status = 'pending' AND log_only = 0 AND mode = 'paper' ORDER BY opened_at DESC`).all();
+    const logOnly = db.prepare(`SELECT id, bucket_key, side, market_price, contracts, stake_usd, opened_at, ticker FROM trades WHERE status = 'pending' AND log_only = 1 AND mode = 'paper' ORDER BY opened_at DESC`).all();
 
     if (staked.length === 0) {
       console.log('No open (staked) positions.');
@@ -94,7 +94,7 @@ program
   .description('Closed-trade performance, overall and by bucket -- staked and log-only reported separately')
   .action(() => {
     const db = getDb();
-    const allRows = db.prepare(`SELECT bucket_key, exit_pnl_usd, status, log_only FROM trades WHERE status IN ('won','lost')`).all();
+    const allRows = db.prepare(`SELECT bucket_key, exit_pnl_usd, status, log_only FROM trades WHERE status IN ('won','lost') AND mode = 'paper'`).all();
     const rows = allRows.filter((r) => r.log_only === 0);
     const logOnlyRows = allRows.filter((r) => r.log_only === 1);
 
@@ -175,8 +175,8 @@ program
   .description(`Go-live eligibility gate: reports progress toward ${GO_LIVE_TRADE_COUNT} staked paper trades (log-only signals don't count)`)
   .action(() => {
     const db = getDb();
-    const settled = db.prepare(`SELECT COUNT(*) AS c FROM trades WHERE status IN ('won','lost') AND log_only = 0`).get().c;
-    const pending = db.prepare(`SELECT COUNT(*) AS c FROM trades WHERE status = 'pending' AND log_only = 0`).get().c;
+    const settled = db.prepare(`SELECT COUNT(*) AS c FROM trades WHERE status IN ('won','lost') AND log_only = 0 AND mode = 'paper'`).get().c;
+    const pending = db.prepare(`SELECT COUNT(*) AS c FROM trades WHERE status = 'pending' AND log_only = 0 AND mode = 'paper'`).get().c;
     const total = settled + pending;
     const pct = ((total / GO_LIVE_TRADE_COUNT) * 100).toFixed(1);
     console.log(`Trades so far: ${total} / ${GO_LIVE_TRADE_COUNT} (${pct}%)`);

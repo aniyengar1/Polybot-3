@@ -27,9 +27,31 @@ const { openPosition, currentMode } = require('./execution');
 const { settlePendingObservations, settlePendingTrades } = require('./settlement');
 const { runDecayWatch, checkProbationReviews } = require('./decayWatch');
 const { runShadowSimulation, settleShadowTrials } = require('./shadowExecution');
+const { evaluateAndPersistDrawdownBreaker, getBucketPnlUsd } = require('./drawdownBreaker');
+const { applyPilotStakeCap } = require('./pilotStakeCap');
+const { placeLivePosition, reconcileLiveOrders } = require('./liveExecution');
+// Neither monitorAndFinalizeLiveOrder nor executionStrategy.js's LIVE_EXECUTION_STRATEGY_CONFIG
+// is imported here anymore (task #12) -- placeLivePosition now owns its own full lifecycle,
+// including firing its own fire-and-forget monitor (and reading restMs for it) internally, once
+// it has confirmed a real order exists. See liveExecution.js's header.
 
 const WINDOW_SECONDS = 15 * 60;
 const STARTING_BANKROLL = Number(process.env.KALSHIBOT_PAPER_BANKROLL_USD || 200); // matches the backtest's own $200 start, for direct comparability
+// Same constant as statsServer.js's own LIVE_STARTING_BANKROLL (identical env var, identical
+// default $199.98 -- the confirmed exchange_index:2 balance as of 2026-09-11, see that file's own
+// comment for full provenance). Defined independently here rather than imported/shared, matching
+// this file's existing STARTING_BANKROLL/statsServer.js's STARTING_BANKROLL precedent -- the two
+// files are deliberately separate systemd services (statsServer.js's own header) and don't import
+// from each other. Added 2026-09-15 to fix a real bug: live Kelly sizing was reading
+// getBankrollUsd() (mode='paper', frozen at $237.52 since paper trading stopped 2026-09-11) while
+// the real live bankroll had drifted to ~$217 -- see getLiveBankrollUsd() below.
+const LIVE_STARTING_BANKROLL = Number(process.env.KALSHIBOT_LIVE_STARTING_BANKROLL_USD || 199.98);
+
+// Real-order execution gate (added 2026-09-09, see liveExecution.js) -- a THIRD, independent
+// gate on top of kalshiOrders.js's own double opt-in ({base:'live'} AND
+// KALSHIBOT_ORDERS_ALLOW_LIVE='true'). Default 'off' (unset) means the live branch in
+// evaluateSeriesCheckpoint never runs at all -- paper path, byte-for-byte unchanged.
+const LIVE_EXECUTION_MODE = process.env.KALSHIBOT_LIVE_EXECUTION_MODE || 'off'; // 'off' | 'demo' | 'live'
 
 function offsetSecondsFor(checkpointMinutes) {
   return (15 - checkpointMinutes) * 60; // seconds after open_time
@@ -70,9 +92,31 @@ function getBankrollUsd(db) {
   // to probationary; the flag stays live infrastructure for the next rule that needs it).
   // Those rows record genuine would-be trades that were never actually staked -- excluded from
   // real bankroll math, same as if they didn't exist.
-  const resolved = db.prepare(`SELECT COALESCE(SUM(exit_pnl_usd), 0) AS pnl FROM trades WHERE status IN ('won','lost') AND log_only = 0`).get();
-  const outstanding = db.prepare(`SELECT COALESCE(SUM(stake_usd), 0) AS o FROM trades WHERE status = 'pending' AND log_only = 0`).get();
+  //
+  // mode='paper' (added 2026-09-09): this bankroll figure drives every bucket's Kelly sizing --
+  // without this filter, the instant a single live (or even demo-test) trade settles, its P&L
+  // would get summed in here too, silently corrupting every future paper sizing decision. Live
+  // trading does not yet have its own separate bankroll concept; this function stays exclusively
+  // the paper track, same as it always was.
+  const resolved = db.prepare(`SELECT COALESCE(SUM(exit_pnl_usd), 0) AS pnl FROM trades WHERE status IN ('won','lost') AND log_only = 0 AND mode = 'paper'`).get();
+  const outstanding = db.prepare(`SELECT COALESCE(SUM(stake_usd), 0) AS o FROM trades WHERE status = 'pending' AND log_only = 0 AND mode = 'paper'`).get();
   return STARTING_BANKROLL + resolved.pnl - outstanding.o;
+}
+
+/**
+ * Live-track equivalent of getBankrollUsd() above -- identical query shape (same
+ * resolved/outstanding pattern, same log_only=0 exclusion), just mode='live' instead of
+ * mode='paper' and LIVE_STARTING_BANKROLL instead of STARTING_BANKROLL as the zero point.
+ * Added 2026-09-15 (see LIVE_STARTING_BANKROLL's own comment above for the bug this fixes) --
+ * used ONLY to size live trades in evaluateSeriesCheckpoint below. Every other consumer of a
+ * bankroll figure in this file (the drawdown breaker's global halt check, the per-cycle log
+ * line) deliberately keeps using the existing paper getBankrollUsd() -- unchanged on purpose,
+ * see evaluateSeriesCheckpoint's own comment at its call site.
+ */
+function getLiveBankrollUsd(db) {
+  const resolved = db.prepare(`SELECT COALESCE(SUM(exit_pnl_usd), 0) AS pnl FROM trades WHERE status IN ('won','lost') AND log_only = 0 AND mode = 'live'`).get();
+  const outstanding = db.prepare(`SELECT COALESCE(SUM(stake_usd), 0) AS o FROM trades WHERE status = 'pending' AND log_only = 0 AND mode = 'live'`).get();
+  return LIVE_STARTING_BANKROLL + resolved.pnl - outstanding.o;
 }
 
 /** One series' evaluation at a specific checkpoint instant/minutes-before-close. Returns a summary object for logging; never throws (caller runs series in parallel and a single series' failure shouldn't sink the other). */
@@ -138,10 +182,46 @@ async function evaluateSeriesCheckpoint(series, checkpointTs, checkpointMinutes,
   // needed in liveSizing.js/execution.js). The observation row above is still recorded either
   // way, matching db.js's "every band, not just traded buckets" design.
   if (BUCKET_CONFIG[bucketKey].status === 'retired') {
-    return { series, checkpointMinutes, outcome: 'observed', ticker: market.ticker, bucketKey, price, reason: 'bucket retired from live trading (calibration bug found 2026-09-07)' };
+    // reason now sourced from each bucket's own retiredReason field (see buckets.js) rather
+    // than a hardcoded string here -- with two retired buckets now carrying different reasons
+    // (a calibration bug vs. organic decay), a single shared string could no longer serve both.
+    return { series, checkpointMinutes, outcome: 'observed', ticker: market.ticker, bucketKey, price, reason: BUCKET_CONFIG[bucketKey].retiredReason };
   }
 
-  const decision = evaluateOpportunity({ bucketKey, price }, bankrollUsd);
+  // Drawdown breaker (added 2026-09-09, see drawdownBreaker.js) -- checked here, before Kelly
+  // sizing is even computed, for the same reason the retired-bucket check above sits at this
+  // exact position: a halted scope shouldn't have sizing math run for it at all. Checks both
+  // global (total bankroll) and this specific bucket's own P&L in one call; global takes
+  // priority. Both halts are durable (drawdown_breaker_state) and require manual re-enable --
+  // there is no auto-resume anywhere in drawdownBreaker.js.
+  const breakerVerdict = evaluateAndPersistDrawdownBreaker(db, {
+    globalBankrollUsd: bankrollUsd,
+    bucketKey,
+    bucketPnlUsd: getBucketPnlUsd(db, bucketKey),
+  }, log);
+  if (breakerVerdict.halted) {
+    return { series, checkpointMinutes, outcome: 'observed', ticker: market.ticker, bucketKey, price, reason: `drawdown breaker halted (${breakerVerdict.scope}): ${breakerVerdict.reason}` };
+  }
+
+  // Sizing bankroll (added 2026-09-15, fixes the mode='paper'-only bankroll bug found tonight):
+  // a checkpoint whose decision will actually be placed live must size against the REAL live
+  // bankroll, not the frozen paper one -- reuses the exact same condition
+  // evaluateSeriesCheckpoint's own live-execution branch below checks (LIVE_EXECUTION_MODE on,
+  // AND not log-only; log-only signals never place a live order regardless of LIVE_EXECUTION_MODE,
+  // see that branch's own comment, so they must keep sizing off the paper bankroll same as today).
+  // Every other bankroll consumer in this function (drawdownBreaker's globalBankrollUsd above,
+  // the per-cycle log line below) deliberately keeps using the original paper `bankrollUsd`
+  // unchanged -- this is the one and only place live sizing itself needed to change.
+  const sizingBankrollUsd = (LIVE_EXECUTION_MODE !== 'off' && BUCKET_CONFIG[bucketKey].logOnly !== true)
+    ? getLiveBankrollUsd(db)
+    : bankrollUsd;
+
+  let decision = evaluateOpportunity({ bucketKey, price }, sizingBankrollUsd);
+  // Pilot stake cap (added 2026-09-09, see pilotStakeCap.js) -- a no-op unless PILOT_MODE_ENABLED
+  // is flipped on there, applied AFTER evaluateOpportunity's own KELLY_CAP_PCT logic, never
+  // replacing it. Slots in front of the existing action!=='trade' check below so an ordinary
+  // Kelly-skip and a pilot-cap-induced skip flow through the exact same line -- no new branching.
+  decision = applyPilotStakeCap(decision, sizingBankrollUsd);
   if (decision.action !== 'trade') {
     return { series, checkpointMinutes, outcome: 'observed', ticker: market.ticker, bucketKey, price, reason: decision.reason };
   }
@@ -165,8 +245,70 @@ async function evaluateSeriesCheckpoint(series, checkpointTs, checkpointMinutes,
     // leave both null -- see comment above
   }
 
-  const execResult = openPosition(decision);
   const now = new Date().toISOString();
+
+  // Real-order execution path (added 2026-09-09, see liveExecution.js) -- OFF by default.
+  // LIVE_EXECUTION_MODE is a THIRD, independent gate on top of kalshiOrders.js's own double
+  // opt-in ({base:'live'} AND KALSHIBOT_ORDERS_ALLOW_LIVE='true') -- with it unset ('off'), this
+  // whole branch never runs and everything below falls through to the unchanged paper path.
+  // Log-only buckets NEVER reach the live path regardless of LIVE_EXECUTION_MODE -- log-only
+  // means "record what would have happened, never actually stake anything," which applies
+  // identically to paper and live; a log-only signal always takes the paper branch below.
+  if (LIVE_EXECUTION_MODE !== 'off' && !isLogOnly) {
+    // placeLivePosition (task #12, 2026-09-10) now owns its ENTIRE DB lifecycle internally --
+    // the early INSERT (before any Kalshi call, closing the crash gap described in its own
+    // header), the outcome UPDATE, live_order_alerts on ambiguity, and firing its own
+    // fire-and-forget monitor once a real order is confirmed. This branch's only job now is to
+    // call it and translate the outcome into this checkpoint cycle's own log/return summary --
+    // it issues no trades/live_order_alerts SQL of its own anymore.
+    let placement;
+    try {
+      placement = await placeLivePosition(decision, {
+        ticker: market.ticker, base: LIVE_EXECUTION_MODE, observationId, bucketKey,
+        series, bucketStatus, yesBidAtCheckpoint, yesAskAtCheckpoint,
+      }, db, log);
+    } catch (err) {
+      // Only a resolveTarget misconfiguration throws out here -- it happens before
+      // placeLivePosition writes anything, so no trades row exists to worry about; same
+      // behavior as before this fix.
+      return { series, checkpointMinutes, outcome: 'error', ticker: market.ticker, bucketKey, reason: `live order placement failed: ${err}` };
+    }
+
+    if (placement.outcome === 'capital_blocked') {
+      // No trades row exists for this attempt at all -- checkLiveCapitalAtRisk blocked it inside
+      // placeLivePosition's own db.transaction(), before the early INSERT ever ran (task #17,
+      // 2026-09-11). Same treatment as any other pre-trade skip reason (Kelly skip, drawdown
+      // halt) -- observed this cycle, re-evaluated fresh next cycle, not a durable halt.
+      return { series, checkpointMinutes, outcome: 'observed', ticker: market.ticker, bucketKey, price, reason: placement.reason };
+    }
+    if (placement.outcome === 'stale_price_skip') {
+      // Also no trades row -- the fresh-orderbook repricing check (2026-09-11, see
+      // makerPriceFreshness.js) found the checkpoint's candlestick price would have crossed the
+      // real book and, after repricing to a safe level, the edge no longer cleared fee -- or the
+      // fresh orderbook read itself failed/came back thin. Same no-footprint, re-evaluate-next-
+      // cycle treatment as capital_blocked above.
+      return { series, checkpointMinutes, outcome: 'observed', ticker: market.ticker, bucketKey, price, reason: placement.reason };
+    }
+    if (placement.outcome === 'rejected') {
+      return { series, checkpointMinutes, outcome: 'observed', ticker: market.ticker, bucketKey, price, reason: `live order rejected: ${placement.reason}` };
+    }
+    if (placement.outcome === 'unresolved') {
+      return { series, checkpointMinutes, outcome: 'observed', ticker: market.ticker, bucketKey, price, reason: 'live order placement unresolved -- see live_order_alerts' };
+    }
+    if (placement.outcome === 'error') {
+      // A trades row already exists at this point (placeLivePosition inserted it before
+      // attempting the Kalshi call) and has already been alerted+finalized internally -- this
+      // is purely a log/return-value distinction from 'rejected'/'unresolved', not a different
+      // DB state to handle here.
+      return { series, checkpointMinutes, outcome: 'error', ticker: market.ticker, bucketKey, reason: `live order placement failed after being recorded -- see live_order_alerts: ${placement.reason}` };
+    }
+
+    // 'placed' or 'resolved' -- placeLivePosition already inserted the row, recorded
+    // kalshi_order_id, and fired its own monitor internally.
+    return { series, checkpointMinutes, outcome: 'trade', ticker: market.ticker, bucketKey, side: decision.side, price, contracts: decision.contracts, stakeUsd: decision.stakeUsd, logOnly: false, bucketStatus, mode: 'live', executionEnv: placement.base };
+  }
+
+  const execResult = openPosition(decision);
   const insertResult = db.prepare(`
     INSERT INTO trades (created_at, mode, observation_id, series, ticker, bucket_key, side, market_price, entry_cost, contracts, fee_usd, stake_usd,
       calibration_n, calibration_p_hat, calibration_p_shrunk, kelly_fraction_raw, kelly_fraction_used, log_only, bucket_status,
@@ -246,6 +388,15 @@ async function runCheckpointCycle(checkpointTs) {
     log('shadow trials settled', shadowResult);
   }
 
+  // Durable backstop for live orders (see liveExecution.js's reconcileLiveOrders) -- catches any
+  // live order whose in-memory monitorAndFinalizeLiveOrder promise chain was lost (process
+  // restart, or a silent failure that didn't crash the process). No-op (checked:0) while
+  // LIVE_EXECUTION_MODE is 'off', since no live trades exist to reconcile.
+  const liveReconcileResult = await reconcileLiveOrders(db, log);
+  if (liveReconcileResult.reconciled > 0) {
+    log('live orders reconciled', liveReconcileResult);
+  }
+
   const alerts = runDecayWatch(log);
   if (alerts.length > 0) {
     log(`!!! ${alerts.length} DECAY ALERT(S) THIS CYCLE !!!`, alerts);
@@ -256,7 +407,7 @@ async function runCheckpointCycle(checkpointTs) {
     log(`!!! ${probationReviews.length} PROBATIONARY BUCKET(S) READY FOR REVIEW !!!`, probationReviews);
   }
 
-  return { results, obsResult, tradeResult, shadowResult, alerts, probationReviews };
+  return { results, obsResult, tradeResult, shadowResult, liveReconcileResult, alerts, probationReviews };
 }
 
 /**
@@ -319,7 +470,7 @@ async function main() {
   }
 }
 
-module.exports = { runCheckpointCycle, nextCheckpointAfter, getBankrollUsd, evaluateSeriesCheckpoint, nearestPriceAtOrBefore, windowOpenTsFor };
+module.exports = { runCheckpointCycle, nextCheckpointAfter, getBankrollUsd, getLiveBankrollUsd, evaluateSeriesCheckpoint, nearestPriceAtOrBefore, windowOpenTsFor };
 
 if (require.main === module) {
   main().catch((err) => {

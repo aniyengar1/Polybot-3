@@ -40,14 +40,32 @@ async function settlePendingObservations(log = () => {}) {
   return { checked: pending.length, resolved: resolvedCount };
 }
 
-/** Settles trades whose underlying observation is now resolved. Run AFTER settlePendingObservations in the same cycle. */
+/**
+ * Settles trades whose underlying observation is now resolved. Run AFTER settlePendingObservations
+ * in the same cycle.
+ *
+ * mode/fill_type filter (task #22, 2026-09-10): a live row's contracts/stake_usd only become
+ * trustworthy once finalizeLiveOrder has confirmed a REAL fill -- fill_type is set exclusively by
+ * finalizeAsFilled (liveExecution.js), never by finalizeAsVoid or the resolveUnknownOrder alert
+ * path. Without this filter, a live row still mid-crash-recovery (status='pending',
+ * kalshi_order_id possibly still unconfirmed, task #20's own 10-minute retry window still open)
+ * could have its underlying market resolve and get prematurely marked won/lost here using its
+ * original REQUESTED stake_usd/contracts, not a confirmed real fill -- concretely reachable, since
+ * every currently configured checkpoint offset (3/6/8/9/11 min before close = 180/360/480/540/660s)
+ * is at or near task #20's 600s retry window. Paper rows are unaffected -- fill_type is always NULL
+ * for them, so `t.mode = 'paper'` alone admits every paper row exactly as before this change. A
+ * live row that's genuinely unresolved-and-alerted (fill_type stays NULL forever) correctly never
+ * gets auto-settled here -- it stays 'pending' until a human resolves the alert, which is also the
+ * right behavior for capital-at-risk purposes (task #17): unknown outcome should stay counted as
+ * at-risk, not get quietly resolved away.
+ */
 function settlePendingTrades(log = () => {}) {
   const db = getDb();
   const rows = db
     .prepare(`
       SELECT t.id AS trade_id, t.side, t.contracts, t.stake_usd, o.yes_resolved_to
       FROM trades t JOIN observations o ON o.id = t.observation_id
-      WHERE t.status = 'pending' AND o.resolved = 1
+      WHERE t.status = 'pending' AND o.resolved = 1 AND (t.mode = 'paper' OR t.fill_type IS NOT NULL)
     `)
     .all();
 

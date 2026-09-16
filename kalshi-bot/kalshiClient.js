@@ -26,6 +26,14 @@
 const crypto = require('crypto');
 
 const API_BASE = process.env.KALSHIBOT_API_URL || 'https://api.elections.kalshi.com/trade-api/v2';
+// Same literal as kalshiOrders.js's own DEMO_BASE -- duplicated deliberately, not imported. This
+// file is required BY kalshiOrders.js already; reaching back to require('./kalshiOrders') here
+// just to share one string constant would create a real circular dependency for no real benefit,
+// since this single URL is extremely unlikely to ever change independently of that one. Used only
+// by getOrderbook's optional base param (added 2026-09-10, see that function's own comment) --
+// every other read function in this file stays production-only, unparameterized, see task #19's
+// plan for why (no other function here has any call site that ever needs demo data).
+const DEMO_MARKET_BASE = 'https://external-api.demo.kalshi.co/trade-api/v2';
 
 function hasCredentials() {
   return Boolean(process.env.KALSHIBOT_API_KEY_ID && process.env.KALSHIBOT_PRIVATE_KEY_PEM);
@@ -52,18 +60,43 @@ function signRequest(method, path) {
   };
 }
 
-async function fetchJson(url, { retries = 2, authPath = null, method = 'GET' } = {}) {
+// `body` is optional and additive -- every existing caller (getOpenMarkets, getMarket,
+// getCandlesticks, getOrderbook) omits it and keeps behaving exactly as before. Added for
+// kalshiOrders.js's write endpoints (POST/DELETE with a JSON body), which did not exist when
+// this function was written -- this file otherwise stays read-only, see header.
+//
+// IMPORTANT for callers doing writes: pass `retries: 0` explicitly. The retry loop below was
+// written for idempotent GETs; blindly retrying a POST/DELETE on an ambiguous failure (timeout,
+// 5xx) risks submitting a duplicate order before the caller ever gets a chance to apply its own
+// safe-retry logic (see orderRetrySafety.js, which exists specifically to replace this loop's
+// automatic-retry behavior for order placement with a deliberate resolve-before-retry check).
+// Best-effort response body read for an error message -- never throws itself (a body-read
+// failure must never mask the real HTTP-status error it was trying to enrich).
+async function safeReadText(res) {
+  try {
+    return await res.text();
+  } catch (err) {
+    return `(failed to read response body: ${err})`;
+  }
+}
+
+async function fetchJson(url, { retries = 2, authPath = null, method = 'GET', body = null } = {}) {
   for (let attempt = 0; attempt <= retries; attempt++) {
     try {
       const headers = { 'User-Agent': 'kalshi-bot/1.0' };
       if (authPath) Object.assign(headers, signRequest(method, authPath));
-      const res = await fetch(url, { headers });
+      if (body !== null) headers['Content-Type'] = 'application/json';
+      const res = await fetch(url, { method, headers, body: body !== null ? JSON.stringify(body) : undefined });
       if (res.status === 429) {
-        if (attempt === retries) throw new Error('HTTP 429 (retries exhausted)');
+        if (attempt === retries) throw new Error(`HTTP 429 (retries exhausted): ${await safeReadText(res)}`);
         await new Promise((r) => setTimeout(r, 500 * (attempt + 1)));
         continue;
       }
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      // Body text appended AFTER "HTTP ${status}" (not restructured) -- orderRetrySafety.js's
+      // isAmbiguousFailure and liveExecution.js's extractHttpStatus both regex-match
+      // /HTTP (\d\d\d)/ against err.message; this keeps that exact substring intact and
+      // matchable, purely appending diagnostic text neither of them looks at.
+      if (!res.ok) throw new Error(`HTTP ${res.status}: ${await safeReadText(res)}`);
       return await res.json();
     } catch (err) {
       if (attempt === retries) throw err;
@@ -106,9 +139,22 @@ async function getCandlesticks(seriesTicker, ticker, startTs, endTs) {
  * Returns nulls (never throws past this function) if the book is empty on a side or the
  * response shape is unexpected -- a missing quote is a real, valid capture outcome (thin book),
  * not an error the caller needs to handle specially.
+ *
+ * @param {string} ticker
+ * @param {'demo'|'live'} [base] - added 2026-09-10 (task #19), OPTIONAL and additive: omitted
+ *   (every pre-existing caller -- shadowExecution.js, orchestrator.js's own spread-capture
+ *   instrumentation) or explicitly 'live' both resolve to API_BASE, byte-identical to this
+ *   function's behavior before this param existed (api.elections.kalshi.com and
+ *   external-api.kalshi.com are two Kalshi-documented aliases for the same real production
+ *   exchange -- see docs/KALSHI_ORDER_EXECUTION_API_RESEARCH.md section 1 -- so treating an
+ *   explicit 'live' the same as "omitted" is correct, not a shortcut). Only 'demo' does anything
+ *   different. Exists specifically for liveExecution.js's finalizeLiveOrder, whose escalation
+ *   price-cap/edge recheck needs the demo order's OWN environment's real orderbook, not
+ *   production's -- see that call site's own comment for the bug this closes.
  */
-async function getOrderbook(ticker) {
-  const data = await fetchJson(`${API_BASE}/markets/${encodeURIComponent(ticker)}/orderbook`);
+async function getOrderbook(ticker, base) {
+  const apiBase = base === 'demo' ? DEMO_MARKET_BASE : API_BASE;
+  const data = await fetchJson(`${apiBase}/markets/${encodeURIComponent(ticker)}/orderbook`);
   const book = data && data.orderbook_fp;
   const yesLevels = (book && book.yes_dollars) || [];
   const noLevels = (book && book.no_dollars) || [];
